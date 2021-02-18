@@ -27,6 +27,9 @@ namespace Alie.Dialogs
 
             AddDialog(new TextPrompt(nameof(TextPrompt)));
             AddDialog(new ChoicePrompt(nameof(ChoicePrompt)));
+            AddDialog(new NumberPrompt<int>(nameof(NumberPrompt<int>)));
+            AddDialog(new ConfirmPrompt(nameof(ConfirmPrompt)));
+            AddDialog(new AttachmentPrompt(nameof(AttachmentPrompt)));
             AddDialog(new AutoLogBookLoansDialog());
             AddDialog(new AssetFinanceDialog());
             AddDialog(new LoanAgainstSharesDialog());
@@ -113,7 +116,7 @@ namespace Alie.Dialogs
             }
             else
             {
-                await stepContext.Context.SendActivityAsync(MessageFactory.Text("User Input not matched."), cancellationToken);
+                //await stepContext.Context.SendActivityAsync(MessageFactory.Text("Wrong User Input. Please try again!"), cancellationToken);
                 return await stepContext.NextAsync(null, cancellationToken);
             }
         }
