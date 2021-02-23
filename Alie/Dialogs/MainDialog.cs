@@ -32,7 +32,7 @@ namespace Alie.Dialogs
             AddDialog(new AttachmentPrompt(nameof(AttachmentPrompt)));
             AddDialog(new AutoLogBookLoansDialog());
             AddDialog(new AssetFinanceDialog());
-            AddDialog(new LoanAgainstSharesDialog()); 
+            AddDialog(new LoanAgainstSharesDialog());
             AddDialog(new MasomoBoostDialog());
             AddDialog(new JijengeLoanDialog());
             AddDialog(new ImportFinanceDialog());
@@ -94,7 +94,7 @@ namespace Alie.Dialogs
             {
                 return await stepContext.BeginDialogAsync(nameof(AutoLogBookLoansDialog), new UserProfile(), cancellationToken);
             }
-            
+
             else if ("Asset Finance".Equals(operation))
             {
                 return await stepContext.BeginDialogAsync(nameof(AssetFinanceDialog), new UserProfile(), cancellationToken);
@@ -130,7 +130,9 @@ namespace Alie.Dialogs
 
 
             // string optionSelected = await userReply;
-            //string optionSelected = (stepContext.Result as FoundChoice).Value;
+            //string operation = (stepContext.Result as FoundChoice).Value;
+            //stepContext.Values["Operation"] = ((FoundChoice)stepContext.Result).Value;
+
             string operation = (string)stepContext.Values["Operation"];
 
 
@@ -144,6 +146,8 @@ namespace Alie.Dialogs
 
                 case "Loan Against Shares":
                     return await stepContext.BeginDialogAsync(nameof(LoanAgainstSharesDialog), cancellationToken);
+                default:
+                    break;
             }
 
             // We shouldn't get here, but fail gracefully if we do.
