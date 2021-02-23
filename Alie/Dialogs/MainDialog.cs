@@ -88,7 +88,7 @@ namespace Alie.Dialogs
         {
             stepContext.Values["Operation"] = ((FoundChoice)stepContext.Result).Value;
             string operation = (string)stepContext.Values["Operation"];
-            //await stepContext.Context.SendActivityAsync(MessageFactory.Text("You have selected - " + operation), cancellationToken);
+            //await stepContext.Context.SendActivityAsync((operation));
 
             if ("Auto LogBook Loans".Equals(operation))
             {
@@ -125,8 +125,32 @@ namespace Alie.Dialogs
         private async Task<DialogTurnResult> FinalStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
             // Restart the main dialog with a different message the second time around
-            var promptMessage = "What else can I do for you?";
-            return await stepContext.ReplaceDialogAsync(InitialDialogId, promptMessage, cancellationToken);
+            //var promptMessage = "What else can I do for you?";
+            //return await stepContext.ReplaceDialogAsync(InitialDialogId, promptMessage, cancellationToken);
+
+
+            // string optionSelected = await userReply;
+            //string optionSelected = (stepContext.Result as FoundChoice).Value;
+            string operation = (string)stepContext.Values["Operation"];
+
+
+            switch (operation)
+            {
+                case "Auto LogBook Loans":
+                    return await stepContext.BeginDialogAsync(nameof(AutoLogBookLoansDialog), new UserProfile(), cancellationToken);
+
+                case "Asset Finance":
+                    return await stepContext.BeginDialogAsync(nameof(AssetFinanceDialog), cancellationToken);
+
+                case "Loan Against Shares":
+                    return await stepContext.BeginDialogAsync(nameof(LoanAgainstSharesDialog), cancellationToken);
+            }
+
+            // We shouldn't get here, but fail gracefully if we do.
+            await stepContext.Context.SendActivityAsync("I don't recognize that option.", cancellationToken: cancellationToken);
+
+            // Continue through to the next step without starting a child dialog.
+            return await stepContext.NextAsync(cancellationToken: cancellationToken);
         }
     }
 

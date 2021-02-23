@@ -38,7 +38,7 @@ namespace Alie.Dialogs.Details
         private static async Task<DialogTurnResult> IntroStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
             await stepContext.Context.SendActivityAsync(MessageFactory.Text("Ngao Credit offers quick loans against motor vehicles.  You can borrow up to 60% of the value of your car in 6 hrs and repay within a period of up to 24 months."), cancellationToken);
-            return await stepContext.NextAsync(null, cancellationToken);
+            //return await stepContext.NextAsync(null, cancellationToken);
 
             List<string> operationList = new List<string> { "1. BACK",
                                                             "2. MAIN MENU"};
