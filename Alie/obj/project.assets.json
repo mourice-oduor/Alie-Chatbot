@@ -584,7 +584,19 @@
           "build/netstandard2.0/_._": {}
         }
       },
-      "Microsoft.Extensions.DependencyInjection.Abstractions/2.1.0": {
+      "Microsoft.Extensions.DependencyInjection/5.0.1": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "5.0.0"
+        },
+        "compile": {
+          "lib/netstandard2.1/Microsoft.Extensions.DependencyInjection.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.1/Microsoft.Extensions.DependencyInjection.dll": {}
+        }
+      },
+      "Microsoft.Extensions.DependencyInjection.Abstractions/5.0.0": {
         "type": "package",
         "compile": {
           "lib/netstandard2.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll": {}
@@ -823,7 +835,7 @@
           "lib/netstandard2.0/Microsoft.Recognizers.Text.Choice.dll": {}
         }
       },
-      "Microsoft.Recognizers.Text.DataTypes.TimexExpression/1.4.0": {
+      "Microsoft.Recognizers.Text.DataTypes.TimexExpression/1.5.0": {
         "type": "package",
         "compile": {
           "lib/netstandard2.0/Microsoft.Recognizers.Text.DataTypes.TimexExpression.dll": {}
@@ -3663,17 +3675,48 @@
         "microsoft.extensions.configuration.usersecrets.nuspec"
       ]
     },
-    "Microsoft.Extensions.DependencyInjection.Abstractions/2.1.0": {
-      "sha512": "8/CtASu80UIoyG+r8FstrmZW5GLtXxzoYpjj3jV0FKZCL5CiFgSH3pAmqut/dC68mu7N1bU6v0UtKKL3gCUQGQ==",
+    "Microsoft.Extensions.DependencyInjection/5.0.1": {
+      "sha512": "//mDNrYeiJ0eh/awFhDFJQzkRVra/njU5Y4fyK7X29g5HScrzbUkKOKlyTtygthcGFt4zNC8G5CFCjb/oizomA==",
       "type": "package",
-      "path": "microsoft.extensions.dependencyinjection.abstractions/2.1.0",
+      "path": "microsoft.extensions.dependencyinjection/5.0.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/net461/Microsoft.Extensions.DependencyInjection.dll",
+        "lib/net461/Microsoft.Extensions.DependencyInjection.xml",
+        "lib/net5.0/Microsoft.Extensions.DependencyInjection.dll",
+        "lib/net5.0/Microsoft.Extensions.DependencyInjection.xml",
+        "lib/netstandard2.0/Microsoft.Extensions.DependencyInjection.dll",
+        "lib/netstandard2.0/Microsoft.Extensions.DependencyInjection.xml",
+        "lib/netstandard2.1/Microsoft.Extensions.DependencyInjection.dll",
+        "lib/netstandard2.1/Microsoft.Extensions.DependencyInjection.xml",
+        "microsoft.extensions.dependencyinjection.5.0.1.nupkg.sha512",
+        "microsoft.extensions.dependencyinjection.nuspec",
+        "useSharedDesignerContext.txt",
+        "version.txt"
+      ]
+    },
+    "Microsoft.Extensions.DependencyInjection.Abstractions/5.0.0": {
+      "sha512": "ORj7Zh81gC69TyvmcUm9tSzytcy8AVousi+IVRAI8nLieQjOFryRusSFh7+aLk16FN9pQNqJAiMd7BTKINK0kA==",
+      "type": "package",
+      "path": "microsoft.extensions.dependencyinjection.abstractions/5.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/net461/Microsoft.Extensions.DependencyInjection.Abstractions.dll",
+        "lib/net461/Microsoft.Extensions.DependencyInjection.Abstractions.xml",
         "lib/netstandard2.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll",
         "lib/netstandard2.0/Microsoft.Extensions.DependencyInjection.Abstractions.xml",
-        "microsoft.extensions.dependencyinjection.abstractions.2.1.0.nupkg.sha512",
-        "microsoft.extensions.dependencyinjection.abstractions.nuspec"
+        "microsoft.extensions.dependencyinjection.abstractions.5.0.0.nupkg.sha512",
+        "microsoft.extensions.dependencyinjection.abstractions.nuspec",
+        "useSharedDesignerContext.txt",
+        "version.txt"
       ]
     },
     "Microsoft.Extensions.FileProviders.Abstractions/2.1.0": {
@@ -3980,17 +4023,17 @@
         "microsoft.recognizers.text.choice.nuspec"
       ]
     },
-    "Microsoft.Recognizers.Text.DataTypes.TimexExpression/1.4.0": {
-      "sha512": "676rpZMfGJOwO7WB6NW0nFy90fYJ10vIhNJhH2onREpc5LBtEB90182dbyZq/P5wzLCBw8YyyUe4FgTNF03IBg==",
+    "Microsoft.Recognizers.Text.DataTypes.TimexExpression/1.5.0": {
+      "sha512": "JxwwXgUMt0Xhx9wKwFZCR+NVGJgxVn303EUZube89NX/QSrXLlo+54EKKN90mKbPu8VAIjauwnqAzCbL7Y+0eA==",
       "type": "package",
-      "path": "microsoft.recognizers.text.datatypes.timexexpression/1.4.0",
+      "path": "microsoft.recognizers.text.datatypes.timexexpression/1.5.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "images/icon.png",
         "lib/net462/Microsoft.Recognizers.Text.DataTypes.TimexExpression.dll",
         "lib/netstandard2.0/Microsoft.Recognizers.Text.DataTypes.TimexExpression.dll",
-        "microsoft.recognizers.text.datatypes.timexexpression.1.4.0.nupkg.sha512",
+        "microsoft.recognizers.text.datatypes.timexexpression.1.5.0.nupkg.sha512",
         "microsoft.recognizers.text.datatypes.timexexpression.nuspec"
       ]
     },
@@ -9180,7 +9223,8 @@
       "Microsoft.Bot.Builder.FormFlow.Json >= 3.30.0",
       "Microsoft.Bot.Builder.Integration.AspNet.Core >= 4.11.1",
       "Microsoft.Bot.Builder.TemplateManager >= 4.11.1",
-      "Microsoft.Recognizers.Text.DataTypes.TimexExpression >= 1.4.0"
+      "Microsoft.Extensions.DependencyInjection >= 5.0.1",
+      "Microsoft.Recognizers.Text.DataTypes.TimexExpression >= 1.5.0"
     ]
   },
   "packageFolders": {
@@ -9267,9 +9311,13 @@
             "target": "Package",
             "version": "[4.11.1, )"
           },
+          "Microsoft.Extensions.DependencyInjection": {
+            "target": "Package",
+            "version": "[5.0.1, )"
+          },
           "Microsoft.Recognizers.Text.DataTypes.TimexExpression": {
             "target": "Package",
-            "version": "[1.4.0, )"
+            "version": "[1.5.0, )"
           }
         },
         "imports": [

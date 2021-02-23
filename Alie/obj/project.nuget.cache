@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "lBQEaYZCMih+izwzCGZO14fZ3BFfKd/Fh3I1PYZslgDsiiDVsF2BSAVHwN24R771Yl9yZ2bX+aJ7VfDfK3UxgQ==",
+  "dgSpecHash": "pz86bh448xsyQddvX54H5GXIlF2IZaSesqMvPzk+pjGxSOnCDFTJGdPNj1dlfWP5ntyJWm9C47ot+pOrCodlow==",
   "success": true,
   "projectFilePath": "C:\\Users\\USER\\Desktop\\final\\Alie\\Alie\\Alie.csproj",
   "expectedPackageFiles": [
@@ -42,7 +42,8 @@
     "C:\\Users\\USER\\.nuget\\packages\\microsoft.extensions.configuration.fileextensions\\2.1.0\\microsoft.extensions.configuration.fileextensions.2.1.0.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\microsoft.extensions.configuration.json\\2.1.0\\microsoft.extensions.configuration.json.2.1.0.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\microsoft.extensions.configuration.usersecrets\\2.1.0\\microsoft.extensions.configuration.usersecrets.2.1.0.nupkg.sha512",
-    "C:\\Users\\USER\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\2.1.0\\microsoft.extensions.dependencyinjection.abstractions.2.1.0.nupkg.sha512",
+    "C:\\Users\\USER\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\5.0.1\\microsoft.extensions.dependencyinjection.5.0.1.nupkg.sha512",
+    "C:\\Users\\USER\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\5.0.0\\microsoft.extensions.dependencyinjection.abstractions.5.0.0.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\microsoft.extensions.fileproviders.abstractions\\2.1.0\\microsoft.extensions.fileproviders.abstractions.2.1.0.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\microsoft.extensions.fileproviders.physical\\2.1.0\\microsoft.extensions.fileproviders.physical.2.1.0.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\microsoft.extensions.filesystemglobbing\\2.1.0\\microsoft.extensions.filesystemglobbing.2.1.0.nupkg.sha512",
@@ -61,7 +62,7 @@
     "C:\\Users\\USER\\.nuget\\packages\\microsoft.netcore.targets\\1.1.3\\microsoft.netcore.targets.1.1.3.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\microsoft.recognizers.text\\1.2.9\\microsoft.recognizers.text.1.2.9.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\microsoft.recognizers.text.choice\\1.2.9\\microsoft.recognizers.text.choice.1.2.9.nupkg.sha512",
-    "C:\\Users\\USER\\.nuget\\packages\\microsoft.recognizers.text.datatypes.timexexpression\\1.4.0\\microsoft.recognizers.text.datatypes.timexexpression.1.4.0.nupkg.sha512",
+    "C:\\Users\\USER\\.nuget\\packages\\microsoft.recognizers.text.datatypes.timexexpression\\1.5.0\\microsoft.recognizers.text.datatypes.timexexpression.1.5.0.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\microsoft.recognizers.text.datetime\\1.2.9\\microsoft.recognizers.text.datetime.1.2.9.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\microsoft.recognizers.text.number\\1.2.9\\microsoft.recognizers.text.number.1.2.9.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\microsoft.recognizers.text.numberwithunit\\1.2.9\\microsoft.recognizers.text.numberwithunit.1.2.9.nupkg.sha512",

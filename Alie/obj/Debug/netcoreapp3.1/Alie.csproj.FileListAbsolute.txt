@@ -91,3 +91,5 @@ C:\Users\USER\Desktop\final\Alie\Alie\bin\Debug\netcoreapp3.1\runtimes\unix\lib\
 C:\Users\USER\Desktop\final\Alie\Alie\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Private.ServiceModel.dll
 C:\Users\USER\Desktop\final\Alie\Alie\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\USER\Desktop\final\Alie\Alie\bin\Debug\netcoreapp3.1\AdaptiveCards.dll
+C:\Users\USER\Desktop\final\Alie\Alie\bin\Debug\netcoreapp3.1\Microsoft.Extensions.DependencyInjection.dll
+C:\Users\USER\Desktop\final\Alie\Alie\bin\Debug\netcoreapp3.1\Microsoft.Extensions.DependencyInjection.Abstractions.dll
