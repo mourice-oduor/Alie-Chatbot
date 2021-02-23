@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "pz86bh448xsyQddvX54H5GXIlF2IZaSesqMvPzk+pjGxSOnCDFTJGdPNj1dlfWP5ntyJWm9C47ot+pOrCodlow==",
+  "dgSpecHash": "b2AkLwxi/tA8L0OK6FaAgMy0LfYmnKE5BE9itCA9ENrxhrl9vUOlpYAvG/ZkPDu7HLg8C8IM+wweyrw31hldKA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\USER\\Desktop\\final\\Alie\\Alie\\Alie.csproj",
+  "projectFilePath": "C:\\Users\\USER\\Desktop\\final\\New folder\\Alie-Chabot\\Alie\\Alie.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\USER\\.nuget\\packages\\adaptivecards\\2.5.1\\adaptivecards.2.5.1.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\adaptiveexpressions\\4.11.1\\adaptiveexpressions.4.11.1.nupkg.sha512",

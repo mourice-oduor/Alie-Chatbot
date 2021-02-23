@@ -33,7 +33,7 @@ namespace Alie.Dialogs.Details
             InitialDialogId = nameof(WaterfallDialog);
         }
 
-        
+
 
         private static async Task<DialogTurnResult> IntroStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
@@ -66,7 +66,7 @@ namespace Alie.Dialogs.Details
                 Style = ListStyle.None,
             },
                 cancellationToken);
-            
+
         }
 
         private async Task<DialogTurnResult> ActStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)

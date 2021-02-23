@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace Alie.Dialogs.Details
 {
-    public class LoanApplicationDetailsDialog: ComponentDialog
+    public class LoanApplicationDetailsDialog : ComponentDialog
     {
         private readonly IStatePropertyAccessor<UserProfile> _userProfileAccessor;
 
@@ -183,7 +183,7 @@ namespace Alie.Dialogs.Details
             // WaterfallStep always finishes with the end of the Waterfall or with another dialog; here it is the end.
             return await stepContext.EndDialogAsync(cancellationToken: cancellationToken);
         }
-    
+
 
         private static Task<bool> AgePromptValidatorAsync(PromptValidatorContext<int> promptContext, CancellationToken cancellationToken)
         {
@@ -225,7 +225,7 @@ namespace Alie.Dialogs.Details
 
         public string EmailAddress { get; set; }
 
-        public int PhoneNumber  { get; set; }
+        public int PhoneNumber { get; set; }
 
         public string Location { get; set; }
 

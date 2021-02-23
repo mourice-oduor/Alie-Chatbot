@@ -5,9 +5,7 @@ using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Builder.Dialogs.Choices;
 using Microsoft.Bot.Schema;
 using Microsoft.Extensions.Logging;
-using Microsoft.Recognizers.Text.DataTypes.TimexExpression;
 using Newtonsoft.Json.Linq;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -133,28 +131,28 @@ namespace Alie.Dialogs
             //string operation = (stepContext.Result as FoundChoice).Value;
             //stepContext.Values["Operation"] = ((FoundChoice)stepContext.Result).Value;
 
-            string operation = (string)stepContext.Values["Operation"];
+            //string operation = (string)stepContext.Values["Operation"];
+            //switch (operation)
+            //{
+            //    case "AUTO LOGBOOK LOANS":
+            //        return await stepContext.BeginDialogAsync(nameof(AutoLogBookLoansDialog), new UserProfile(), cancellationToken);
 
+            //    case "Asset Finance":
+            //        return await stepContext.BeginDialogAsync(nameof(AssetFinanceDialog), cancellationToken);
 
-            switch (operation)
-            {
-                case "Auto LogBook Loans":
-                    return await stepContext.BeginDialogAsync(nameof(AutoLogBookLoansDialog), new UserProfile(), cancellationToken);
+            //    case "Loan Against Shares":
+            //        return await stepContext.BeginDialogAsync(nameof(LoanAgainstSharesDialog), cancellationToken);
+            //    default:
+            //        break;
+            //}
 
-                case "Asset Finance":
-                    return await stepContext.BeginDialogAsync(nameof(AssetFinanceDialog), cancellationToken);
+            //// We shouldn't get here, but fail gracefully if we do.
+            //await stepContext.Context.SendActivityAsync("I don't recognize that option.", cancellationToken: cancellationToken);
 
-                case "Loan Against Shares":
-                    return await stepContext.BeginDialogAsync(nameof(LoanAgainstSharesDialog), cancellationToken);
-                default:
-                    break;
-            }
+            //// Continue through to the next step without starting a child dialog.
+            //return await stepContext.NextAsync(cancellationToken: cancellationToken);
+            return await stepContext.BeginDialogAsync(nameof(AutoLogBookLoansDialog), new UserProfile(), cancellationToken);
 
-            // We shouldn't get here, but fail gracefully if we do.
-            await stepContext.Context.SendActivityAsync("I don't recognize that option.", cancellationToken: cancellationToken);
-
-            // Continue through to the next step without starting a child dialog.
-            return await stepContext.NextAsync(cancellationToken: cancellationToken);
         }
     }
 

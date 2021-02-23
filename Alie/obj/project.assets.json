@@ -9234,11 +9234,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\USER\\Desktop\\final\\Alie\\Alie\\Alie.csproj",
+      "projectUniqueName": "C:\\Users\\USER\\Desktop\\final\\New folder\\Alie-Chabot\\Alie\\Alie.csproj",
       "projectName": "Alie",
-      "projectPath": "C:\\Users\\USER\\Desktop\\final\\Alie\\Alie\\Alie.csproj",
+      "projectPath": "C:\\Users\\USER\\Desktop\\final\\New folder\\Alie-Chabot\\Alie\\Alie.csproj",
       "packagesPath": "C:\\Users\\USER\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\USER\\Desktop\\final\\Alie\\Alie\\obj\\",
+      "outputPath": "C:\\Users\\USER\\Desktop\\final\\New folder\\Alie-Chabot\\Alie\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\"
