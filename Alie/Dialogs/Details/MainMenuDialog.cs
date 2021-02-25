@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Alie.Dialogs.Details
 {
-    public class MainMenuDialog: ComponentDialog
+    public class MainMenuDialog : ComponentDialog
     {
         protected readonly ILogger Logger;
 
@@ -90,7 +90,7 @@ namespace Alie.Dialogs.Details
         {
             stepContext.Values["Operation"] = ((FoundChoice)stepContext.Result).Value;
             string operation = (string)stepContext.Values["Operation"];
-            await stepContext.Context.SendActivityAsync(MessageFactory.Text("You have selected - " + operation), cancellationToken);
+            //await stepContext.Context.SendActivityAsync(MessageFactory.Text("You have selected - " + operation), cancellationToken);
 
             if ("Auto LogBook Loans".Equals(operation))
             {
@@ -120,7 +120,7 @@ namespace Alie.Dialogs.Details
             else
             {
                 //await stepContext.Context.SendActivityAsync(MessageFactory.Text("Wrong User Input. Please try again!"), cancellationToken);
-                return await stepContext.NextAsync(null, cancellationToken);
+                return await stepContext.NextAsync(cancellationToken: cancellationToken);
             }
         }
 

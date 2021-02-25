@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\USER\\Desktop\\final\\New folder\\Alie-Chabot\\Alie\\Alie.csproj": {}
+    "C:\\Users\\USER\\Desktop\\final\\Alie\\Alie.csproj": {}
   },
   "projects": {
-    "C:\\Users\\USER\\Desktop\\final\\New folder\\Alie-Chabot\\Alie\\Alie.csproj": {
+    "C:\\Users\\USER\\Desktop\\final\\Alie\\Alie.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\USER\\Desktop\\final\\New folder\\Alie-Chabot\\Alie\\Alie.csproj",
+        "projectUniqueName": "C:\\Users\\USER\\Desktop\\final\\Alie\\Alie.csproj",
         "projectName": "Alie",
-        "projectPath": "C:\\Users\\USER\\Desktop\\final\\New folder\\Alie-Chabot\\Alie\\Alie.csproj",
+        "projectPath": "C:\\Users\\USER\\Desktop\\final\\Alie\\Alie.csproj",
         "packagesPath": "C:\\Users\\USER\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\USER\\Desktop\\final\\New folder\\Alie-Chabot\\Alie\\obj\\",
+        "outputPath": "C:\\Users\\USER\\Desktop\\final\\Alie\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Microsoft\\Xamarin\\NuGet\\"
@@ -52,15 +52,7 @@
               "target": "Package",
               "version": "[3.1.1, )"
             },
-            "Microsoft.Bot.Builder": {
-              "target": "Package",
-              "version": "[4.11.1, )"
-            },
             "Microsoft.Bot.Builder.AI.Luis": {
-              "target": "Package",
-              "version": "[4.11.1, )"
-            },
-            "Microsoft.Bot.Builder.Azure": {
               "target": "Package",
               "version": "[4.11.1, )"
             },
@@ -68,29 +60,29 @@
               "target": "Package",
               "version": "[4.11.1, )"
             },
-            "Microsoft.Bot.Builder.Dialogs.Adaptive": {
-              "target": "Package",
-              "version": "[4.11.1, )"
-            },
-            "Microsoft.Bot.Builder.FormFlow.Json": {
-              "target": "Package",
-              "version": "[3.30.0, )"
-            },
             "Microsoft.Bot.Builder.Integration.AspNet.Core": {
               "target": "Package",
               "version": "[4.11.1, )"
             },
-            "Microsoft.Bot.Builder.TemplateManager": {
+            "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[4.11.1, )"
+              "version": "[5.0.3, )"
             },
             "Microsoft.Extensions.DependencyInjection": {
               "target": "Package",
               "version": "[5.0.1, )"
             },
+            "Microsoft.Extensions.Logging": {
+              "target": "Package",
+              "version": "[5.0.0, )"
+            },
             "Microsoft.Recognizers.Text.DataTypes.TimexExpression": {
               "target": "Package",
-              "version": "[1.5.0, )"
+              "version": "[1.4.0, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[12.0.3, )"
             }
           },
           "imports": [

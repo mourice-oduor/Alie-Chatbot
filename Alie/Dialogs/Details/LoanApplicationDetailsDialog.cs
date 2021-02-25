@@ -1,11 +1,10 @@
-﻿using Microsoft.Azure.Documents;
+﻿using Microsoft.Bot.Builder;
 using Microsoft.Bot.Builder.Dialogs;
-using System.Threading.Tasks;
-using Microsoft.Bot.Builder;
-using Microsoft.Bot.Schema;
-using System.Threading;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Mail;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace Alie.Dialogs.Details
 {
@@ -150,7 +149,7 @@ namespace Alie.Dialogs.Details
                 userProfile.Email = (string)stepContext.Values["email"];
                 userProfile.FullNames = (string)stepContext.Values["name"];
                 userProfile.Age = (int)stepContext.Values["age"];
-                userProfile.Picture = (Microsoft.Azure.Documents.Attachment)stepContext.Values["picture"];
+                userProfile.Picture = (Attachment)stepContext.Values["picture"];
 
                 var msg = $"I have your Email Address as {userProfile.Email} and your name as {userProfile.FullNames}";
 

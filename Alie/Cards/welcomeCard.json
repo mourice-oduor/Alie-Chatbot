@@ -1,7 +1,22 @@
 {
   "$schema": "http://adaptivecards.io/schemas/adaptive-card.json",
-  "type": "AdaptiveCard",
-  "version": "1.0",
+  "actions": [
+    {
+      "type": "Action.OpenUrl",
+      "title": "Visit our website For More!",
+      "url": "https://www.ngaocredit.com/"
+    }
+    //{
+    //  "type": "Action.OpenUrl",
+    //  "title": "facebook",
+    //  "url": "https://www.facebook.com/ngaocreditltd/"
+    //},
+    //{
+    //  "type": "Action.OpenUrl",
+    //  "title": "Linkedin",
+    //  "url": "https://www.linkedin.com/company/ngao-credit-ltd/?originalSubdomain=ke"
+    //}
+  ],
   "body": [
     {
       "type": "Image",
@@ -22,26 +37,11 @@
       "type": "TextBlock",
       "size": "default",
       "isSubtle": true,
-      "text": "Ask any question concerning our products and get a reply within a minute.",
+      "text": "Select any of the prompts below concerning our products and get a reply within a minute.",
       "wrap": true,
       "maxLines": 0
     }
   ],
-  "actions": [
-    {
-      "type": "Action.OpenUrl",
-      "title": "Visit our website For More!",
-      "url": "https://www.ngaocredit.com/"
-    }
-    //{
-    //  "type": "Action.OpenUrl",
-    //  "title": "facebook",
-    //  "url": "https://www.facebook.com/ngaocreditltd/"
-    //},
-    //{
-    //  "type": "Action.OpenUrl",
-    //  "title": "Linkedin",
-    //  "url": "https://www.linkedin.com/company/ngao-credit-ltd/?originalSubdomain=ke"
-    //}
-  ]
+  "type": "AdaptiveCard",
+  "version": "1.0"
 }
