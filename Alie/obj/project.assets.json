@@ -43,6 +43,44 @@
           "lib/netstandard1.3/Antlr4.Runtime.Standard.dll": {}
         }
       },
+      "Bot.Builder.Community.Dialogs.Location/4.11.0": {
+        "type": "package",
+        "dependencies": {
+          "CoreCompat.System.Drawing": "1.0.0-beta006",
+          "Microsoft.Bot.Builder.Dialogs": "4.11.1",
+          "Newtonsoft.Json": "12.0.3"
+        },
+        "compile": {
+          "lib/netstandard2.0/Bot.Builder.Community.Dialogs.Location.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Bot.Builder.Community.Dialogs.Location.dll": {}
+        }
+      },
+      "CoreCompat.System.Drawing/1.0.0-beta006": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Win32.Primitives": "4.0.1",
+          "System.Collections.NonGeneric": "4.0.1",
+          "System.Collections.Specialized": "4.0.1",
+          "System.ComponentModel.TypeConverter": "4.1.0",
+          "System.Drawing.Primitives": "4.0.0",
+          "System.IO.FileSystem": "4.0.1",
+          "System.Reflection.TypeExtensions": "4.1.0",
+          "System.Runtime.Extensions": "4.1.0",
+          "System.Runtime.InteropServices": "4.1.0",
+          "System.Runtime.InteropServices.RuntimeInformation": "4.0.0",
+          "System.Text.Encoding.Extensions": "4.0.11",
+          "System.Text.RegularExpressions": "4.1.0",
+          "System.Threading": "4.0.11"
+        },
+        "compile": {
+          "lib/netstandard1.3/CoreCompat.System.Drawing.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.3/CoreCompat.System.Drawing.dll": {}
+        }
+      },
       "Microsoft.AspNetCore.JsonPatch/3.1.1": {
         "type": "package",
         "dependencies": {
@@ -133,6 +171,27 @@
           "lib/netstandard2.0/Microsoft.Bot.Builder.Dialogs.dll": {}
         }
       },
+      "Microsoft.Bot.Builder.Dialogs.Adaptive/4.11.1": {
+        "type": "package",
+        "dependencies": {
+          "AdaptiveExpressions": "4.11.1",
+          "Microsoft.Bot.Builder.Dialogs.Declarative": "4.11.1",
+          "Microsoft.Bot.Builder.LanguageGeneration": "4.11.1",
+          "Microsoft.Extensions.Configuration.Json": "2.1.0",
+          "Microsoft.Extensions.Configuration.UserSecrets": "2.1.0",
+          "Microsoft.Recognizers.Text": "1.2.9",
+          "Microsoft.Recognizers.Text.Choice": "1.2.9",
+          "Microsoft.Recognizers.Text.DateTime": "1.2.9",
+          "Microsoft.Recognizers.Text.Number": "1.2.9",
+          "Microsoft.Recognizers.Text.Sequence": "1.2.9"
+        },
+        "compile": {
+          "lib/netstandard2.0/Microsoft.Bot.Builder.Dialogs.Adaptive.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.Bot.Builder.Dialogs.Adaptive.dll": {}
+        }
+      },
       "Microsoft.Bot.Builder.Dialogs.Declarative/4.11.1": {
         "type": "package",
         "dependencies": {
@@ -148,6 +207,31 @@
           "lib/netstandard2.0/Microsoft.Bot.Builder.Dialogs.Declarative.dll": {}
         }
       },
+      "Microsoft.Bot.Builder.FormFlow.Json/3.30.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Bot.Builder": "3.30.0",
+          "Microsoft.CodeAnalysis.CSharp.Scripting": "1.2.2",
+          "Microsoft.CodeAnalysis.Scripting": "1.2.2",
+          "Newtonsoft.Json": "8.0.3",
+          "System.Collections": "4.0.10",
+          "System.Diagnostics.Debug": "4.0.10",
+          "System.Globalization": "4.0.10",
+          "System.IO": "4.0.10",
+          "System.Reflection": "4.0.10",
+          "System.Runtime": "4.0.20",
+          "System.Runtime.Extensions": "4.0.10",
+          "System.Runtime.InteropServices": "4.0.20",
+          "System.Threading": "4.0.10",
+          "System.Threading.Tasks": "4.0.10"
+        },
+        "compile": {
+          "lib/net46/Microsoft.Bot.Builder.FormFlow.Json.dll": {}
+        },
+        "runtime": {
+          "lib/net46/Microsoft.Bot.Builder.FormFlow.Json.dll": {}
+        }
+      },
       "Microsoft.Bot.Builder.Integration.AspNet.Core/4.11.1": {
         "type": "package",
         "dependencies": {
@@ -160,6 +244,20 @@
         },
         "runtime": {
           "lib/netcoreapp3.1/Microsoft.Bot.Builder.Integration.AspNet.Core.dll": {}
+        }
+      },
+      "Microsoft.Bot.Builder.LanguageGeneration/4.11.1": {
+        "type": "package",
+        "dependencies": {
+          "AdaptiveExpressions": "4.11.1",
+          "Antlr4.Runtime.Standard": "4.8.0",
+          "Newtonsoft.Json": "12.0.3"
+        },
+        "compile": {
+          "lib/netstandard2.0/Microsoft.Bot.Builder.LanguageGeneration.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.Bot.Builder.LanguageGeneration.dll": {}
         }
       },
       "Microsoft.Bot.Configuration/4.11.1": {
@@ -216,6 +314,86 @@
         },
         "runtime": {
           "lib/netstandard2.0/Microsoft.Bot.Streaming.dll": {}
+        }
+      },
+      "Microsoft.CodeAnalysis.Analyzers/1.1.0": {
+        "type": "package"
+      },
+      "Microsoft.CodeAnalysis.Common/1.2.2": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.CodeAnalysis.Analyzers": "1.1.0",
+          "System.Collections.Immutable": "1.1.37",
+          "System.Reflection.Metadata": "1.2.0"
+        },
+        "compile": {
+          "lib/net45/Microsoft.CodeAnalysis.dll": {}
+        },
+        "runtime": {
+          "lib/net45/Microsoft.CodeAnalysis.dll": {}
+        }
+      },
+      "Microsoft.CodeAnalysis.CSharp/1.2.2": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.CodeAnalysis.Common": "[1.2.2]"
+        },
+        "compile": {
+          "lib/net45/Microsoft.CodeAnalysis.CSharp.dll": {}
+        },
+        "runtime": {
+          "lib/net45/Microsoft.CodeAnalysis.CSharp.dll": {}
+        }
+      },
+      "Microsoft.CodeAnalysis.CSharp.Scripting/1.2.2": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.CodeAnalysis.CSharp": "[1.2.2]",
+          "Microsoft.CodeAnalysis.Scripting.Common": "[1.2.2]"
+        },
+        "compile": {
+          "lib/dotnet/Microsoft.CodeAnalysis.CSharp.Scripting.dll": {}
+        },
+        "runtime": {
+          "lib/dotnet/Microsoft.CodeAnalysis.CSharp.Scripting.dll": {}
+        }
+      },
+      "Microsoft.CodeAnalysis.Scripting/1.2.2": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.CodeAnalysis.CSharp.Scripting": "[1.2.2]",
+          "Microsoft.CodeAnalysis.Scripting.Common": "[1.2.2]"
+        }
+      },
+      "Microsoft.CodeAnalysis.Scripting.Common/1.2.2": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.CodeAnalysis.Common": "[1.2.2]",
+          "System.AppContext": "4.0.0",
+          "System.Collections": "4.0.10",
+          "System.Collections.Immutable": "1.1.37",
+          "System.Diagnostics.Debug": "4.0.10",
+          "System.Diagnostics.StackTrace": "4.0.0",
+          "System.Diagnostics.Tools": "4.0.0",
+          "System.Globalization": "4.0.10",
+          "System.IO": "4.0.10",
+          "System.IO.FileSystem": "4.0.0",
+          "System.Linq": "4.0.0",
+          "System.Linq.Expressions": "4.0.10",
+          "System.Reflection": "4.0.10",
+          "System.Reflection.Extensions": "4.0.0",
+          "System.Resources.ResourceManager": "4.0.0",
+          "System.Runtime": "4.0.20",
+          "System.Runtime.Extensions": "4.0.10",
+          "System.Runtime.InteropServices": "4.0.20",
+          "System.Threading": "4.0.10",
+          "System.Threading.Tasks": "4.0.10"
+        },
+        "compile": {
+          "lib/dotnet/Microsoft.CodeAnalysis.Scripting.dll": {}
+        },
+        "runtime": {
+          "lib/dotnet/Microsoft.CodeAnalysis.Scripting.dll": {}
         }
       },
       "Microsoft.CSharp/4.7.0": {
@@ -341,6 +519,21 @@
         },
         "runtime": {
           "lib/netstandard2.0/Microsoft.Extensions.Configuration.Json.dll": {}
+        }
+      },
+      "Microsoft.Extensions.Configuration.UserSecrets/2.1.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Configuration.Json": "2.1.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/Microsoft.Extensions.Configuration.UserSecrets.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.Extensions.Configuration.UserSecrets.dll": {}
+        },
+        "build": {
+          "build/netstandard2.0/_._": {}
         }
       },
       "Microsoft.Extensions.DependencyInjection/5.0.1": {
@@ -640,6 +833,19 @@
         },
         "runtime": {
           "lib/netstandard2.0/Microsoft.Recognizers.Text.NumberWithUnit.dll": {}
+        }
+      },
+      "Microsoft.Recognizers.Text.Sequence/1.2.9": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Recognizers.Text": "1.2.9",
+          "System.Collections.Immutable": "1.4.0"
+        },
+        "compile": {
+          "lib/netstandard2.0/Microsoft.Recognizers.Text.Sequence.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.Recognizers.Text.Sequence.dll": {}
         }
       },
       "Microsoft.Rest.ClientRuntime/2.3.21": {
@@ -1096,7 +1302,7 @@
           "System.Threading": "4.3.0"
         },
         "compile": {
-          "ref/netstandard1.3/_._": {}
+          "ref/netstandard1.3/System.Collections.Specialized.dll": {}
         },
         "runtime": {
           "lib/netstandard1.3/System.Collections.Specialized.dll": {}
@@ -1239,6 +1445,15 @@
           }
         }
       },
+      "System.Diagnostics.StackTrace/4.0.0": {
+        "type": "package",
+        "compile": {
+          "ref/net46/System.Diagnostics.StackTrace.dll": {}
+        },
+        "runtime": {
+          "lib/net46/System.Diagnostics.StackTrace.dll": {}
+        }
+      },
       "System.Diagnostics.Tools/4.3.0": {
         "type": "package",
         "dependencies": {
@@ -1259,6 +1474,19 @@
         },
         "compile": {
           "ref/netstandard1.5/System.Diagnostics.Tracing.dll": {}
+        }
+      },
+      "System.Drawing.Primitives/4.0.0": {
+        "type": "package",
+        "dependencies": {
+          "System.Runtime": "4.1.0",
+          "System.Runtime.Extensions": "4.1.0"
+        },
+        "compile": {
+          "ref/netstandard1.1/System.Drawing.Primitives.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.1/System.Drawing.Primitives.dll": {}
         }
       },
       "System.Dynamic.Runtime/4.3.0": {
@@ -1687,6 +1915,32 @@
           "ref/netstandard1.0/System.Reflection.Extensions.dll": {}
         }
       },
+      "System.Reflection.Metadata/1.2.0": {
+        "type": "package",
+        "dependencies": {
+          "System.Collections": "4.0.0",
+          "System.Collections.Immutable": "1.1.37",
+          "System.Diagnostics.Debug": "4.0.0",
+          "System.IO": "4.0.0",
+          "System.Linq": "4.0.0",
+          "System.Reflection": "4.0.0",
+          "System.Reflection.Extensions": "4.0.0",
+          "System.Reflection.Primitives": "4.0.0",
+          "System.Resources.ResourceManager": "4.0.0",
+          "System.Runtime": "4.0.0",
+          "System.Runtime.Extensions": "4.0.0",
+          "System.Runtime.InteropServices": "4.0.0",
+          "System.Text.Encoding": "4.0.0",
+          "System.Text.Encoding.Extensions": "4.0.0",
+          "System.Threading": "4.0.0"
+        },
+        "compile": {
+          "lib/netstandard1.1/System.Reflection.Metadata.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard1.1/System.Reflection.Metadata.dll": {}
+        }
+      },
       "System.Reflection.Primitives/4.3.0": {
         "type": "package",
         "dependencies": {
@@ -1705,7 +1959,7 @@
           "System.Runtime": "4.3.0"
         },
         "compile": {
-          "ref/netstandard1.5/_._": {}
+          "ref/netstandard1.5/System.Reflection.TypeExtensions.dll": {}
         },
         "runtime": {
           "lib/netstandard1.5/System.Reflection.TypeExtensions.dll": {}
@@ -2369,6 +2623,31 @@
         "lib/netstandard1.3/Antlr4.Runtime.Standard.xml"
       ]
     },
+    "Bot.Builder.Community.Dialogs.Location/4.11.0": {
+      "sha512": "KGv8rLPgFKT/HlHYiHY9+9RJwNgRW8vfcxfomsdsiluYncEv7sWxxc3WXG5SO59x6Nz6zoNR+JCxEPJ3UpYU4w==",
+      "type": "package",
+      "path": "bot.builder.community.dialogs.location/4.11.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "bot.builder.community.dialogs.location.4.11.0.nupkg.sha512",
+        "bot.builder.community.dialogs.location.nuspec",
+        "lib/netstandard2.0/Bot.Builder.Community.Dialogs.Location.dll"
+      ]
+    },
+    "CoreCompat.System.Drawing/1.0.0-beta006": {
+      "sha512": "KOBeVy8FHx9zkXrIZAM8OdXPrimROmvfB02fOegrYIelNN/zWhsOwzONgD7gw7wOTJgAFfdwpme5CiMraJj47Q==",
+      "type": "package",
+      "path": "corecompat.system.drawing/1.0.0-beta006",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "corecompat.system.drawing.1.0.0-beta006.nupkg.sha512",
+        "corecompat.system.drawing.nuspec",
+        "lib/net45/CoreCompat.System.Drawing.dll",
+        "lib/netstandard1.3/CoreCompat.System.Drawing.dll"
+      ]
+    },
     "Microsoft.AspNetCore.JsonPatch/3.1.1": {
       "sha512": "Y2hwnbYzA8nmRH3+eTXtG+HP7rkMSLcqcLh5vfoN/J3zcmYb7vMtRauSDT9GO85JGwk+blNiCDXEou8Dj2TR4g==",
       "type": "package",
@@ -2463,6 +2742,190 @@
         "microsoft.bot.builder.dialogs.nuspec"
       ]
     },
+    "Microsoft.Bot.Builder.Dialogs.Adaptive/4.11.1": {
+      "sha512": "8La8OQFsbyMbfXAMjvU49CRXmi3whTeC+gTdJRwWBPNFP4owidKYU6K7rxazx7HgvzGvfg/BkglBB5QncvKWkw==",
+      "type": "package",
+      "path": "microsoft.bot.builder.dialogs.adaptive/4.11.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "content/Schemas/Actions/Microsoft.BeginDialog.schema",
+        "content/Schemas/Actions/Microsoft.BeginDialog.uischema",
+        "content/Schemas/Actions/Microsoft.BeginSkill.schema",
+        "content/Schemas/Actions/Microsoft.BeginSkill.uischema",
+        "content/Schemas/Actions/Microsoft.BreakLoop.schema",
+        "content/Schemas/Actions/Microsoft.BreakLoop.uischema",
+        "content/Schemas/Actions/Microsoft.CancelAllDialogs.schema",
+        "content/Schemas/Actions/Microsoft.CancelAllDialogs.uischema",
+        "content/Schemas/Actions/Microsoft.CancelDialog.schema",
+        "content/Schemas/Actions/Microsoft.ContinueConversationLater.schema",
+        "content/Schemas/Actions/Microsoft.ContinueLoop.schema",
+        "content/Schemas/Actions/Microsoft.ContinueLoop.uischema",
+        "content/Schemas/Actions/Microsoft.DebugBreak.schema",
+        "content/Schemas/Actions/Microsoft.DebugBreak.uischema",
+        "content/Schemas/Actions/Microsoft.DeleteActivity.schema",
+        "content/Schemas/Actions/Microsoft.DeleteProperties.schema",
+        "content/Schemas/Actions/Microsoft.DeleteProperties.uischema",
+        "content/Schemas/Actions/Microsoft.DeleteProperty.schema",
+        "content/Schemas/Actions/Microsoft.DeleteProperty.uischema",
+        "content/Schemas/Actions/Microsoft.EditActions.schema",
+        "content/Schemas/Actions/Microsoft.EditActions.uischema",
+        "content/Schemas/Actions/Microsoft.EditArray.schema",
+        "content/Schemas/Actions/Microsoft.EditArray.uischema",
+        "content/Schemas/Actions/Microsoft.EmitEvent.schema",
+        "content/Schemas/Actions/Microsoft.EmitEvent.uischema",
+        "content/Schemas/Actions/Microsoft.EndDialog.schema",
+        "content/Schemas/Actions/Microsoft.EndDialog.uischema",
+        "content/Schemas/Actions/Microsoft.EndTurn.schema",
+        "content/Schemas/Actions/Microsoft.EndTurn.uischema",
+        "content/Schemas/Actions/Microsoft.Foreach.schema",
+        "content/Schemas/Actions/Microsoft.Foreach.uischema",
+        "content/Schemas/Actions/Microsoft.ForeachPage.schema",
+        "content/Schemas/Actions/Microsoft.ForeachPage.uischema",
+        "content/Schemas/Actions/Microsoft.GetActivityMembers.schema",
+        "content/Schemas/Actions/Microsoft.GetConversationMembers.schema",
+        "content/Schemas/Actions/Microsoft.GotoAction.schema",
+        "content/Schemas/Actions/Microsoft.HttpRequest.schema",
+        "content/Schemas/Actions/Microsoft.HttpRequest.uischema",
+        "content/Schemas/Actions/Microsoft.IfCondition.schema",
+        "content/Schemas/Actions/Microsoft.IfCondition.uischema",
+        "content/Schemas/Actions/Microsoft.LogAction.schema",
+        "content/Schemas/Actions/Microsoft.LogAction.uischema",
+        "content/Schemas/Actions/Microsoft.RepeatDialog.schema",
+        "content/Schemas/Actions/Microsoft.RepeatDialog.uischema",
+        "content/Schemas/Actions/Microsoft.ReplaceDialog.schema",
+        "content/Schemas/Actions/Microsoft.ReplaceDialog.uischema",
+        "content/Schemas/Actions/Microsoft.SendActivity.schema",
+        "content/Schemas/Actions/Microsoft.SendActivity.uischema",
+        "content/Schemas/Actions/Microsoft.SetProperties.schema",
+        "content/Schemas/Actions/Microsoft.SetProperties.uischema",
+        "content/Schemas/Actions/Microsoft.SetProperty.schema",
+        "content/Schemas/Actions/Microsoft.SetProperty.uischema",
+        "content/Schemas/Actions/Microsoft.SignOutUser.schema",
+        "content/Schemas/Actions/Microsoft.SignOutUser.uischema",
+        "content/Schemas/Actions/Microsoft.SwitchCondition.schema",
+        "content/Schemas/Actions/Microsoft.SwitchCondition.uischema",
+        "content/Schemas/Actions/Microsoft.TelemetryTrackEvent.schema",
+        "content/Schemas/Actions/Microsoft.ThrowException.schema",
+        "content/Schemas/Actions/Microsoft.ThrowException.uischema",
+        "content/Schemas/Actions/Microsoft.TraceActivity.schema",
+        "content/Schemas/Actions/Microsoft.TraceActivity.uischema",
+        "content/Schemas/Actions/Microsoft.UpdateActivity.schema",
+        "content/Schemas/Dialogs/Microsoft.Ask.schema",
+        "content/Schemas/Dialogs/Microsoft.Ask.uischema",
+        "content/Schemas/Dialogs/Microsoft.AttachmentInput.schema",
+        "content/Schemas/Dialogs/Microsoft.AttachmentInput.uischema",
+        "content/Schemas/Dialogs/Microsoft.ChoiceInput.schema",
+        "content/Schemas/Dialogs/Microsoft.ChoiceInput.uischema",
+        "content/Schemas/Dialogs/Microsoft.ConfirmInput.schema",
+        "content/Schemas/Dialogs/Microsoft.ConfirmInput.uischema",
+        "content/Schemas/Dialogs/Microsoft.DateTimeInput.schema",
+        "content/Schemas/Dialogs/Microsoft.DateTimeInput.uischema",
+        "content/Schemas/Dialogs/Microsoft.InputDialog.schema",
+        "content/Schemas/Dialogs/Microsoft.NumberInput.schema",
+        "content/Schemas/Dialogs/Microsoft.NumberInput.uischema",
+        "content/Schemas/Dialogs/Microsoft.OAuthInput.schema",
+        "content/Schemas/Dialogs/Microsoft.OAuthInput.uischema",
+        "content/Schemas/Dialogs/Microsoft.TextInput.schema",
+        "content/Schemas/Dialogs/Microsoft.TextInput.uischema",
+        "content/Schemas/Generators/Microsoft.ResourceMultiLanguageGenerator.schema",
+        "content/Schemas/Generators/Microsoft.TemplateEngineLanguageGenerator.schema",
+        "content/Schemas/Microsoft.AdaptiveDialog.schema",
+        "content/Schemas/Microsoft.AdaptiveDialog.uischema",
+        "content/Schemas/Microsoft.IEntityRecognizer.schema",
+        "content/Schemas/Microsoft.ILanguageGenerator.schema",
+        "content/Schemas/Microsoft.ITrigger.schema",
+        "content/Schemas/Microsoft.ITriggerSelector.schema",
+        "content/Schemas/Microsoft.LanguagePolicy.schema",
+        "content/Schemas/Recognizers/EntityRecognizers/Microsoft.AgeEntityRecognizer.schema",
+        "content/Schemas/Recognizers/EntityRecognizers/Microsoft.ChannelMentionEntityRecognizer.schema",
+        "content/Schemas/Recognizers/EntityRecognizers/Microsoft.ConfirmationEntityRecognizer.schema",
+        "content/Schemas/Recognizers/EntityRecognizers/Microsoft.CurrencyEntityRecognizer.schema",
+        "content/Schemas/Recognizers/EntityRecognizers/Microsoft.DateTimeEntityRecognizer.schema",
+        "content/Schemas/Recognizers/EntityRecognizers/Microsoft.DimensionEntityRecognizer.schema",
+        "content/Schemas/Recognizers/EntityRecognizers/Microsoft.EmailEntityRecognizer.schema",
+        "content/Schemas/Recognizers/EntityRecognizers/Microsoft.GuidEntityRecognizer.schema",
+        "content/Schemas/Recognizers/EntityRecognizers/Microsoft.HashtagEntityRecognizer.schema",
+        "content/Schemas/Recognizers/EntityRecognizers/Microsoft.IpEntityRecognizer.schema",
+        "content/Schemas/Recognizers/EntityRecognizers/Microsoft.MentionEntityRecognizer.schema",
+        "content/Schemas/Recognizers/EntityRecognizers/Microsoft.NumberEntityRecognizer.schema",
+        "content/Schemas/Recognizers/EntityRecognizers/Microsoft.NumberRangeEntityRecognizer.schema",
+        "content/Schemas/Recognizers/EntityRecognizers/Microsoft.OrdinalEntityRecognizer.schema",
+        "content/Schemas/Recognizers/EntityRecognizers/Microsoft.PercentageEntityRecognizer.schema",
+        "content/Schemas/Recognizers/EntityRecognizers/Microsoft.PhoneNumberEntityRecognizer.schema",
+        "content/Schemas/Recognizers/EntityRecognizers/Microsoft.RegexEntityRecognizer.schema",
+        "content/Schemas/Recognizers/EntityRecognizers/Microsoft.TemperatureEntityRecognizer.schema",
+        "content/Schemas/Recognizers/EntityRecognizers/Microsoft.UrlEntityRecognizer.schema",
+        "content/Schemas/Recognizers/Microsoft.CrossTrainedRecognizerSet.schema",
+        "content/Schemas/Recognizers/Microsoft.MultiLanguageRecognizer.schema",
+        "content/Schemas/Recognizers/Microsoft.RecognizerSet.schema",
+        "content/Schemas/Recognizers/Microsoft.RegexRecognizer.schema",
+        "content/Schemas/Recognizers/Microsoft.RegexRecognizer.uischema",
+        "content/Schemas/Selectors/Microsoft.ConditionalSelector.schema",
+        "content/Schemas/Selectors/Microsoft.FirstSelector.schema",
+        "content/Schemas/Selectors/Microsoft.MostSpecificSelector.schema",
+        "content/Schemas/Selectors/Microsoft.RandomSelector.schema",
+        "content/Schemas/Selectors/Microsoft.TrueSelector.schema",
+        "content/Schemas/Templates/Microsoft.ActivityTemplate.schema",
+        "content/Schemas/Templates/Microsoft.StaticActivityTemplate.schema",
+        "content/Schemas/Templates/Microsoft.TextTemplate.schema",
+        "content/Schemas/TriggerConditions/Microsoft.OnActivity.schema",
+        "content/Schemas/TriggerConditions/Microsoft.OnActivity.uischema",
+        "content/Schemas/TriggerConditions/Microsoft.OnAssignEntity.schema",
+        "content/Schemas/TriggerConditions/Microsoft.OnAssignEntity.uischema",
+        "content/Schemas/TriggerConditions/Microsoft.OnBeginDialog.schema",
+        "content/Schemas/TriggerConditions/Microsoft.OnBeginDialog.uischema",
+        "content/Schemas/TriggerConditions/Microsoft.OnCancelDialog.schema",
+        "content/Schemas/TriggerConditions/Microsoft.OnCancelDialog.uischema",
+        "content/Schemas/TriggerConditions/Microsoft.OnChooseEntity.schema",
+        "content/Schemas/TriggerConditions/Microsoft.OnChooseIntent.schema",
+        "content/Schemas/TriggerConditions/Microsoft.OnChooseIntent.uischema",
+        "content/Schemas/TriggerConditions/Microsoft.OnChooseProperty.schema",
+        "content/Schemas/TriggerConditions/Microsoft.OnCondition.schema",
+        "content/Schemas/TriggerConditions/Microsoft.OnCondition.uischema",
+        "content/Schemas/TriggerConditions/Microsoft.OnContinueConversation.schema",
+        "content/Schemas/TriggerConditions/Microsoft.OnConversationUpdateActivity.schema",
+        "content/Schemas/TriggerConditions/Microsoft.OnConversationUpdateActivity.uischema",
+        "content/Schemas/TriggerConditions/Microsoft.OnDialogEvent.schema",
+        "content/Schemas/TriggerConditions/Microsoft.OnDialogEvent.uischema",
+        "content/Schemas/TriggerConditions/Microsoft.OnEndOfActions.schema",
+        "content/Schemas/TriggerConditions/Microsoft.OnEndOfActions.uischema",
+        "content/Schemas/TriggerConditions/Microsoft.OnEndOfConversationActivity.schema",
+        "content/Schemas/TriggerConditions/Microsoft.OnEndOfConversationActivity.uischema",
+        "content/Schemas/TriggerConditions/Microsoft.OnError.schema",
+        "content/Schemas/TriggerConditions/Microsoft.OnError.uischema",
+        "content/Schemas/TriggerConditions/Microsoft.OnEventActivity.schema",
+        "content/Schemas/TriggerConditions/Microsoft.OnEventActivity.uischema",
+        "content/Schemas/TriggerConditions/Microsoft.OnHandoffActivity.schema",
+        "content/Schemas/TriggerConditions/Microsoft.OnHandoffActivity.uischema",
+        "content/Schemas/TriggerConditions/Microsoft.OnInstallationUpdateActivity.schema",
+        "content/Schemas/TriggerConditions/Microsoft.OnInstallationUpdateActivity.uischema",
+        "content/Schemas/TriggerConditions/Microsoft.OnIntent.schema",
+        "content/Schemas/TriggerConditions/Microsoft.OnIntent.uischema",
+        "content/Schemas/TriggerConditions/Microsoft.OnInvokeActivity.schema",
+        "content/Schemas/TriggerConditions/Microsoft.OnInvokeActivity.uischema",
+        "content/Schemas/TriggerConditions/Microsoft.OnMessageActivity.schema",
+        "content/Schemas/TriggerConditions/Microsoft.OnMessageActivity.uischema",
+        "content/Schemas/TriggerConditions/Microsoft.OnMessageDeleteActivity.schema",
+        "content/Schemas/TriggerConditions/Microsoft.OnMessageDeleteActivity.uischema",
+        "content/Schemas/TriggerConditions/Microsoft.OnMessageReactionActivity.schema",
+        "content/Schemas/TriggerConditions/Microsoft.OnMessageReactionActivity.uischema",
+        "content/Schemas/TriggerConditions/Microsoft.OnMessageUpdateActivity.schema",
+        "content/Schemas/TriggerConditions/Microsoft.OnMessageUpdateActivity.uischema",
+        "content/Schemas/TriggerConditions/Microsoft.OnQnAMatch.schema",
+        "content/Schemas/TriggerConditions/Microsoft.OnRepromptDialog.schema",
+        "content/Schemas/TriggerConditions/Microsoft.OnRepromptDialog.uischema",
+        "content/Schemas/TriggerConditions/Microsoft.OnTypingActivity.schema",
+        "content/Schemas/TriggerConditions/Microsoft.OnTypingActivity.uischema",
+        "content/Schemas/TriggerConditions/Microsoft.OnUnknownIntent.schema",
+        "content/Schemas/TriggerConditions/Microsoft.OnUnknownIntent.uischema",
+        "icon.png",
+        "lib/netstandard2.0/Microsoft.Bot.Builder.Dialogs.Adaptive.dll",
+        "lib/netstandard2.0/Microsoft.Bot.Builder.Dialogs.Adaptive.xml",
+        "microsoft.bot.builder.dialogs.adaptive.4.11.1.nupkg.sha512",
+        "microsoft.bot.builder.dialogs.adaptive.nuspec"
+      ]
+    },
     "Microsoft.Bot.Builder.Dialogs.Declarative/4.11.1": {
       "sha512": "2NOnpc1RW7ZjuS7o7CfwCg+DqrDFlxWp+QV0/nPIbaDLkDajASRPtmHbNlSiYQ23aKQdKfaxrjnOeTepTw59EA==",
       "type": "package",
@@ -2481,6 +2944,22 @@
         "microsoft.bot.builder.dialogs.declarative.nuspec"
       ]
     },
+    "Microsoft.Bot.Builder.FormFlow.Json/3.30.0": {
+      "sha512": "HxDt4JSzFfCBWaOVN5uw74hHMdpG2HG0KOaBdygib4vIruKpNCVYId0cgS9/zD0wRKeU5nOfB+NAXauitbgH/A==",
+      "type": "package",
+      "path": "microsoft.bot.builder.formflow.json/3.30.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net46/Microsoft.Bot.Builder.FormFlow.Json.XML",
+        "lib/net46/Microsoft.Bot.Builder.FormFlow.Json.dll",
+        "lib/net46/Microsoft.Bot.Builder.FormFlow.Json.pdb",
+        "microsoft.bot.builder.formflow.json.3.30.0.nupkg.sha512",
+        "microsoft.bot.builder.formflow.json.nuspec",
+        "src/FieldJson.cs",
+        "src/FormBuilderJson.cs"
+      ]
+    },
     "Microsoft.Bot.Builder.Integration.AspNet.Core/4.11.1": {
       "sha512": "Y1vgzSV0QpmRDuW8hgoq+JeL6xSjiKiv5ZB2nrUWcyjnDZ//4fFlaPM7M0jWsuvWei8Red8NUp8jyl+3oWpDxQ==",
       "type": "package",
@@ -2495,6 +2974,20 @@
         "lib/netstandard2.0/Microsoft.Bot.Builder.Integration.AspNet.Core.xml",
         "microsoft.bot.builder.integration.aspnet.core.4.11.1.nupkg.sha512",
         "microsoft.bot.builder.integration.aspnet.core.nuspec"
+      ]
+    },
+    "Microsoft.Bot.Builder.LanguageGeneration/4.11.1": {
+      "sha512": "KXM8yErqbcrBt/K7wUrilcYdBAQz84vdJqBIICSMCDmPr4opA0sjfM1579kjpQ6dZniUdTa8dndrb6Ais9js5A==",
+      "type": "package",
+      "path": "microsoft.bot.builder.languagegeneration/4.11.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "icon.png",
+        "lib/netstandard2.0/Microsoft.Bot.Builder.LanguageGeneration.dll",
+        "lib/netstandard2.0/Microsoft.Bot.Builder.LanguageGeneration.xml",
+        "microsoft.bot.builder.languagegeneration.4.11.1.nupkg.sha512",
+        "microsoft.bot.builder.languagegeneration.nuspec"
       ]
     },
     "Microsoft.Bot.Configuration/4.11.1": {
@@ -2552,6 +3045,97 @@
         "lib/netstandard2.0/Microsoft.Bot.Streaming.xml",
         "microsoft.bot.streaming.4.11.1.nupkg.sha512",
         "microsoft.bot.streaming.nuspec"
+      ]
+    },
+    "Microsoft.CodeAnalysis.Analyzers/1.1.0": {
+      "sha512": "HS3iRWZKcUw/8eZ/08GXKY2Bn7xNzQPzf8gRPHGSowX7u7XXu9i9YEaBeBNKUXWfI7qjvT2zXtLUvbN0hds8vg==",
+      "type": "package",
+      "path": "microsoft.codeanalysis.analyzers/1.1.0",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "ThirdPartyNotices.rtf",
+        "analyzers/dotnet/cs/Microsoft.CodeAnalysis.Analyzers.dll",
+        "analyzers/dotnet/cs/Microsoft.CodeAnalysis.CSharp.Analyzers.dll",
+        "analyzers/dotnet/vb/Microsoft.CodeAnalysis.Analyzers.dll",
+        "analyzers/dotnet/vb/Microsoft.CodeAnalysis.VisualBasic.Analyzers.dll",
+        "microsoft.codeanalysis.analyzers.1.1.0.nupkg.sha512",
+        "microsoft.codeanalysis.analyzers.nuspec",
+        "tools/install.ps1",
+        "tools/uninstall.ps1"
+      ]
+    },
+    "Microsoft.CodeAnalysis.Common/1.2.2": {
+      "sha512": "28bHBzF42U79sjvo1Z5z4JI+P7bUnsu3DqB8YQ4zCYoQ2WBmfZ4BKTeNv9AL4XhoIJPtVmrTKnsA3adbuF/8cA==",
+      "type": "package",
+      "path": "microsoft.codeanalysis.common/1.2.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "ThirdPartyNotices.rtf",
+        "lib/net45/Microsoft.CodeAnalysis.dll",
+        "lib/net45/Microsoft.CodeAnalysis.xml",
+        "lib/portable-net45+win8/Microsoft.CodeAnalysis.dll",
+        "lib/portable-net45+win8/Microsoft.CodeAnalysis.xml",
+        "microsoft.codeanalysis.common.1.2.2.nupkg.sha512",
+        "microsoft.codeanalysis.common.nuspec"
+      ]
+    },
+    "Microsoft.CodeAnalysis.CSharp/1.2.2": {
+      "sha512": "OxE/OYM/x/VR1ENaqg78Oe9dORdLIvvwZhz6G34wG7/w9IYHTA9E4y29nlEqaDzM2lL4CPOWQw7cVPejBkUETQ==",
+      "type": "package",
+      "path": "microsoft.codeanalysis.csharp/1.2.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "ThirdPartyNotices.rtf",
+        "lib/net45/Microsoft.CodeAnalysis.CSharp.dll",
+        "lib/net45/Microsoft.CodeAnalysis.CSharp.xml",
+        "lib/portable-net45+win8/Microsoft.CodeAnalysis.CSharp.dll",
+        "lib/portable-net45+win8/Microsoft.CodeAnalysis.CSharp.xml",
+        "microsoft.codeanalysis.csharp.1.2.2.nupkg.sha512",
+        "microsoft.codeanalysis.csharp.nuspec"
+      ]
+    },
+    "Microsoft.CodeAnalysis.CSharp.Scripting/1.2.2": {
+      "sha512": "XfWLQsGjSwGTd71cStR74EK62tCEW8+yQW3Kz5wP43lUi6AmP3+GUqhGkvwI+ucW9RapF4G4HdgKlcrWjPJBrQ==",
+      "type": "package",
+      "path": "microsoft.codeanalysis.csharp.scripting/1.2.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "ThirdPartyNotices.rtf",
+        "lib/dotnet/Microsoft.CodeAnalysis.CSharp.Scripting.dll",
+        "lib/dotnet/Microsoft.CodeAnalysis.CSharp.Scripting.xml",
+        "microsoft.codeanalysis.csharp.scripting.1.2.2.nupkg.sha512",
+        "microsoft.codeanalysis.csharp.scripting.nuspec"
+      ]
+    },
+    "Microsoft.CodeAnalysis.Scripting/1.2.2": {
+      "sha512": "xs4pIzAYoLxQxhwVj6VCLYmN7SU84MdNaZpa2YVDKxpEQZ1okfold8qg9A8u/vtnZ3t0aRVfC6B5O9+Fogofqw==",
+      "type": "package",
+      "path": "microsoft.codeanalysis.scripting/1.2.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "ThirdPartyNotices.rtf",
+        "microsoft.codeanalysis.scripting.1.2.2.nupkg.sha512",
+        "microsoft.codeanalysis.scripting.nuspec"
+      ]
+    },
+    "Microsoft.CodeAnalysis.Scripting.Common/1.2.2": {
+      "sha512": "DQy4qp0y52ikslwynm1cyTsD/FXgYZYP6oqGmBs6t+cjahwUR2SDbEzHp5QjAkPoQ7X8fLv6C6taCthGOyxl2A==",
+      "type": "package",
+      "path": "microsoft.codeanalysis.scripting.common/1.2.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "ThirdPartyNotices.rtf",
+        "lib/dotnet/Microsoft.CodeAnalysis.Scripting.dll",
+        "lib/dotnet/Microsoft.CodeAnalysis.Scripting.xml",
+        "microsoft.codeanalysis.scripting.common.1.2.2.nupkg.sha512",
+        "microsoft.codeanalysis.scripting.common.nuspec"
       ]
     },
     "Microsoft.CSharp/4.7.0": {
@@ -2755,6 +3339,21 @@
         "lib/netstandard2.0/Microsoft.Extensions.Configuration.Json.xml",
         "microsoft.extensions.configuration.json.2.1.0.nupkg.sha512",
         "microsoft.extensions.configuration.json.nuspec"
+      ]
+    },
+    "Microsoft.Extensions.Configuration.UserSecrets/2.1.0": {
+      "sha512": "QNZsegDzpbwGOMwd+4/0fW075nLV68K2/EPROXuLKRfnzr56CsFGymmzQdwX80TdybCO3AWri0h4hY0L5g7WNg==",
+      "type": "package",
+      "path": "microsoft.extensions.configuration.usersecrets/2.1.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "build/netstandard2.0/Microsoft.Extensions.Configuration.UserSecrets.props",
+        "build/netstandard2.0/Microsoft.Extensions.Configuration.UserSecrets.targets",
+        "lib/netstandard2.0/Microsoft.Extensions.Configuration.UserSecrets.dll",
+        "lib/netstandard2.0/Microsoft.Extensions.Configuration.UserSecrets.xml",
+        "microsoft.extensions.configuration.usersecrets.2.1.0.nupkg.sha512",
+        "microsoft.extensions.configuration.usersecrets.nuspec"
       ]
     },
     "Microsoft.Extensions.DependencyInjection/5.0.1": {
@@ -3197,6 +3796,22 @@
         "lib/netstandard2.0/Microsoft.Recognizers.Text.NumberWithUnit.dll",
         "microsoft.recognizers.text.numberwithunit.1.2.9.nupkg.sha512",
         "microsoft.recognizers.text.numberwithunit.nuspec"
+      ]
+    },
+    "Microsoft.Recognizers.Text.Sequence/1.2.9": {
+      "sha512": "lHPVcHyezKTB9zHX55uTAKOl0efqP31qDR1JPJto1S6oTn2n2mrXmgGhZBLZx2k69r9Dor5Vio0SYh1FG0ikwg==",
+      "type": "package",
+      "path": "microsoft.recognizers.text.sequence/1.2.9",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "images/icon.png",
+        "lib/net45/Microsoft.Recognizers.Text.Sequence.dll",
+        "lib/net452/Microsoft.Recognizers.Text.Sequence.dll",
+        "lib/net462/Microsoft.Recognizers.Text.Sequence.dll",
+        "lib/netstandard2.0/Microsoft.Recognizers.Text.Sequence.dll",
+        "microsoft.recognizers.text.sequence.1.2.9.nupkg.sha512",
+        "microsoft.recognizers.text.sequence.nuspec"
       ]
     },
     "Microsoft.Rest.ClientRuntime/2.3.21": {
@@ -4431,6 +5046,40 @@
         "system.diagnostics.process.nuspec"
       ]
     },
+    "System.Diagnostics.StackTrace/4.0.0": {
+      "sha512": "PItgenqpRiMqErvQONBlfDwctKpWVrcDSW5pppNZPJ6Bpiyz+KjsWoSiaqs5dt03HEbBTMNCrZb8KCkh7YfXmw==",
+      "type": "package",
+      "path": "system.diagnostics.stacktrace/4.0.0",
+      "files": [
+        ".nupkg.metadata",
+        "lib/DNXCore50/System.Diagnostics.StackTrace.dll",
+        "lib/MonoAndroid10/_._",
+        "lib/MonoTouch10/_._",
+        "lib/net46/System.Diagnostics.StackTrace.dll",
+        "lib/netcore50/System.Diagnostics.StackTrace.dll",
+        "lib/xamarinios10/_._",
+        "lib/xamarinmac20/_._",
+        "ref/MonoAndroid10/_._",
+        "ref/MonoTouch10/_._",
+        "ref/dotnet/System.Diagnostics.StackTrace.dll",
+        "ref/dotnet/System.Diagnostics.StackTrace.xml",
+        "ref/dotnet/de/System.Diagnostics.StackTrace.xml",
+        "ref/dotnet/es/System.Diagnostics.StackTrace.xml",
+        "ref/dotnet/fr/System.Diagnostics.StackTrace.xml",
+        "ref/dotnet/it/System.Diagnostics.StackTrace.xml",
+        "ref/dotnet/ja/System.Diagnostics.StackTrace.xml",
+        "ref/dotnet/ko/System.Diagnostics.StackTrace.xml",
+        "ref/dotnet/ru/System.Diagnostics.StackTrace.xml",
+        "ref/dotnet/zh-hans/System.Diagnostics.StackTrace.xml",
+        "ref/dotnet/zh-hant/System.Diagnostics.StackTrace.xml",
+        "ref/net46/System.Diagnostics.StackTrace.dll",
+        "ref/xamarinios10/_._",
+        "ref/xamarinmac20/_._",
+        "runtimes/win8-aot/lib/netcore50/System.Diagnostics.StackTrace.dll",
+        "system.diagnostics.stacktrace.4.0.0.nupkg.sha512",
+        "system.diagnostics.stacktrace.nuspec"
+      ]
+    },
     "System.Diagnostics.Tools/4.3.0": {
       "sha512": "UUvkJfSYJMM6x527dJg2VyWPSRqIVB0Z7dbjHst1zmwTXz5CcXSYJFWRpuigfbO1Lf7yfZiIaEUesfnl/g5EyA==",
       "type": "package",
@@ -4576,6 +5225,23 @@
         "ref/xamarinwatchos10/_._",
         "system.diagnostics.tracing.4.3.0.nupkg.sha512",
         "system.diagnostics.tracing.nuspec"
+      ]
+    },
+    "System.Drawing.Primitives/4.0.0": {
+      "sha512": "9lVRG1voBwzLGZkf1XFJrobdZDZ5ZHMU4FVTbXAbzehpN90yYgkUeo9GoEYdvkt/EXaaHZJAeuffXP4JBbY+Ig==",
+      "type": "package",
+      "path": "system.drawing.primitives/4.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "ThirdPartyNotices.txt",
+        "dotnet_library_license.txt",
+        "lib/net45/System.Drawing.Primitives.dll",
+        "lib/netstandard1.1/System.Drawing.Primitives.dll",
+        "ref/net45/System.Drawing.Primitives.dll",
+        "ref/netstandard1.1/System.Drawing.Primitives.dll",
+        "system.drawing.primitives.4.0.0.nupkg.sha512",
+        "system.drawing.primitives.nuspec"
       ]
     },
     "System.Dynamic.Runtime/4.3.0": {
@@ -5762,6 +6428,23 @@
         "ref/xamarinwatchos10/_._",
         "system.reflection.extensions.4.3.0.nupkg.sha512",
         "system.reflection.extensions.nuspec"
+      ]
+    },
+    "System.Reflection.Metadata/1.2.0": {
+      "sha512": "ubQKFCNYPwhqPXPLjRKCvTDR2UvL5L5+Tm181D/5kl/df7264AuXDi2j2Bf5DxplBxevq8eUH9LRomcFCXTQKw==",
+      "type": "package",
+      "path": "system.reflection.metadata/1.2.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "ThirdPartyNotices.txt",
+        "dotnet_library_license.txt",
+        "lib/netstandard1.1/System.Reflection.Metadata.dll",
+        "lib/netstandard1.1/System.Reflection.Metadata.xml",
+        "lib/portable-net45+win8/System.Reflection.Metadata.dll",
+        "lib/portable-net45+win8/System.Reflection.Metadata.xml",
+        "system.reflection.metadata.1.2.0.nupkg.sha512",
+        "system.reflection.metadata.nuspec"
       ]
     },
     "System.Reflection.Primitives/4.3.0": {
@@ -7671,9 +8354,14 @@
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
       "AdaptiveCards >= 2.5.1",
+      "Bot.Builder.Community.Dialogs.Location >= 4.11.0",
       "Microsoft.AspNetCore.Mvc.NewtonsoftJson >= 3.1.1",
+      "Microsoft.Bot.Builder >= 4.11.1",
       "Microsoft.Bot.Builder.AI.Luis >= 4.11.1",
       "Microsoft.Bot.Builder.Dialogs >= 4.11.1",
+      "Microsoft.Bot.Builder.Dialogs.Adaptive >= 4.11.1",
+      "Microsoft.Bot.Builder.Dialogs.Declarative >= 4.11.1",
+      "Microsoft.Bot.Builder.FormFlow.Json >= 3.30.0",
       "Microsoft.Bot.Builder.Integration.AspNet.Core >= 4.11.1",
       "Microsoft.EntityFrameworkCore >= 5.0.3",
       "Microsoft.Extensions.DependencyInjection >= 5.0.1",
@@ -7730,9 +8418,17 @@
             "target": "Package",
             "version": "[2.5.1, )"
           },
+          "Bot.Builder.Community.Dialogs.Location": {
+            "target": "Package",
+            "version": "[4.11.0, )"
+          },
           "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
             "target": "Package",
             "version": "[3.1.1, )"
+          },
+          "Microsoft.Bot.Builder": {
+            "target": "Package",
+            "version": "[4.11.1, )"
           },
           "Microsoft.Bot.Builder.AI.Luis": {
             "target": "Package",
@@ -7741,6 +8437,18 @@
           "Microsoft.Bot.Builder.Dialogs": {
             "target": "Package",
             "version": "[4.11.1, )"
+          },
+          "Microsoft.Bot.Builder.Dialogs.Adaptive": {
+            "target": "Package",
+            "version": "[4.11.1, )"
+          },
+          "Microsoft.Bot.Builder.Dialogs.Declarative": {
+            "target": "Package",
+            "version": "[4.11.1, )"
+          },
+          "Microsoft.Bot.Builder.FormFlow.Json": {
+            "target": "Package",
+            "version": "[3.30.0, )"
           },
           "Microsoft.Bot.Builder.Integration.AspNet.Core": {
             "target": "Package",
@@ -7788,5 +8496,67 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.103\\RuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'Microsoft.Bot.Builder.FormFlow.Json 3.30.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework '.NETCoreApp,Version=v3.1'. This package may not be fully compatible with your project.",
+      "libraryId": "Microsoft.Bot.Builder.FormFlow.Json",
+      "targetGraphs": [
+        ".NETCoreApp,Version=v3.1"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'Microsoft.CodeAnalysis.Common 1.2.2' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework '.NETCoreApp,Version=v3.1'. This package may not be fully compatible with your project.",
+      "libraryId": "Microsoft.CodeAnalysis.Common",
+      "targetGraphs": [
+        ".NETCoreApp,Version=v3.1"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'Microsoft.CodeAnalysis.CSharp 1.2.2' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework '.NETCoreApp,Version=v3.1'. This package may not be fully compatible with your project.",
+      "libraryId": "Microsoft.CodeAnalysis.CSharp",
+      "targetGraphs": [
+        ".NETCoreApp,Version=v3.1"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'Microsoft.CodeAnalysis.CSharp.Scripting 1.2.2' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework '.NETCoreApp,Version=v3.1'. This package may not be fully compatible with your project.",
+      "libraryId": "Microsoft.CodeAnalysis.CSharp.Scripting",
+      "targetGraphs": [
+        ".NETCoreApp,Version=v3.1"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'Microsoft.CodeAnalysis.Scripting.Common 1.2.2' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework '.NETCoreApp,Version=v3.1'. This package may not be fully compatible with your project.",
+      "libraryId": "Microsoft.CodeAnalysis.Scripting.Common",
+      "targetGraphs": [
+        ".NETCoreApp,Version=v3.1"
+      ]
+    },
+    {
+      "code": "NU1701",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Package 'System.Diagnostics.StackTrace 4.0.0' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8' instead of the project target framework '.NETCoreApp,Version=v3.1'. This package may not be fully compatible with your project.",
+      "libraryId": "System.Diagnostics.StackTrace",
+      "targetGraphs": [
+        ".NETCoreApp,Version=v3.1"
+      ]
+    }
+  ]
 }

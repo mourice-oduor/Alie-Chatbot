@@ -24,7 +24,7 @@ namespace Alie.Dialogs.Operations
             };
 
             AddDialog(new LoanApplicationDetailsDialog());
-            AddDialog(new MainMenuDialog());
+            AddDialog(new MainDialog());
             AddDialog(new WaterfallDialog(nameof(WaterfallDialog), waterfallSteps));
             AddDialog(new TextPrompt(nameof(TextPrompt)));
 
@@ -35,11 +35,11 @@ namespace Alie.Dialogs.Operations
         {
             await stepContext.Context.SendActivityAsync(
                 MessageFactory.Text("Ngao Credit offers quick loans against motor vehicles.  You can borrow up to 60% of the value of your car in 6 hrs and repay within a period of up to 24 months." +
-                "With this type of loan, you only need:  " + " " + 
-                                                          ">Original logbook " +" "+
-                                                          ">Original national ID & PIN "+" " +
-                                                          ">Latest 6 months bank statements " + " " +
-                                                          ">Post - dated cheque(s) " + " " +
+                "With this type of loan, you only need:  " + "  " + 
+                                                          ">Original logbook " +"  "+
+                                                          ">Original national ID & PIN "+"  " +
+                                                          ">Latest 6 months bank statements " + "  " +
+                                                          ">Post - dated cheque(s) " + "  " +
                                                           ">Comprehensive insurance "), cancellationToken);
 
             List<string> operationList = new List<string> { "1. Apply This Loan",
@@ -93,16 +93,24 @@ namespace Alie.Dialogs.Operations
 
             else
             {
-                //await stepContext.Context.SendActivityAsync(MessageFactory.Text("Wrong User Input. Please try again!"), cancellationToken);
-                return await stepContext.ReplaceDialogAsync(InitialDialogId, cancellationToken);
             }
+            return await stepContext.BeginDialogAsync(nameof(LoanApplicationDetailsDialog), new UserProfile(), cancellationToken);
+
+
+            //return await stepContext.BeginDialogAsync(nameof(LoanApplicationDetailsDialog), new UserProfile(), cancellationToken);
+
+            //return await stepContext.ReplaceDialogAsync(InitialDialogId, cancellationToken);
+            //return await stepContext.BeginDialogAsync(nameof(LoanApplicationDetailsDialog), new UserProfile(), cancellationToken);
+
+
         }
 
         private async Task<DialogTurnResult> FinalStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
             // Restart the main dialog with a different message the second time around
-            var promptMessage = "What else can I do for you?";
-            return await stepContext.BeginDialogAsync(promptMessage, InitialDialogId, cancellationToken);
+            //var promptMessage = "What else can I do for you?";
+            //return await stepContext.BeginDialogAsync(promptMessage, InitialDialogId, cancellationToken);
+            return await stepContext.BeginDialogAsync(nameof(LoanApplicationDetailsDialog), new UserProfile(), cancellationToken);
         }
     }
 }

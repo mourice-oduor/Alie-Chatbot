@@ -83,7 +83,9 @@ namespace Alie.Dialogs.Operations
             }
             else if ("Back To Previous Menu".Equals(operation))
             {
-                return await stepContext.ReplaceDialogAsync(InitialDialogId, cancellationToken);
+                //return await stepContext.ReplaceDialogAsync(InitialDialogId, cancellationToken);
+                return await stepContext.BeginDialogAsync(nameof(LoanApplicationDetailsDialog), new UserProfile(), cancellationToken);
+
             }
             else if ("Main Menu".Equals(operation))
             {
@@ -93,15 +95,20 @@ namespace Alie.Dialogs.Operations
             else
             {
                 //await stepContext.Context.SendActivityAsync(MessageFactory.Text("Wrong User Input. Please try again!"), cancellationToken);
-                return await stepContext.ReplaceDialogAsync(InitialDialogId, cancellationToken);
+                //return await stepContext.ReplaceDialogAsync(InitialDialogId, cancellationToken);
+                return await stepContext.BeginDialogAsync(nameof(LoanApplicationDetailsDialog), new UserProfile(), cancellationToken);
+
             }
+
         }
 
         private async Task<DialogTurnResult> FinalStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
             // Restart the main dialog with a different message the second time around
-            var promptMessage = "What else can I do for you?";
-            return await stepContext.BeginDialogAsync(promptMessage, InitialDialogId, cancellationToken);
+            //var promptMessage = "What else can I do for you?";
+            //return await stepContext.BeginDialogAsync(promptMessage, InitialDialogId, cancellationToken);
+            return await stepContext.BeginDialogAsync(nameof(LoanApplicationDetailsDialog), new UserProfile(), cancellationToken);
+
         }
     }
 }

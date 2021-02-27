@@ -25,9 +25,14 @@
       "Alie/1.0.0": {
         "dependencies": {
           "AdaptiveCards": "2.5.1",
+          "Bot.Builder.Community.Dialogs.Location": "4.11.0",
           "Microsoft.AspNetCore.Mvc.NewtonsoftJson": "3.1.1",
+          "Microsoft.Bot.Builder": "4.11.1",
           "Microsoft.Bot.Builder.AI.Luis": "4.11.1",
           "Microsoft.Bot.Builder.Dialogs": "4.11.1",
+          "Microsoft.Bot.Builder.Dialogs.Adaptive": "4.11.1",
+          "Microsoft.Bot.Builder.Dialogs.Declarative": "4.11.1",
+          "Microsoft.Bot.Builder.FormFlow.Json": "3.30.0",
           "Microsoft.Bot.Builder.Integration.AspNet.Core": "4.11.1",
           "Microsoft.EntityFrameworkCore": "5.0.3",
           "Microsoft.Extensions.DependencyInjection": "5.0.1",
@@ -121,7 +126,7 @@
           "Microsoft.Extensions.Configuration.Ini": "3.1.0.0",
           "Microsoft.Extensions.Configuration.Json.Reference": "3.1.0.0",
           "Microsoft.Extensions.Configuration.KeyPerFile": "3.1.0.0",
-          "Microsoft.Extensions.Configuration.UserSecrets": "3.1.0.0",
+          "Microsoft.Extensions.Configuration.UserSecrets.Reference": "3.1.0.0",
           "Microsoft.Extensions.Configuration.Xml": "3.1.0.0",
           "Microsoft.Extensions.Diagnostics.HealthChecks.Abstractions": "3.1.0.0",
           "Microsoft.Extensions.Diagnostics.HealthChecks": "3.1.0.0",
@@ -177,14 +182,14 @@
           "System.Diagnostics.EventLog": "4.0.2.0",
           "System.Diagnostics.FileVersionInfo": "4.0.4.0",
           "System.Diagnostics.Process.Reference": "4.2.2.0",
-          "System.Diagnostics.StackTrace": "4.1.2.0",
+          "System.Diagnostics.StackTrace.Reference": "4.1.2.0",
           "System.Diagnostics.TextWriterTraceListener": "4.1.2.0",
           "System.Diagnostics.Tools.Reference": "4.1.2.0",
           "System.Diagnostics.TraceSource": "4.1.2.0",
           "System.Diagnostics.Tracing.Reference": "4.2.2.0",
           "System": "4.0.0.0",
           "System.Drawing": "4.0.0.0",
-          "System.Drawing.Primitives": "4.2.1.0",
+          "System.Drawing.Primitives.Reference": "4.2.1.0",
           "System.Dynamic.Runtime.Reference": "4.1.2.0",
           "System.Globalization.Calendars.Reference": "4.1.2.0",
           "System.Globalization.Reference": "4.1.2.0",
@@ -234,7 +239,7 @@
           "System.Reflection.Emit.ILGeneration.Reference": "4.1.1.0",
           "System.Reflection.Emit.Lightweight.Reference": "4.1.1.0",
           "System.Reflection.Extensions.Reference": "4.1.2.0",
-          "System.Reflection.Metadata": "1.4.5.0",
+          "System.Reflection.Metadata.Reference": "1.4.5.0",
           "System.Reflection.Primitives.Reference": "4.1.2.0",
           "System.Reflection.TypeExtensions.Reference": "4.1.2.0",
           "System.Resources.Reader": "4.1.2.0",
@@ -360,6 +365,48 @@
           "lib/netstandard1.3/Antlr4.Runtime.Standard.dll": {}
         }
       },
+      "Bot.Builder.Community.Dialogs.Location/4.11.0": {
+        "dependencies": {
+          "CoreCompat.System.Drawing": "1.0.0-beta006",
+          "Microsoft.Bot.Builder.Dialogs": "4.11.1",
+          "Newtonsoft.Json": "12.0.3"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Bot.Builder.Community.Dialogs.Location.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/Bot.Builder.Community.Dialogs.Location.dll": {}
+        }
+      },
+      "CoreCompat.System.Drawing/1.0.0-beta006": {
+        "dependencies": {
+          "Microsoft.Win32.Primitives": "4.3.0",
+          "System.Collections.NonGeneric": "4.3.0",
+          "System.Collections.Specialized": "4.3.0",
+          "System.ComponentModel.TypeConverter": "4.3.0",
+          "System.Drawing.Primitives": "4.0.0",
+          "System.IO.FileSystem": "4.3.0",
+          "System.Reflection.TypeExtensions": "4.3.0",
+          "System.Runtime.Extensions": "4.3.0",
+          "System.Runtime.InteropServices": "4.3.0",
+          "System.Runtime.InteropServices.RuntimeInformation": "4.3.0",
+          "System.Text.Encoding.Extensions": "4.3.0",
+          "System.Text.RegularExpressions": "4.3.0",
+          "System.Threading": "4.3.0"
+        },
+        "runtime": {
+          "lib/netstandard1.3/CoreCompat.System.Drawing.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        },
+        "compile": {
+          "lib/netstandard1.3/CoreCompat.System.Drawing.dll": {}
+        }
+      },
       "Microsoft.AspNetCore.JsonPatch/3.1.1": {
         "dependencies": {
           "Microsoft.CSharp": "4.7.0",
@@ -459,6 +506,29 @@
           "lib/netstandard2.0/Microsoft.Bot.Builder.Dialogs.dll": {}
         }
       },
+      "Microsoft.Bot.Builder.Dialogs.Adaptive/4.11.1": {
+        "dependencies": {
+          "AdaptiveExpressions": "4.11.1",
+          "Microsoft.Bot.Builder.Dialogs.Declarative": "4.11.1",
+          "Microsoft.Bot.Builder.LanguageGeneration": "4.11.1",
+          "Microsoft.Extensions.Configuration.Json": "2.1.0",
+          "Microsoft.Extensions.Configuration.UserSecrets": "2.1.0",
+          "Microsoft.Recognizers.Text": "1.2.9",
+          "Microsoft.Recognizers.Text.Choice": "1.2.9",
+          "Microsoft.Recognizers.Text.DateTime": "1.2.9",
+          "Microsoft.Recognizers.Text.Number": "1.2.9",
+          "Microsoft.Recognizers.Text.Sequence": "1.2.9"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.Bot.Builder.Dialogs.Adaptive.dll": {
+            "assemblyVersion": "4.11.1.0",
+            "fileVersion": "4.11.1.0"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/Microsoft.Bot.Builder.Dialogs.Adaptive.dll": {}
+        }
+      },
       "Microsoft.Bot.Builder.Dialogs.Declarative/4.11.1": {
         "dependencies": {
           "AdaptiveExpressions": "4.11.1",
@@ -476,6 +546,33 @@
           "lib/netstandard2.0/Microsoft.Bot.Builder.Dialogs.Declarative.dll": {}
         }
       },
+      "Microsoft.Bot.Builder.FormFlow.Json/3.30.0": {
+        "dependencies": {
+          "Microsoft.Bot.Builder": "4.11.1",
+          "Microsoft.CodeAnalysis.CSharp.Scripting": "1.2.2",
+          "Microsoft.CodeAnalysis.Scripting": "1.2.2",
+          "Newtonsoft.Json": "12.0.3",
+          "System.Collections": "4.3.0",
+          "System.Diagnostics.Debug": "4.3.0",
+          "System.Globalization": "4.3.0",
+          "System.IO": "4.3.0",
+          "System.Reflection": "4.3.0",
+          "System.Runtime": "4.3.0",
+          "System.Runtime.Extensions": "4.3.0",
+          "System.Runtime.InteropServices": "4.3.0",
+          "System.Threading": "4.3.0",
+          "System.Threading.Tasks": "4.3.0"
+        },
+        "runtime": {
+          "lib/net46/Microsoft.Bot.Builder.FormFlow.Json.dll": {
+            "assemblyVersion": "3.30.0.1",
+            "fileVersion": "3.30.0.1"
+          }
+        },
+        "compile": {
+          "lib/net46/Microsoft.Bot.Builder.FormFlow.Json.dll": {}
+        }
+      },
       "Microsoft.Bot.Builder.Integration.AspNet.Core/4.11.1": {
         "dependencies": {
           "Microsoft.Bot.Builder": "4.11.1",
@@ -490,6 +587,22 @@
         },
         "compile": {
           "lib/netcoreapp3.1/Microsoft.Bot.Builder.Integration.AspNet.Core.dll": {}
+        }
+      },
+      "Microsoft.Bot.Builder.LanguageGeneration/4.11.1": {
+        "dependencies": {
+          "AdaptiveExpressions": "4.11.1",
+          "Antlr4.Runtime.Standard": "4.8.0",
+          "Newtonsoft.Json": "12.0.3"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.Bot.Builder.LanguageGeneration.dll": {
+            "assemblyVersion": "4.11.1.0",
+            "fileVersion": "4.11.1.0"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/Microsoft.Bot.Builder.LanguageGeneration.dll": {}
         }
       },
       "Microsoft.Bot.Configuration/4.11.1": {
@@ -554,6 +667,91 @@
         },
         "compile": {
           "lib/netstandard2.0/Microsoft.Bot.Streaming.dll": {}
+        }
+      },
+      "Microsoft.CodeAnalysis.Analyzers/1.1.0": {},
+      "Microsoft.CodeAnalysis.Common/1.2.2": {
+        "dependencies": {
+          "Microsoft.CodeAnalysis.Analyzers": "1.1.0",
+          "System.Collections.Immutable": "5.0.0",
+          "System.Reflection.Metadata": "1.2.0"
+        },
+        "runtime": {
+          "lib/net45/Microsoft.CodeAnalysis.dll": {
+            "assemblyVersion": "1.2.0.0",
+            "fileVersion": "1.2.0.60425"
+          }
+        },
+        "compile": {
+          "lib/net45/Microsoft.CodeAnalysis.dll": {}
+        }
+      },
+      "Microsoft.CodeAnalysis.CSharp/1.2.2": {
+        "dependencies": {
+          "Microsoft.CodeAnalysis.Common": "1.2.2"
+        },
+        "runtime": {
+          "lib/net45/Microsoft.CodeAnalysis.CSharp.dll": {
+            "assemblyVersion": "1.2.0.0",
+            "fileVersion": "1.2.0.60425"
+          }
+        },
+        "compile": {
+          "lib/net45/Microsoft.CodeAnalysis.CSharp.dll": {}
+        }
+      },
+      "Microsoft.CodeAnalysis.CSharp.Scripting/1.2.2": {
+        "dependencies": {
+          "Microsoft.CodeAnalysis.CSharp": "1.2.2",
+          "Microsoft.CodeAnalysis.Scripting.Common": "1.2.2"
+        },
+        "runtime": {
+          "lib/dotnet/Microsoft.CodeAnalysis.CSharp.Scripting.dll": {
+            "assemblyVersion": "1.2.0.0",
+            "fileVersion": "1.2.0.60425"
+          }
+        },
+        "compile": {
+          "lib/dotnet/Microsoft.CodeAnalysis.CSharp.Scripting.dll": {}
+        }
+      },
+      "Microsoft.CodeAnalysis.Scripting/1.2.2": {
+        "dependencies": {
+          "Microsoft.CodeAnalysis.CSharp.Scripting": "1.2.2",
+          "Microsoft.CodeAnalysis.Scripting.Common": "1.2.2"
+        }
+      },
+      "Microsoft.CodeAnalysis.Scripting.Common/1.2.2": {
+        "dependencies": {
+          "Microsoft.CodeAnalysis.Common": "1.2.2",
+          "System.AppContext": "4.3.0",
+          "System.Collections": "4.3.0",
+          "System.Collections.Immutable": "5.0.0",
+          "System.Diagnostics.Debug": "4.3.0",
+          "System.Diagnostics.StackTrace": "4.0.0",
+          "System.Diagnostics.Tools": "4.3.0",
+          "System.Globalization": "4.3.0",
+          "System.IO": "4.3.0",
+          "System.IO.FileSystem": "4.3.0",
+          "System.Linq": "4.3.0",
+          "System.Linq.Expressions": "4.3.0",
+          "System.Reflection": "4.3.0",
+          "System.Reflection.Extensions": "4.3.0",
+          "System.Resources.ResourceManager": "4.3.0",
+          "System.Runtime": "4.3.0",
+          "System.Runtime.Extensions": "4.3.0",
+          "System.Runtime.InteropServices": "4.3.0",
+          "System.Threading": "4.3.0",
+          "System.Threading.Tasks": "4.3.0"
+        },
+        "runtime": {
+          "lib/dotnet/Microsoft.CodeAnalysis.Scripting.dll": {
+            "assemblyVersion": "1.2.0.0",
+            "fileVersion": "1.2.0.60425"
+          }
+        },
+        "compile": {
+          "lib/dotnet/Microsoft.CodeAnalysis.Scripting.dll": {}
         }
       },
       "Microsoft.CSharp/4.7.0": {},
@@ -643,6 +841,11 @@
           "Microsoft.Extensions.Configuration": "2.1.0",
           "Microsoft.Extensions.Configuration.FileExtensions": "2.1.0",
           "Newtonsoft.Json": "12.0.3"
+        }
+      },
+      "Microsoft.Extensions.Configuration.UserSecrets/2.1.0": {
+        "dependencies": {
+          "Microsoft.Extensions.Configuration.Json": "2.1.0"
         }
       },
       "Microsoft.Extensions.DependencyInjection/5.0.1": {
@@ -936,6 +1139,21 @@
         },
         "compile": {
           "lib/netstandard2.0/Microsoft.Recognizers.Text.NumberWithUnit.dll": {}
+        }
+      },
+      "Microsoft.Recognizers.Text.Sequence/1.2.9": {
+        "dependencies": {
+          "Microsoft.Recognizers.Text": "1.2.9",
+          "System.Collections.Immutable": "5.0.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Microsoft.Recognizers.Text.Sequence.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        },
+        "compile": {
+          "lib/netstandard2.0/Microsoft.Recognizers.Text.Sequence.dll": {}
         }
       },
       "Microsoft.Rest.ClientRuntime/2.3.21": {
@@ -1330,6 +1548,7 @@
           "runtime.native.System": "4.3.0"
         }
       },
+      "System.Diagnostics.StackTrace/4.0.0": {},
       "System.Diagnostics.Tools/4.3.0": {
         "dependencies": {
           "Microsoft.NETCore.Platforms": "1.1.1",
@@ -1342,6 +1561,12 @@
           "Microsoft.NETCore.Platforms": "1.1.1",
           "Microsoft.NETCore.Targets": "1.1.3",
           "System.Runtime": "4.3.0"
+        }
+      },
+      "System.Drawing.Primitives/4.0.0": {
+        "dependencies": {
+          "System.Runtime": "4.3.0",
+          "System.Runtime.Extensions": "4.3.0"
         }
       },
       "System.Dynamic.Runtime/4.3.0": {
@@ -1622,6 +1847,25 @@
           "Microsoft.NETCore.Targets": "1.1.3",
           "System.Reflection": "4.3.0",
           "System.Runtime": "4.3.0"
+        }
+      },
+      "System.Reflection.Metadata/1.2.0": {
+        "dependencies": {
+          "System.Collections": "4.3.0",
+          "System.Collections.Immutable": "5.0.0",
+          "System.Diagnostics.Debug": "4.3.0",
+          "System.IO": "4.3.0",
+          "System.Linq": "4.3.0",
+          "System.Reflection": "4.3.0",
+          "System.Reflection.Extensions": "4.3.0",
+          "System.Reflection.Primitives": "4.3.0",
+          "System.Resources.ResourceManager": "4.3.0",
+          "System.Runtime": "4.3.0",
+          "System.Runtime.Extensions": "4.3.0",
+          "System.Runtime.InteropServices": "4.3.0",
+          "System.Text.Encoding": "4.3.0",
+          "System.Text.Encoding.Extensions": "4.3.0",
+          "System.Threading": "4.3.0"
         }
       },
       "System.Reflection.Primitives/4.3.0": {
@@ -2509,7 +2753,7 @@
         },
         "compileOnly": true
       },
-      "Microsoft.Extensions.Configuration.UserSecrets/3.1.0.0": {
+      "Microsoft.Extensions.Configuration.UserSecrets.Reference/3.1.0.0": {
         "compile": {
           "Microsoft.Extensions.Configuration.UserSecrets.dll": {}
         },
@@ -2845,7 +3089,7 @@
         },
         "compileOnly": true
       },
-      "System.Diagnostics.StackTrace/4.1.2.0": {
+      "System.Diagnostics.StackTrace.Reference/4.1.2.0": {
         "compile": {
           "System.Diagnostics.StackTrace.dll": {}
         },
@@ -2887,7 +3131,7 @@
         },
         "compileOnly": true
       },
-      "System.Drawing.Primitives/4.2.1.0": {
+      "System.Drawing.Primitives.Reference/4.2.1.0": {
         "compile": {
           "System.Drawing.Primitives.dll": {}
         },
@@ -3187,7 +3431,7 @@
         },
         "compileOnly": true
       },
-      "System.Reflection.Metadata/1.4.5.0": {
+      "System.Reflection.Metadata.Reference/1.4.5.0": {
         "compile": {
           "System.Reflection.Metadata.dll": {}
         },
@@ -3642,6 +3886,20 @@
       "path": "antlr4.runtime.standard/4.8.0",
       "hashPath": "antlr4.runtime.standard.4.8.0.nupkg.sha512"
     },
+    "Bot.Builder.Community.Dialogs.Location/4.11.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-KGv8rLPgFKT/HlHYiHY9+9RJwNgRW8vfcxfomsdsiluYncEv7sWxxc3WXG5SO59x6Nz6zoNR+JCxEPJ3UpYU4w==",
+      "path": "bot.builder.community.dialogs.location/4.11.0",
+      "hashPath": "bot.builder.community.dialogs.location.4.11.0.nupkg.sha512"
+    },
+    "CoreCompat.System.Drawing/1.0.0-beta006": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-KOBeVy8FHx9zkXrIZAM8OdXPrimROmvfB02fOegrYIelNN/zWhsOwzONgD7gw7wOTJgAFfdwpme5CiMraJj47Q==",
+      "path": "corecompat.system.drawing/1.0.0-beta006",
+      "hashPath": "corecompat.system.drawing.1.0.0-beta006.nupkg.sha512"
+    },
     "Microsoft.AspNetCore.JsonPatch/3.1.1": {
       "type": "package",
       "serviceable": true,
@@ -3684,6 +3942,13 @@
       "path": "microsoft.bot.builder.dialogs/4.11.1",
       "hashPath": "microsoft.bot.builder.dialogs.4.11.1.nupkg.sha512"
     },
+    "Microsoft.Bot.Builder.Dialogs.Adaptive/4.11.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-8La8OQFsbyMbfXAMjvU49CRXmi3whTeC+gTdJRwWBPNFP4owidKYU6K7rxazx7HgvzGvfg/BkglBB5QncvKWkw==",
+      "path": "microsoft.bot.builder.dialogs.adaptive/4.11.1",
+      "hashPath": "microsoft.bot.builder.dialogs.adaptive.4.11.1.nupkg.sha512"
+    },
     "Microsoft.Bot.Builder.Dialogs.Declarative/4.11.1": {
       "type": "package",
       "serviceable": true,
@@ -3691,12 +3956,26 @@
       "path": "microsoft.bot.builder.dialogs.declarative/4.11.1",
       "hashPath": "microsoft.bot.builder.dialogs.declarative.4.11.1.nupkg.sha512"
     },
+    "Microsoft.Bot.Builder.FormFlow.Json/3.30.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-HxDt4JSzFfCBWaOVN5uw74hHMdpG2HG0KOaBdygib4vIruKpNCVYId0cgS9/zD0wRKeU5nOfB+NAXauitbgH/A==",
+      "path": "microsoft.bot.builder.formflow.json/3.30.0",
+      "hashPath": "microsoft.bot.builder.formflow.json.3.30.0.nupkg.sha512"
+    },
     "Microsoft.Bot.Builder.Integration.AspNet.Core/4.11.1": {
       "type": "package",
       "serviceable": true,
       "sha512": "sha512-Y1vgzSV0QpmRDuW8hgoq+JeL6xSjiKiv5ZB2nrUWcyjnDZ//4fFlaPM7M0jWsuvWei8Red8NUp8jyl+3oWpDxQ==",
       "path": "microsoft.bot.builder.integration.aspnet.core/4.11.1",
       "hashPath": "microsoft.bot.builder.integration.aspnet.core.4.11.1.nupkg.sha512"
+    },
+    "Microsoft.Bot.Builder.LanguageGeneration/4.11.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-KXM8yErqbcrBt/K7wUrilcYdBAQz84vdJqBIICSMCDmPr4opA0sjfM1579kjpQ6dZniUdTa8dndrb6Ais9js5A==",
+      "path": "microsoft.bot.builder.languagegeneration/4.11.1",
+      "hashPath": "microsoft.bot.builder.languagegeneration.4.11.1.nupkg.sha512"
     },
     "Microsoft.Bot.Configuration/4.11.1": {
       "type": "package",
@@ -3725,6 +4004,48 @@
       "sha512": "sha512-IhwxE+daMZ7Tdp+vatDZHbfID+A3C+5gdLDB1F/Sa44Mqj9wXnDn4oqx8fb9r5WTeWSFKbAYGEa8yTCsau1jvQ==",
       "path": "microsoft.bot.streaming/4.11.1",
       "hashPath": "microsoft.bot.streaming.4.11.1.nupkg.sha512"
+    },
+    "Microsoft.CodeAnalysis.Analyzers/1.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-HS3iRWZKcUw/8eZ/08GXKY2Bn7xNzQPzf8gRPHGSowX7u7XXu9i9YEaBeBNKUXWfI7qjvT2zXtLUvbN0hds8vg==",
+      "path": "microsoft.codeanalysis.analyzers/1.1.0",
+      "hashPath": "microsoft.codeanalysis.analyzers.1.1.0.nupkg.sha512"
+    },
+    "Microsoft.CodeAnalysis.Common/1.2.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-28bHBzF42U79sjvo1Z5z4JI+P7bUnsu3DqB8YQ4zCYoQ2WBmfZ4BKTeNv9AL4XhoIJPtVmrTKnsA3adbuF/8cA==",
+      "path": "microsoft.codeanalysis.common/1.2.2",
+      "hashPath": "microsoft.codeanalysis.common.1.2.2.nupkg.sha512"
+    },
+    "Microsoft.CodeAnalysis.CSharp/1.2.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-OxE/OYM/x/VR1ENaqg78Oe9dORdLIvvwZhz6G34wG7/w9IYHTA9E4y29nlEqaDzM2lL4CPOWQw7cVPejBkUETQ==",
+      "path": "microsoft.codeanalysis.csharp/1.2.2",
+      "hashPath": "microsoft.codeanalysis.csharp.1.2.2.nupkg.sha512"
+    },
+    "Microsoft.CodeAnalysis.CSharp.Scripting/1.2.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-XfWLQsGjSwGTd71cStR74EK62tCEW8+yQW3Kz5wP43lUi6AmP3+GUqhGkvwI+ucW9RapF4G4HdgKlcrWjPJBrQ==",
+      "path": "microsoft.codeanalysis.csharp.scripting/1.2.2",
+      "hashPath": "microsoft.codeanalysis.csharp.scripting.1.2.2.nupkg.sha512"
+    },
+    "Microsoft.CodeAnalysis.Scripting/1.2.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-xs4pIzAYoLxQxhwVj6VCLYmN7SU84MdNaZpa2YVDKxpEQZ1okfold8qg9A8u/vtnZ3t0aRVfC6B5O9+Fogofqw==",
+      "path": "microsoft.codeanalysis.scripting/1.2.2",
+      "hashPath": "microsoft.codeanalysis.scripting.1.2.2.nupkg.sha512"
+    },
+    "Microsoft.CodeAnalysis.Scripting.Common/1.2.2": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-DQy4qp0y52ikslwynm1cyTsD/FXgYZYP6oqGmBs6t+cjahwUR2SDbEzHp5QjAkPoQ7X8fLv6C6taCthGOyxl2A==",
+      "path": "microsoft.codeanalysis.scripting.common/1.2.2",
+      "hashPath": "microsoft.codeanalysis.scripting.common.1.2.2.nupkg.sha512"
     },
     "Microsoft.CSharp/4.7.0": {
       "type": "package",
@@ -3795,6 +4116,13 @@
       "sha512": "sha512-9OCdAv7qiRtRlXQnECxW9zINUK8bYPKbNp5x8FQaLZbm/flv7mPvo1muZ1nsKGMZF4uL4Bl6nHw2v1fi3MqQ1Q==",
       "path": "microsoft.extensions.configuration.json/2.1.0",
       "hashPath": "microsoft.extensions.configuration.json.2.1.0.nupkg.sha512"
+    },
+    "Microsoft.Extensions.Configuration.UserSecrets/2.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-QNZsegDzpbwGOMwd+4/0fW075nLV68K2/EPROXuLKRfnzr56CsFGymmzQdwX80TdybCO3AWri0h4hY0L5g7WNg==",
+      "path": "microsoft.extensions.configuration.usersecrets/2.1.0",
+      "hashPath": "microsoft.extensions.configuration.usersecrets.2.1.0.nupkg.sha512"
     },
     "Microsoft.Extensions.DependencyInjection/5.0.1": {
       "type": "package",
@@ -3963,6 +4291,13 @@
       "sha512": "sha512-CVXByaIYWxDBxVeGvTMaG/xbAh5+CORhQNLkrcmqKNw8WAl20bBZxZJFwe77gVZ2UN9OQ0NX2yI+R86NOddtQg==",
       "path": "microsoft.recognizers.text.numberwithunit/1.2.9",
       "hashPath": "microsoft.recognizers.text.numberwithunit.1.2.9.nupkg.sha512"
+    },
+    "Microsoft.Recognizers.Text.Sequence/1.2.9": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-lHPVcHyezKTB9zHX55uTAKOl0efqP31qDR1JPJto1S6oTn2n2mrXmgGhZBLZx2k69r9Dor5Vio0SYh1FG0ikwg==",
+      "path": "microsoft.recognizers.text.sequence/1.2.9",
+      "hashPath": "microsoft.recognizers.text.sequence.1.2.9.nupkg.sha512"
     },
     "Microsoft.Rest.ClientRuntime/2.3.21": {
       "type": "package",
@@ -4265,6 +4600,13 @@
       "path": "system.diagnostics.process/4.3.0",
       "hashPath": "system.diagnostics.process.4.3.0.nupkg.sha512"
     },
+    "System.Diagnostics.StackTrace/4.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-PItgenqpRiMqErvQONBlfDwctKpWVrcDSW5pppNZPJ6Bpiyz+KjsWoSiaqs5dt03HEbBTMNCrZb8KCkh7YfXmw==",
+      "path": "system.diagnostics.stacktrace/4.0.0",
+      "hashPath": "system.diagnostics.stacktrace.4.0.0.nupkg.sha512"
+    },
     "System.Diagnostics.Tools/4.3.0": {
       "type": "package",
       "serviceable": true,
@@ -4278,6 +4620,13 @@
       "sha512": "sha512-rswfv0f/Cqkh78rA5S8eN8Neocz234+emGCtTF3lxPY96F+mmmUen6tbn0glN6PMvlKQb9bPAY5e9u7fgPTkKw==",
       "path": "system.diagnostics.tracing/4.3.0",
       "hashPath": "system.diagnostics.tracing.4.3.0.nupkg.sha512"
+    },
+    "System.Drawing.Primitives/4.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-9lVRG1voBwzLGZkf1XFJrobdZDZ5ZHMU4FVTbXAbzehpN90yYgkUeo9GoEYdvkt/EXaaHZJAeuffXP4JBbY+Ig==",
+      "path": "system.drawing.primitives/4.0.0",
+      "hashPath": "system.drawing.primitives.4.0.0.nupkg.sha512"
     },
     "System.Dynamic.Runtime/4.3.0": {
       "type": "package",
@@ -4439,6 +4788,13 @@
       "sha512": "sha512-rJkrJD3kBI5B712aRu4DpSIiHRtr6QlfZSQsb0hYHrDCZORXCFjQfoipo2LaMUHoT9i1B7j7MnfaEKWDFmFQNQ==",
       "path": "system.reflection.extensions/4.3.0",
       "hashPath": "system.reflection.extensions.4.3.0.nupkg.sha512"
+    },
+    "System.Reflection.Metadata/1.2.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-ubQKFCNYPwhqPXPLjRKCvTDR2UvL5L5+Tm181D/5kl/df7264AuXDi2j2Bf5DxplBxevq8eUH9LRomcFCXTQKw==",
+      "path": "system.reflection.metadata/1.2.0",
+      "hashPath": "system.reflection.metadata.1.2.0.nupkg.sha512"
     },
     "System.Reflection.Primitives/4.3.0": {
       "type": "package",
@@ -5120,7 +5476,7 @@
       "serviceable": false,
       "sha512": ""
     },
-    "Microsoft.Extensions.Configuration.UserSecrets/3.1.0.0": {
+    "Microsoft.Extensions.Configuration.UserSecrets.Reference/3.1.0.0": {
       "type": "referenceassembly",
       "serviceable": false,
       "sha512": ""
@@ -5400,7 +5756,7 @@
       "serviceable": false,
       "sha512": ""
     },
-    "System.Diagnostics.StackTrace/4.1.2.0": {
+    "System.Diagnostics.StackTrace.Reference/4.1.2.0": {
       "type": "referenceassembly",
       "serviceable": false,
       "sha512": ""
@@ -5435,7 +5791,7 @@
       "serviceable": false,
       "sha512": ""
     },
-    "System.Drawing.Primitives/4.2.1.0": {
+    "System.Drawing.Primitives.Reference/4.2.1.0": {
       "type": "referenceassembly",
       "serviceable": false,
       "sha512": ""
@@ -5685,7 +6041,7 @@
       "serviceable": false,
       "sha512": ""
     },
-    "System.Reflection.Metadata/1.4.5.0": {
+    "System.Reflection.Metadata.Reference/1.4.5.0": {
       "type": "referenceassembly",
       "serviceable": false,
       "sha512": ""
