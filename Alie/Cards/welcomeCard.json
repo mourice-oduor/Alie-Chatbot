@@ -36,6 +36,7 @@
     {
       "type": "TextBlock",
       "size": "default",
+      "weight": "bold",
       "isSubtle": true,
       "text": "Select any of the prompts below concerning our products and get a reply within a minute.",
       "wrap": true,

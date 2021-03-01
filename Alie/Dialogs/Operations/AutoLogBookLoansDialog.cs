@@ -8,7 +8,6 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Bot.Schema;
-using Alie.Dialogs.Details;
 
 namespace Alie.Dialogs.Operations
 {
@@ -24,6 +23,8 @@ namespace Alie.Dialogs.Operations
             };
 
             AddDialog(new LoanApplicationDetailsDialog());
+            //AddDialog(new BackDialog());
+            //AddDialog(new MainMenuDialog());
             AddDialog(new MainDialog());
             AddDialog(new WaterfallDialog(nameof(WaterfallDialog), waterfallSteps));
             AddDialog(new TextPrompt(nameof(TextPrompt)));
@@ -35,16 +36,16 @@ namespace Alie.Dialogs.Operations
         {
             await stepContext.Context.SendActivityAsync(
                 MessageFactory.Text("Ngao Credit offers quick loans against motor vehicles.  You can borrow up to 60% of the value of your car in 6 hrs and repay within a period of up to 24 months." +
-                "With this type of loan, you only need:  " + "  " + 
-                                                          ">Original logbook " +"  "+
-                                                          ">Original national ID & PIN "+"  " +
-                                                          ">Latest 6 months bank statements " + "  " +
-                                                          ">Post - dated cheque(s) " + "  " +
-                                                          ">Comprehensive insurance "), cancellationToken);
+                "With this type of loan, you only need:  "  +  "  " +  
+                                                          " >Original logbook " + "  " + 
+                                                          " >Original national ID & PIN " + "  " +
+                                                          " >Latest 6 months bank statements " + "  " +
+                                                          " >Post - dated cheque(s) " + "  " +
+                                                          " >Comprehensive insurance "), cancellationToken);
 
-            List<string> operationList = new List<string> { "Apply This Loan",
-                                                            "Back To Previous Menu",
-                                                            "Main Menu"};
+            List<string> operationList = new List<string> { "1. Apply This Loan",
+                                                            "2. Back To Previous Menu",
+                                                            "3. Main Menu"};
 
             // Create card
             var card = new AdaptiveCard(new AdaptiveSchemaVersion(1, 0))
@@ -78,32 +79,25 @@ namespace Alie.Dialogs.Operations
             string operation = (string)stepContext.Values["Operation"];
             //await stepContext.Context.SendActivityAsync((operation));
 
-            if ("Apply This Loan".Equals(operation))
+            if ("1. Apply This Loan".Equals(operation))
             {
                 return await stepContext.BeginDialogAsync(nameof(LoanApplicationDetailsDialog), new UserProfile(), cancellationToken);
             }
-            else if ("Back To Previous Menu".Equals(operation))
+            else if ("2. Back To Previous Menu".Equals(operation))
             {
                 return await stepContext.ReplaceDialogAsync(InitialDialogId, cancellationToken);
             }
-            else if ("Main Menu".Equals(operation))
+            else if ("3. Main Menu".Equals(operation))
             {
-                return await stepContext.BeginDialogAsync(nameof(MainMenuDialog), new UserProfile(), cancellationToken);
+                return await stepContext.BeginDialogAsync(nameof(MainDialog), new UserProfile(), cancellationToken);
             }
 
             else
             {
+                await stepContext.Context.SendActivityAsync(MessageFactory.Text("Wrong User Input. Please try again!"), cancellationToken);
                 return await stepContext.ReplaceDialogAsync(InitialDialogId, cancellationToken);
-
             }
-            //return await stepContext.BeginDialogAsync(nameof(LoanApplicationDetailsDialog), new UserProfile(), cancellationToken);
-
-
-            //return await stepContext.BeginDialogAsync(nameof(LoanApplicationDetailsDialog), new UserProfile(), cancellationToken);
-
-            //return await stepContext.BeginDialogAsync(nameof(LoanApplicationDetailsDialog), new UserProfile(), cancellationToken);
-
-
+            
         }
 
         private async Task<DialogTurnResult> FinalStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
@@ -111,7 +105,6 @@ namespace Alie.Dialogs.Operations
             // Restart the main dialog with a different message the second time around
             var promptMessage = "What else can I do for you?";
             return await stepContext.BeginDialogAsync(promptMessage, InitialDialogId, cancellationToken);
-            //return await stepContext.BeginDialogAsync(nameof(LoanApplicationDetailsDialog), new UserProfile(), cancellationToken);
         }
     }
 }

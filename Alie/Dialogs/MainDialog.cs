@@ -129,67 +129,8 @@ namespace Alie.Dialogs
                 return await stepContext.NextAsync(cancellationToken: cancellationToken);
 
             }
-            //else if ("Asset Finance".Equals(operation))
-            //{
-            //    return await stepContext.BeginDialogAsync(nameof(AssetFinanceDialog), new UserProfile(), cancellationToken);
-            //}
-            //else if ("Loan Against Shares".Equals(operation))
-            //{
-            //    return await stepContext.BeginDialogAsync(nameof(LoanAgainstSharesDialog), new UserProfile(), cancellationToken);
-            //}
-            //else if ("Masomo Boost".Equals(operation))
-            //{
-            //    return await stepContext.BeginDialogAsync(nameof(MasomoBoostDialog), new UserProfile(), cancellationToken);
-            //}
-            //else if ("Jijenge Loan".Equals(operation))
-            //{
-            //    return await stepContext.BeginDialogAsync(nameof(JijengeLoanDialog), new UserProfile(), cancellationToken);
-            //}
-            //else if ("Import Finance".Equals(operation))
-            //{
-            //    return await stepContext.BeginDialogAsync(nameof(ImportFinanceDialog), new UserProfile(), cancellationToken);
-            //}
-            //else
-            //{
-            //switch (operation)
-            //{
-            //    case "Auto LogBook Loans":
-            //        return await stepContext.BeginDialogAsync(nameof(AutoLogBookLoansDialog), new UserProfile(), cancellationToken);
-
-            //    case "Asset Finance":
-            //        return await stepContext.BeginDialogAsync(nameof(AssetFinanceDialog), new UserProfile(), cancellationToken);
-
-            //    case "Loan Against Shares":
-            //        return await stepContext.BeginDialogAsync(nameof(LoanAgainstSharesDialog), new UserProfile(), cancellationToken);
-
-            //    case "Masomo Boost":
-            //        return await stepContext.BeginDialogAsync(nameof(MasomoBoostDialog), new UserProfile(), cancellationToken);
-
-            //    case "Jijenge Loan":
-            //        return await stepContext.BeginDialogAsync(nameof(JijengeLoanDialog), new UserProfile(), cancellationToken);
-
-            //    case "Import Finance":
-            //        return await stepContext.BeginDialogAsync(nameof(ImportFinanceDialog), new UserProfile(), cancellationToken);
-
-            //    default:
-            //        break;
-            //}
-
-            //return await stepContext.BeginDialogAsync(nameof(AutoLogBookLoansDialog), new UserProfile(), cancellationToken);
-
-
-
-            //await stepContext.Context.SendActivityAsync(MessageFactory.Text("Wrong User Input. Please try again!"), cancellationToken);
-            //return await stepContext.BeginDialogAsync(nameof(AutoLogBookLoansDialog), new UserProfile(), cancellationToken);
-            //return await stepContext.ReplaceDialogAsync(InitialDialogId, cancellationToken);
+            
             //return await stepContext.NextAsync(cancellationToken: cancellationToken);
-
-            //return await stepContext.NextAsync(cancellationToken: cancellationToken);
-            //}
-            //return await stepContext.NextAsync(cancellationToken: cancellationToken);
-
-            //return await stepContext.BeginDialogAsync(nameof(ImportFinanceDialog), new UserProfile(), cancellationToken);
-
         }
         private async Task<DialogTurnResult> FinalStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {

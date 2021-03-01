@@ -86,3 +86,4 @@ C:\Users\USER\Desktop\final\Alie\obj\Debug\netcoreapp3.1\Alie.csproj.CopyComplet
 C:\Users\USER\Desktop\final\Alie\obj\Debug\netcoreapp3.1\Alie.dll
 C:\Users\USER\Desktop\final\Alie\obj\Debug\netcoreapp3.1\Alie.pdb
 C:\Users\USER\Desktop\final\Alie\obj\Debug\netcoreapp3.1\Alie.genruntimeconfig.cache
+C:\Users\USER\Desktop\final\Alie\obj\Debug\netcoreapp3.1\Alie.csprojAssemblyReference.cache

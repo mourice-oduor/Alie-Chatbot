@@ -23,8 +23,8 @@ namespace Alie.Dialogs.Operations
                 FinalStepAsync,
             };
 
-            AddDialog(new LoanApplicationDetailsDialog());
-            AddDialog(new MainMenuDialog());
+            //AddDialog(new LoanApplicationDetailsDialog());
+            AddDialog(new MainDialog());
             AddDialog(new WaterfallDialog(nameof(WaterfallDialog), waterfallSteps));
             AddDialog(new TextPrompt(nameof(TextPrompt)));
 
@@ -36,9 +36,9 @@ namespace Alie.Dialogs.Operations
             await stepContext.Context.SendActivityAsync(
                 MessageFactory.Text("With Motisha creadit from Ngao, you CHOOSE the car you want to buy, we'll finance up to 70% the value of the car, sit back and RELAX while we handle your vehicle’s documentation, processing, and importation. Our seamless end to end solution will deliver your dream car in just 60 days! When you import with Motisha, you get flexible repayment periods of up to 2 years with Interests as low as 3.5%," +
                 "all in three easy steps: " + "  " +
-                                                          ">CHOOSE your dream car from our partner websites  " + "  " +
-                                                          ">RELAX, as we handle the entire process of importing your dream car. " + "  " +
-                                                          ">Get to DRIVE your car as we will deliver it to you within 60 days after your order. "), cancellationToken);
+                                                          " >CHOOSE your dream car from our partner websites  " + "  " +
+                                                          " >RELAX, as we handle the entire process of importing your dream car. " + "  " +
+                                                          " >Get to DRIVE your car as we will deliver it to you within 60 days after your order. "), cancellationToken);
 
 
             List<string> operationList = new List<string> { "1. Apply This Loan",
@@ -73,42 +73,36 @@ namespace Alie.Dialogs.Operations
 
         private async Task<DialogTurnResult> ActStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
+
             stepContext.Values["Operation"] = ((FoundChoice)stepContext.Result).Value;
             string operation = (string)stepContext.Values["Operation"];
             //await stepContext.Context.SendActivityAsync((operation));
 
-            if ("Apply This Loan".Equals(operation))
+            if ("1. Apply This Loan".Equals(operation))
             {
                 return await stepContext.BeginDialogAsync(nameof(LoanApplicationDetailsDialog), new UserProfile(), cancellationToken);
             }
-            else if ("Back To Previous Menu".Equals(operation))
+            else if ("2. Back To Previous Menu".Equals(operation))
             {
-                //return await stepContext.ReplaceDialogAsync(InitialDialogId, cancellationToken);
-                return await stepContext.BeginDialogAsync(nameof(LoanApplicationDetailsDialog), new UserProfile(), cancellationToken);
-
+                return await stepContext.ReplaceDialogAsync(InitialDialogId, cancellationToken);
             }
-            else if ("Main Menu".Equals(operation))
+            else if ("3. Main Menu".Equals(operation))
             {
-                return await stepContext.BeginDialogAsync(nameof(MainMenuDialog), new UserProfile(), cancellationToken);
+                return await stepContext.BeginDialogAsync(nameof(MainDialog), new UserProfile(), cancellationToken);
             }
 
             else
             {
-                //await stepContext.Context.SendActivityAsync(MessageFactory.Text("Wrong User Input. Please try again!"), cancellationToken);
-                //return await stepContext.ReplaceDialogAsync(InitialDialogId, cancellationToken);
-                return await stepContext.BeginDialogAsync(nameof(LoanApplicationDetailsDialog), new UserProfile(), cancellationToken);
-
+                await stepContext.Context.SendActivityAsync(MessageFactory.Text("Wrong User Input. Please try again!"), cancellationToken);
+                return await stepContext.ReplaceDialogAsync(InitialDialogId, cancellationToken);
             }
-
         }
 
         private async Task<DialogTurnResult> FinalStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
             // Restart the main dialog with a different message the second time around
-            //var promptMessage = "What else can I do for you?";
-            //return await stepContext.BeginDialogAsync(promptMessage, InitialDialogId, cancellationToken);
-            return await stepContext.BeginDialogAsync(nameof(LoanApplicationDetailsDialog), new UserProfile(), cancellationToken);
-
+            var promptMessage = "What else can I do for you?";
+            return await stepContext.BeginDialogAsync(promptMessage, InitialDialogId, cancellationToken);
         }
     }
 }

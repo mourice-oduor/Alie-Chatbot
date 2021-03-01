@@ -23,8 +23,8 @@ namespace Alie.Dialogs.Operations
                 FinalStepAsync,
             };
 
-            AddDialog(new LoanApplicationDetailsDialog());
-            AddDialog(new MainMenuDialog());
+            //AddDialog(new LoanApplicationDetailsDialog());
+            AddDialog(new MainDialog());
             AddDialog(new WaterfallDialog(nameof(WaterfallDialog), waterfallSteps));
             AddDialog(new TextPrompt(nameof(TextPrompt)));
 
@@ -36,11 +36,11 @@ namespace Alie.Dialogs.Operations
             await stepContext.Context.SendActivityAsync(
                 MessageFactory.Text("You have a chance to own your dream car by getting a car loan of up to 60% of the value of the car. Identify a vehicle of your choice from any motor vehicle dealer and we will make your dream come true!" +
                 "With this type of loan, you only need: " + "  " +
-                                                          ">Proforma invoice from the dealer " + "  " +
-                                                          ">Original national ID & PIN" + "  " +
-                                                          ">Latest 6 months bank statements " + "  " +
-                                                          ">Post - dated cheque(s)" + "  " +
-                                                          ">Comprehensive insurance"), cancellationToken);
+                                                          " >Proforma invoice from the dealer " + "  " +
+                                                          " >Original national ID & PIN" + "  " +
+                                                          " >Latest 6 months bank statements " + "  " +
+                                                          " >Post - dated cheque(s)" + "  " +
+                                                          " >Comprehensive insurance"), cancellationToken);
 
 
             List<string> operationList = new List<string> { "1. Apply This Loan",
@@ -75,26 +75,27 @@ namespace Alie.Dialogs.Operations
 
         private async Task<DialogTurnResult> ActStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
+
             stepContext.Values["Operation"] = ((FoundChoice)stepContext.Result).Value;
             string operation = (string)stepContext.Values["Operation"];
             //await stepContext.Context.SendActivityAsync((operation));
 
-            if ("Apply This Loan".Equals(operation))
+            if ("1. Apply This Loan".Equals(operation))
             {
                 return await stepContext.BeginDialogAsync(nameof(LoanApplicationDetailsDialog), new UserProfile(), cancellationToken);
             }
-            else if ("Back To Previous Menu".Equals(operation))
+            else if ("2. Back To Previous Menu".Equals(operation))
             {
                 return await stepContext.ReplaceDialogAsync(InitialDialogId, cancellationToken);
             }
-            else if ("Main Menu".Equals(operation))
+            else if ("3. Main Menu".Equals(operation))
             {
-                return await stepContext.BeginDialogAsync(nameof(MainMenuDialog), new UserProfile(), cancellationToken);
+                return await stepContext.BeginDialogAsync(nameof(MainDialog), new UserProfile(), cancellationToken);
             }
 
             else
             {
-                //await stepContext.Context.SendActivityAsync(MessageFactory.Text("Wrong User Input. Please try again!"), cancellationToken);
+                await stepContext.Context.SendActivityAsync(MessageFactory.Text("Wrong User Input. Please try again!"), cancellationToken);
                 return await stepContext.ReplaceDialogAsync(InitialDialogId, cancellationToken);
             }
         }

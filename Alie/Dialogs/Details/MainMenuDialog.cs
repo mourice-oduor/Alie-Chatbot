@@ -19,7 +19,7 @@ namespace Alie.Dialogs.Details
 
         // Dependency injection uses this constructor to instantiate MainDialog
         public MainMenuDialog(ILogger<MainMenuDialog> logger)
-            : base(nameof(MainMenuDialog))
+            : base(nameof(MainDialog))
         {
             Logger = logger;
 

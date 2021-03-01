@@ -1,8 +1,5 @@
 ﻿using Alie.Dialogs.Operations;
 using Microsoft.Bot.Builder.Dialogs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -21,7 +18,7 @@ namespace Alie.Dialogs.Details
             AddDialog(new TextPrompt(nameof(TextPrompt)));
             AddDialog(new NumberPrompt<int>(nameof(NumberPrompt<int>)));
             AddDialog(new ChoicePrompt(nameof(ChoicePrompt)));
-            AddDialog(new AutoLogBookLoansDialog());
+            AddDialog(new MainDialog());
             AddDialog(new WaterfallDialog(nameof(WaterfallDialog), waterfallSteps));
 
             InitialDialogId = nameof(WaterfallDialog);
@@ -31,7 +28,7 @@ namespace Alie.Dialogs.Details
 
         private static async Task<DialogTurnResult> ActStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
-            return await stepContext.BeginDialogAsync(nameof(AutoLogBookLoansDialog), new UserProfile(), cancellationToken);
+            return await stepContext.BeginDialogAsync(nameof(MainDialog), new UserProfile(), cancellationToken);
         }
     }
 }

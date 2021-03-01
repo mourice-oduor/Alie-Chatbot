@@ -1,5 +1,7 @@
-﻿using Microsoft.Bot.Builder;
+﻿using Alie.Models;
+using Microsoft.Bot.Builder;
 using Microsoft.Bot.Builder.Dialogs;
+using Microsoft.Bot.Builder.Dialogs.Adaptive.Actions;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Mail;
@@ -10,10 +12,15 @@ namespace Alie.Dialogs.Details
 {
     public class LoanApplicationDetailsDialog : ComponentDialog
     {
+        private readonly IStatePropertyAccessor<UserData> _userDataAccessor;
+        private readonly IStatePropertyAccessor<ConversationData> _conversationDataAccessor;
+
         private readonly IStatePropertyAccessor<UserProfile> _userProfileAccessor;
 
-        public LoanApplicationDetailsDialog(UserState userState) : base(nameof(LoanApplicationDetailsDialog))
+        public LoanApplicationDetailsDialog(UserState userState, ConversationState conversationState) : base(nameof(LoanApplicationDetailsDialog))
         {
+             _userDataAccessor = userState.CreateProperty<UserData>("UserData");
+            //_conversationDataAccessor = conversationState.CreateProperty<ConversationData>("ConversationData");
             _userProfileAccessor = userState.CreateProperty<UserProfile>("UserProfile");
 
             var waterfallSteps = new WaterfallStep[]
@@ -35,7 +42,7 @@ namespace Alie.Dialogs.Details
             AddDialog(new NumberPrompt<int>(nameof(NumberPrompt<int>)));
             AddDialog(new ChoicePrompt(nameof(ChoicePrompt)));
             AddDialog(new AttachmentPrompt(nameof(AttachmentPrompt)));
-            AddDialog(new MainMenuDialog());
+            AddDialog(new MainDialog());
             AddDialog(new WaterfallDialog(nameof(WaterfallDialog), waterfallSteps));
 
             InitialDialogId = nameof(WaterfallDialog);
@@ -176,7 +183,17 @@ namespace Alie.Dialogs.Details
             }
             else
             {
-                await stepContext.Context.SendActivityAsync(MessageFactory.Text("Thanks. Your profile will not be saved and sent to one of our agents for loan processing."), cancellationToken);
+                // Save Completed Order in the UserProfile on success
+                var userProfile = await _userDataAccessor.GetAsync(stepContext.Context, null, cancellationToken);
+
+                //userProfile.Products.Add(newProducts);
+
+                await _userDataAccessor.SetAsync(stepContext.Context, userProfile, cancellationToken);
+
+                await stepContext.Context.SendActivityAsync("Thank you. Your Loan application details have been captured.");
+
+                return await stepContext.EndDialogAsync(null, cancellationToken);
+                //await stepContext.Context.SendActivityAsync(MessageFactory.Text("Thanks. Your profile will not be saved and sent to one of our agents for loan processing."), cancellationToken);
             }
 
             // WaterfallStep always finishes with the end of the Waterfall or with another dialog; here it is the end.
@@ -232,7 +249,7 @@ namespace Alie.Dialogs.Details
 
         public int Amount { get; set; }
 
-        public Microsoft.Bot.Schema.Attachment Picture { get; set; }
+        public Attachment Picture { get; set; }
 
     }
 }
