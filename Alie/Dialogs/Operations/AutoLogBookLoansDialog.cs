@@ -42,9 +42,9 @@ namespace Alie.Dialogs.Operations
                                                           ">Post - dated cheque(s) " + "  " +
                                                           ">Comprehensive insurance "), cancellationToken);
 
-            List<string> operationList = new List<string> { "1. Apply This Loan",
-                                                            "2. Back To Previous Menu",
-                                                            "3. Main Menu"};
+            List<string> operationList = new List<string> { "Apply This Loan",
+                                                            "Back To Previous Menu",
+                                                            "Main Menu"};
 
             // Create card
             var card = new AdaptiveCard(new AdaptiveSchemaVersion(1, 0))
@@ -93,13 +93,14 @@ namespace Alie.Dialogs.Operations
 
             else
             {
+                return await stepContext.ReplaceDialogAsync(InitialDialogId, cancellationToken);
+
             }
-            return await stepContext.BeginDialogAsync(nameof(LoanApplicationDetailsDialog), new UserProfile(), cancellationToken);
+            //return await stepContext.BeginDialogAsync(nameof(LoanApplicationDetailsDialog), new UserProfile(), cancellationToken);
 
 
             //return await stepContext.BeginDialogAsync(nameof(LoanApplicationDetailsDialog), new UserProfile(), cancellationToken);
 
-            //return await stepContext.ReplaceDialogAsync(InitialDialogId, cancellationToken);
             //return await stepContext.BeginDialogAsync(nameof(LoanApplicationDetailsDialog), new UserProfile(), cancellationToken);
 
 
@@ -108,9 +109,9 @@ namespace Alie.Dialogs.Operations
         private async Task<DialogTurnResult> FinalStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
             // Restart the main dialog with a different message the second time around
-            //var promptMessage = "What else can I do for you?";
-            //return await stepContext.BeginDialogAsync(promptMessage, InitialDialogId, cancellationToken);
-            return await stepContext.BeginDialogAsync(nameof(LoanApplicationDetailsDialog), new UserProfile(), cancellationToken);
+            var promptMessage = "What else can I do for you?";
+            return await stepContext.BeginDialogAsync(promptMessage, InitialDialogId, cancellationToken);
+            //return await stepContext.BeginDialogAsync(nameof(LoanApplicationDetailsDialog), new UserProfile(), cancellationToken);
         }
     }
 }
