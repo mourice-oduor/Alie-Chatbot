@@ -6,16 +6,7 @@
       "title": "Visit our website For More!",
       "url": "https://www.ngaocredit.com/"
     }
-    //{
-    //  "type": "Action.OpenUrl",
-    //  "title": "facebook",
-    //  "url": "https://www.facebook.com/ngaocreditltd/"
-    //},
-    //{
-    //  "type": "Action.OpenUrl",
-    //  "title": "Linkedin",
-    //  "url": "https://www.linkedin.com/company/ngao-credit-ltd/?originalSubdomain=ke"
-    //}
+
   ],
   "body": [
     {
@@ -43,6 +34,20 @@
       "maxLines": 0
     }
   ],
+
+  "Dialogs": [
+    {
+      "type": "Action.OpenUrl",
+      "title": "Contact Us",
+      "url": "https://www.facebook.com/ngaocreditltd/"
+    },
+    {
+      "type": "Action.OpenUrl",
+      "title": "FAQ",
+      "url": "https://www.linkedin.com/company/ngao-credit-ltd/?originalSubdomain=ke"
+    }
+  ],
+  
   "type": "AdaptiveCard",
   "version": "1.0"
 }

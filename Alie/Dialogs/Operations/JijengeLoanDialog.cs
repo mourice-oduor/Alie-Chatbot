@@ -9,6 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Bot.Schema;
 using Alie.Dialogs.Details;
+using Alie.Models;
 
 namespace Alie.Dialogs.Operations
 {
@@ -82,15 +83,18 @@ namespace Alie.Dialogs.Operations
 
             if ("1. Apply This Loan".Equals(operation))
             {
-                return await stepContext.BeginDialogAsync(nameof(LoanApplicationDetailsDialog), new UserProfile(), cancellationToken);
+                return await stepContext.BeginDialogAsync(nameof(LoanDetailsDialog), new UserProfile(), cancellationToken);
             }
             else if ("2. Back To Previous Menu".Equals(operation))
             {
-                return await stepContext.ReplaceDialogAsync(InitialDialogId, cancellationToken);
+                stepContext.ActiveDialog.State["stepIndex"] = (int)stepContext.ActiveDialog.State["stepIndex"] - 1;
+                return await stepContext.ReplaceDialogAsync(InitialDialogId, null, cancellationToken);
             }
             else if ("3. Main Menu".Equals(operation))
             {
-                return await stepContext.BeginDialogAsync(nameof(MainDialog), new UserProfile(), cancellationToken);
+                stepContext.ActiveDialog.State["stepIndex"] = (int)stepContext.ActiveDialog.State["stepIndex"] - 2;
+                //return await stepContext.ReplaceDialogAsync(nameof(MainMenuDialog), cancellationToken);
+                return await stepContext.ReplaceDialogAsync(nameof(MainDialog), new UserData(), cancellationToken);
             }
 
             else

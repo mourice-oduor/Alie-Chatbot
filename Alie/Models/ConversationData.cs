@@ -20,17 +20,6 @@ namespace Alie.Models
         //public ProductType SelectedProductType { get; set; } = ProductType.NONE;
     }
 
-    //public enum PizzaSize
-    //{
-    //    SMALL = 1,
-
-    //    MEDIUM = 2,
-
-    //    LARGE = 3,
-
-    //    EXTRA_LARGE = 4
-    //}
-
     public enum ProductType
     {
         NONE = 0,

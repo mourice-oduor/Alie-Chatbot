@@ -8,6 +8,9 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Bot.Schema;
+using Microsoft.Extensions.Logging;
+using Alie.Dialogs.Details;
+using Alie.Models;
 
 namespace Alie.Dialogs.Operations
 {
@@ -15,19 +18,19 @@ namespace Alie.Dialogs.Operations
     {
         public AutoLogBookLoansDialog() : base(nameof(AutoLogBookLoansDialog))
         {
-            var waterfallSteps = new WaterfallStep[]
+
+            AddDialog(new LoanDetailsDialog());
+            AddDialog(new BackDialog());
+            AddDialog(new MainMenuDialog());
+            AddDialog(new MainDialog());
+            AddDialog(new TextPrompt(nameof(TextPrompt)));
+            AddDialog(new WaterfallDialog(nameof(WaterfallDialog), new WaterfallStep[]
             {
                 IntroStepAsync,
                 ActStepAsync,
                 FinalStepAsync,
-            };
+            }));
 
-            AddDialog(new LoanApplicationDetailsDialog());
-            //AddDialog(new BackDialog());
-            //AddDialog(new MainMenuDialog());
-            AddDialog(new MainDialog());
-            AddDialog(new WaterfallDialog(nameof(WaterfallDialog), waterfallSteps));
-            AddDialog(new TextPrompt(nameof(TextPrompt)));
 
             InitialDialogId = nameof(WaterfallDialog);
         }
@@ -45,7 +48,7 @@ namespace Alie.Dialogs.Operations
 
             List<string> operationList = new List<string> { "1. Apply This Loan",
                                                             "2. Back To Previous Menu",
-                                                            "3. Main Menu"};
+                                                            "3. Main Menu" };
 
             // Create card
             var card = new AdaptiveCard(new AdaptiveSchemaVersion(1, 0))
@@ -79,26 +82,35 @@ namespace Alie.Dialogs.Operations
             string operation = (string)stepContext.Values["Operation"];
             //await stepContext.Context.SendActivityAsync((operation));
 
+
             if ("1. Apply This Loan".Equals(operation))
             {
-                return await stepContext.BeginDialogAsync(nameof(LoanApplicationDetailsDialog), new UserProfile(), cancellationToken);
+                //return await stepContext.BeginDialogAsync("LoanDetailsDialog", null, cancellationToken);
+
+                return await stepContext.BeginDialogAsync(nameof(LoanDetailsDialog), new UserProfile(), cancellationToken);
             }
             else if ("2. Back To Previous Menu".Equals(operation))
             {
-                return await stepContext.ReplaceDialogAsync(InitialDialogId, cancellationToken);
+                //return await stepContext.ReplaceDialogAsync(), null, cancellationToken);
+
+                stepContext.ActiveDialog.State["stepIndex"] = (int)stepContext.ActiveDialog.State["stepIndex"] - 1;
+                return await stepContext.ReplaceDialogAsync(InitialDialogId, null, cancellationToken);
             }
             else if ("3. Main Menu".Equals(operation))
             {
-                return await stepContext.BeginDialogAsync(nameof(MainDialog), new UserProfile(), cancellationToken);
+                stepContext.ActiveDialog.State["stepIndex"] = (int)stepContext.ActiveDialog.State["stepIndex"] - 2;
+                //return await stepContext.ReplaceDialogAsync(nameof(MainMenuDialog), cancellationToken);
+                return await stepContext.ReplaceDialogAsync(nameof(MainDialog), new UserData(), cancellationToken);
             }
 
             else
             {
                 await stepContext.Context.SendActivityAsync(MessageFactory.Text("Wrong User Input. Please try again!"), cancellationToken);
-                return await stepContext.ReplaceDialogAsync(InitialDialogId, cancellationToken);
+                return await stepContext.ReplaceDialogAsync(null, cancellationToken);
             }
             
         }
+     
 
         private async Task<DialogTurnResult> FinalStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {

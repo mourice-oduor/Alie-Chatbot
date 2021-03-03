@@ -9,9 +9,9 @@ using System.Net.Mail;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Alie.Dialogs.Details
+namespace Alie.Dialogs.Operations
 {
-    public class LoanApplicationDetailsDialog : ComponentDialog
+    public class LoanDetailsDialog : ComponentDialog
     {
         protected readonly ILogger Logger;
 
@@ -20,10 +20,10 @@ namespace Alie.Dialogs.Details
 
         private readonly IStatePropertyAccessor<UserProfile> _userProfileAccessor;
 
-        public LoanApplicationDetailsDialog(UserState userState, ConversationState conversationState) : base(nameof(LoanApplicationDetailsDialog))
+        public LoanDetailsDialog(UserState userState, ConversationState conversationState) : base(nameof(LoanDetailsDialog))
         {
-             _userDataAccessor = userState.CreateProperty<UserData>("UserData");
-            //_conversationDataAccessor = conversationState.CreateProperty<ConversationData>("ConversationData");
+            _userDataAccessor = userState.CreateProperty<UserData>("UserData");
+            _conversationDataAccessor = conversationState.CreateProperty<ConversationData>("ConversationData");
             _userProfileAccessor = userState.CreateProperty<UserProfile>("UserProfile");
 
             AddDialog(new TextPrompt(nameof(TextPrompt)));
@@ -31,7 +31,7 @@ namespace Alie.Dialogs.Details
             AddDialog(new ChoicePrompt(nameof(ChoicePrompt)));
             AddDialog(new AttachmentPrompt(nameof(AttachmentPrompt)));
             AddDialog(new MainDialog());
-            AddDialog(new WaterfallDialog(nameof(WaterfallDialog), new WaterfallStep[] 
+            AddDialog(new WaterfallDialog(nameof(WaterfallDialog), new WaterfallStep[]
             {
                 NameStepAsync,
                 NameConfirmStepAsync,
@@ -48,7 +48,7 @@ namespace Alie.Dialogs.Details
             InitialDialogId = nameof(WaterfallDialog);
         }
 
-        public LoanApplicationDetailsDialog()
+        public LoanDetailsDialog()
         {
         }
 
@@ -250,6 +250,5 @@ namespace Alie.Dialogs.Details
         public int Amount { get; set; }
 
         public Attachment Picture { get; set; }
-
     }
 }
