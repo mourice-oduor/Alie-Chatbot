@@ -81,28 +81,39 @@ namespace Alie.Dialogs.Operations
             stepContext.Values["Operation"] = ((FoundChoice)stepContext.Result).Value;
             string operation = (string)stepContext.Values["Operation"];
             //await stepContext.Context.SendActivityAsync((operation));
+            try
+            {
+                if ("1. Apply This Loan".Equals(operation))
+                {
+                    return await stepContext.BeginDialogAsync(nameof(LoanDetailsDialog), new UserProfile(), cancellationToken);
+                }
+                else if ("2. Back To Previous Menu".Equals(operation))
+                {
+                    stepContext.ActiveDialog.State["stepIndex"] = (int)stepContext.ActiveDialog.State["stepIndex"] - 1;
+                    return await stepContext.ReplaceDialogAsync(InitialDialogId, null, cancellationToken);
+                }
+                else if ("3. Main Menu".Equals(operation))
+                {
+                    stepContext.ActiveDialog.State["stepIndex"] = (int)stepContext.ActiveDialog.State["stepIndex"] - 2;
+                    //return await stepContext.ReplaceDialogAsync(nameof(MainMenuDialog), cancellationToken);
+                    return await stepContext.ReplaceDialogAsync(nameof(MainDialog), new UserData(), cancellationToken);
+                }
+            }
+            catch (System.Exception)
+            {
 
-            if ("1. Apply This Loan".Equals(operation))
-            {
-                return await stepContext.BeginDialogAsync(nameof(LoanDetailsDialog), new UserProfile(), cancellationToken);
+                throw;
             }
-            else if ("2. Back To Previous Menu".Equals(operation))
-            {
-                stepContext.ActiveDialog.State["stepIndex"] = (int)stepContext.ActiveDialog.State["stepIndex"] - 1;
-                return await stepContext.ReplaceDialogAsync(InitialDialogId, null, cancellationToken);
-            }
-            else if ("3. Main Menu".Equals(operation))
-            {
-                stepContext.ActiveDialog.State["stepIndex"] = (int)stepContext.ActiveDialog.State["stepIndex"] - 2;
-                //return await stepContext.ReplaceDialogAsync(nameof(MainMenuDialog), cancellationToken);
-                return await stepContext.ReplaceDialogAsync(nameof(MainDialog), new UserData(), cancellationToken);
-            }
+            return await stepContext.ReplaceDialogAsync(nameof(MainDialog), new UserData(), cancellationToken);
 
-            else
-            {
-                await stepContext.Context.SendActivityAsync(MessageFactory.Text("Wrong User Input. Please try again!"), cancellationToken);
-                return await stepContext.ReplaceDialogAsync(InitialDialogId, cancellationToken);
-            }
+
+
+
+            //else
+            //{
+            //    await stepContext.Context.SendActivityAsync(MessageFactory.Text("Wrong User Input. Please try again!"), cancellationToken);
+            //    return await stepContext.ReplaceDialogAsync(InitialDialogId, cancellationToken);
+            //}
         }
 
         private async Task<DialogTurnResult> FinalStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)

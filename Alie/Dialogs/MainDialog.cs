@@ -18,16 +18,12 @@ namespace Alie.Dialogs
 {
     public class MainDialog : ComponentDialog
     {
-        private readonly IStatePropertyAccessor<UserData> _userDataAccessor;
-        private readonly IStatePropertyAccessor<ConversationData> _conversationDataAccessor;
-
         protected readonly ILogger Logger;
 
         // Dependency injection uses this constructor to instantiate MainDialog
         public MainDialog(ILogger<MainDialog> logger)
             : base(nameof(MainDialog))
         {
-
             Logger = logger;
 
             AddDialog(new TextPrompt(nameof(TextPrompt)));

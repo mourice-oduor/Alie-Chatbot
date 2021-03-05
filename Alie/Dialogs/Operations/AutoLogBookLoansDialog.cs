@@ -18,7 +18,7 @@ namespace Alie.Dialogs.Operations
     {
         public AutoLogBookLoansDialog() : base(nameof(AutoLogBookLoansDialog))
         {
-
+            AddDialog(new LoanApplicationDetailsDialog());
             AddDialog(new LoanDetailsDialog());
             AddDialog(new BackDialog());
             AddDialog(new MainMenuDialog());
@@ -82,25 +82,29 @@ namespace Alie.Dialogs.Operations
             string operation = (string)stepContext.Values["Operation"];
             //await stepContext.Context.SendActivityAsync((operation));
 
+            var userProfile = new UserProfile()
+            {
+                //LoanDetailsDialog;
+            };
 
             if ("1. Apply This Loan".Equals(operation))
             {
                 //return await stepContext.BeginDialogAsync("LoanDetailsDialog", null, cancellationToken);
 
-                return await stepContext.BeginDialogAsync(nameof(LoanDetailsDialog), new UserProfile(), cancellationToken);
+                return await stepContext.BeginDialogAsync(nameof(LoanApplicationDetailsDialog), userProfile, cancellationToken);
             }
             else if ("2. Back To Previous Menu".Equals(operation))
             {
                 //return await stepContext.ReplaceDialogAsync(), null, cancellationToken);
 
                 stepContext.ActiveDialog.State["stepIndex"] = (int)stepContext.ActiveDialog.State["stepIndex"] - 1;
-                return await stepContext.ReplaceDialogAsync(InitialDialogId, null, cancellationToken);
+                return await stepContext.ReplaceDialogAsync(InitialDialogId, userProfile, cancellationToken);
             }
             else if ("3. Main Menu".Equals(operation))
             {
                 stepContext.ActiveDialog.State["stepIndex"] = (int)stepContext.ActiveDialog.State["stepIndex"] - 2;
                 //return await stepContext.ReplaceDialogAsync(nameof(MainMenuDialog), cancellationToken);
-                return await stepContext.ReplaceDialogAsync(nameof(MainDialog), new UserData(), cancellationToken);
+                return await stepContext.ReplaceDialogAsync(nameof(MainDialog), userProfile, cancellationToken);
             }
 
             else

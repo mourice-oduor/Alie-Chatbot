@@ -1,37 +1,29 @@
-﻿using Alie.Models;
+﻿using Microsoft.Bot.Builder.Dialogs;
+using AdaptiveCards;
 using Microsoft.Bot.Builder;
-using Microsoft.Bot.Builder.Dialogs;
-using Microsoft.Bot.Builder.Dialogs.Adaptive.Actions;
-using Microsoft.Extensions.Logging;
+using Microsoft.Bot.Builder.Dialogs.Choices;
+using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Mail;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Bot.Schema;
+using Alie.Dialogs.Details;
+using Alie.Models;
 
 namespace Alie.Dialogs.Details
 {
     public class LoanApplicationDetailsDialog : ComponentDialog
     {
-        protected readonly ILogger Logger;
-
         private readonly IStatePropertyAccessor<UserData> _userDataAccessor;
         private readonly IStatePropertyAccessor<ConversationData> _conversationDataAccessor;
 
         private readonly IStatePropertyAccessor<UserProfile> _userProfileAccessor;
 
-        public LoanApplicationDetailsDialog(UserState userState, ConversationState conversationState) : base(nameof(LoanApplicationDetailsDialog))
-        {
-             _userDataAccessor = userState.CreateProperty<UserData>("UserData");
-            //_conversationDataAccessor = conversationState.CreateProperty<ConversationData>("ConversationData");
-            _userProfileAccessor = userState.CreateProperty<UserProfile>("UserProfile");
 
-            AddDialog(new TextPrompt(nameof(TextPrompt)));
-            AddDialog(new NumberPrompt<int>(nameof(NumberPrompt<int>)));
-            AddDialog(new ChoicePrompt(nameof(ChoicePrompt)));
-            AddDialog(new AttachmentPrompt(nameof(AttachmentPrompt)));
-            AddDialog(new MainDialog());
-            AddDialog(new WaterfallDialog(nameof(WaterfallDialog), new WaterfallStep[] 
+        public LoanApplicationDetailsDialog() : base(nameof(LoanApplicationDetailsDialog))
+        {
+            var waterfallSteps = new WaterfallStep[]
             {
                 NameStepAsync,
                 NameConfirmStepAsync,
@@ -42,19 +34,27 @@ namespace Alie.Dialogs.Details
                 AmountStepAsync,
                 PictureStepAsync,
                 ConfirmStepAsync,
-                SummaryStepAsync,
-            }));
+                SummaryStepAsync
+            };
+
+            _userDataAccessor = userState.CreateProperty<UserData>("UserData");
+            _conversationDataAccessor = conversationState.CreateProperty<ConversationData>("ConversationData");
+            _userProfileAccessor = userState.CreateProperty<UserProfile>("UserProfile");
+
+            AddDialog(new TextPrompt(nameof(TextPrompt)));
+            AddDialog(new NumberPrompt<int>(nameof(NumberPrompt<int>)));
+            AddDialog(new ChoicePrompt(nameof(ChoicePrompt)));
+            AddDialog(new AttachmentPrompt(nameof(AttachmentPrompt)));
+            AddDialog(new MainDialog());
+            AddDialog(new WaterfallDialog(nameof(WaterfallDialog), waterfallSteps));
+            AddDialog(new TextPrompt(nameof(TextPrompt)));
 
             InitialDialogId = nameof(WaterfallDialog);
         }
 
-        public LoanApplicationDetailsDialog()
-        {
-        }
-
         private async Task<DialogTurnResult> NameStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
-            return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = MessageFactory.Text("Please enter your full name.") }, cancellationToken);
+            return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = MessageFactory.Text("Please enter your first name.") }, cancellationToken);
         }
 
         private async Task<DialogTurnResult> NameConfirmStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
@@ -73,6 +73,7 @@ namespace Alie.Dialogs.Details
             //stepContext.Values["name"] = (string)stepContext.Result
             return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = MessageFactory.Text("Please enter your email address.") }, cancellationToken);
         }
+
         private async Task<DialogTurnResult> PhoneNumberStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
             stepContext.Values["email"] = (string)stepContext.Result;
@@ -190,7 +191,7 @@ namespace Alie.Dialogs.Details
 
                 await _userDataAccessor.SetAsync(stepContext.Context, userProfile, cancellationToken);
 
-                await stepContext.Context.SendActivityAsync("Thank you. Your Loan application details have been captured.");
+                await stepContext.Context.SendActivityAsync("Thank you. Your Loan application details have been captured and sent to one of our agents for loan processing.");
 
                 return await stepContext.EndDialogAsync(null, cancellationToken);
                 //await stepContext.Context.SendActivityAsync(MessageFactory.Text("Thanks. Your profile will not be saved and sent to one of our agents for loan processing."), cancellationToken);
@@ -199,7 +200,6 @@ namespace Alie.Dialogs.Details
             // WaterfallStep always finishes with the end of the Waterfall or with another dialog; here it is the end.
             return await stepContext.EndDialogAsync(cancellationToken: cancellationToken);
         }
-
 
         private static Task<bool> AgePromptValidatorAsync(PromptValidatorContext<int> promptContext, CancellationToken cancellationToken)
         {
@@ -212,7 +212,7 @@ namespace Alie.Dialogs.Details
             if (promptContext.Recognized.Succeeded)
             {
                 var attachments = promptContext.Recognized.Value;
-                var validImages = new List<Microsoft.Bot.Schema.Attachment>();
+                var validImages = new List<Attachment>();
 
                 foreach (var attachment in attachments)
                 {
@@ -250,6 +250,5 @@ namespace Alie.Dialogs.Details
         public int Amount { get; set; }
 
         public Attachment Picture { get; set; }
-
     }
 }

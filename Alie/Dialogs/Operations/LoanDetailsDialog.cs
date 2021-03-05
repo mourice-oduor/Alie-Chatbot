@@ -54,7 +54,7 @@ namespace Alie.Dialogs.Operations
 
         private async Task<DialogTurnResult> NameStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
-            return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = MessageFactory.Text("Please enter your full name.") }, cancellationToken);
+            return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = MessageFactory.Text("Please enter your full names.") }, cancellationToken);
         }
 
         private async Task<DialogTurnResult> NameConfirmStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
@@ -190,7 +190,7 @@ namespace Alie.Dialogs.Operations
 
                 await _userDataAccessor.SetAsync(stepContext.Context, userProfile, cancellationToken);
 
-                await stepContext.Context.SendActivityAsync("Thank you. Your Loan application details have been captured.");
+                await stepContext.Context.SendActivityAsync("Thank you. Your Loan application details have been captured and sent to one of our agents for loan processing.");
 
                 return await stepContext.EndDialogAsync(null, cancellationToken);
                 //await stepContext.Context.SendActivityAsync(MessageFactory.Text("Thanks. Your profile will not be saved and sent to one of our agents for loan processing."), cancellationToken);
@@ -237,18 +237,18 @@ namespace Alie.Dialogs.Operations
         }
 
 
-        public string FullNames { get; set; }
+        //public string FullNames { get; set; }
 
-        public string EmailAddress { get; set; }
+        //public string EmailAddress { get; set; }
 
-        public int PhoneNumber { get; set; }
+        //public int PhoneNumber { get; set; }
 
-        public string Location { get; set; }
+        //public string Location { get; set; }
 
-        public int Age { get; set; }
+        //public int Age { get; set; }
 
-        public int Amount { get; set; }
+        //public int Amount { get; set; }
 
-        public Attachment Picture { get; set; }
+        //public Attachment Picture { get; set; }
     }
 }
