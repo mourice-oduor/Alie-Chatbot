@@ -22,5 +22,7 @@ namespace Alie
 
         public Attachment Picture { get; set; }
 
+        public bool IsRegistered { get; set; }
+
     }
 }

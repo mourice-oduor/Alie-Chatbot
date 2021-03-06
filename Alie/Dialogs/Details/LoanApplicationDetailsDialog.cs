@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Alie.Models;
 using Microsoft.Bot.Schema;
 using System.Net.Mail;
-
+using Microsoft.Bot.Builder.Dialogs.Choices;
 
 namespace Alie.Dialogs.Details
 {
@@ -23,7 +23,7 @@ namespace Alie.Dialogs.Details
         {
             _userDataAccessor = userState.CreateProperty<UserData>("UserData");
             _conversationDataAccessor = conversationState.CreateProperty<ConversationData>("ConversationData");
-            _userProfileAccessor = userState.CreateProperty<UserProfile>("UserProfile");
+            _userProfileAccessor = userState.CreateProperty<UserProfile>(nameof(UserProfile));
 
             var waterfallSteps = new WaterfallStep[]
             {
@@ -34,22 +34,29 @@ namespace Alie.Dialogs.Details
                 LocationStepAsync,
                 AgeStepAsync,
                 AmountStepAsync,
-                PictureStepAsync,
-                ConfirmStepAsync,
+                //PictureStepAsync,
+                //ConfirmStepAsync,
                 SummaryStepAsync
             };
 
             AddDialog(new TextPrompt(nameof(TextPrompt)));
             AddDialog(new NumberPrompt<int>(nameof(NumberPrompt<int>), AgePromptValidatorAsync));
             AddDialog(new ChoicePrompt(nameof(ChoicePrompt)));
-            AddDialog(new AttachmentPrompt(nameof(AttachmentPrompt), PicturePromptValidatorAsync));
+            //AddDialog(new AttachmentPrompt(nameof(AttachmentPrompt), PicturePromptValidatorAsync));
             AddDialog(new WaterfallDialog(nameof(WaterfallDialog), waterfallSteps));
-            AddDialog(new TextPrompt(nameof(TextPrompt)));
 
             InitialDialogId = nameof(WaterfallDialog);
         }
         private async Task<DialogTurnResult> NameStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
+            // Recovery from the user profile 'User State through' the userprofileaccessor
+            var userProfile = await _userProfileAccessor.GetAsync(
+                stepContext.Context, () => new UserProfile(),
+                cancellationToken);
+
+            // Set the Is Registered property to TRUE
+            userProfile.IsRegistered = true;
+
             return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = MessageFactory.Text("Please enter your full names.") }, cancellationToken);
         }
 
@@ -58,7 +65,7 @@ namespace Alie.Dialogs.Details
             stepContext.Values["name"] = (string)stepContext.Result;
 
             // We can send messages to the user at any point in the WaterfallStep.
-            await stepContext.Context.SendActivityAsync(MessageFactory.Text($"Thanks {stepContext.Result}."), cancellationToken);
+            await stepContext.Context.SendActivityAsync(MessageFactory.Text($"Thank You! {stepContext.Result}."), cancellationToken);
 
             // WaterfallStep always finishes with the end of the Waterfall or with another dialog; here it is a Prompt Dialog.
             return await stepContext.PromptAsync(nameof(ConfirmPrompt), new PromptOptions { Prompt = MessageFactory.Text("Please confirm if you entered your name correctly!") }, cancellationToken);
@@ -78,7 +85,17 @@ namespace Alie.Dialogs.Details
         private async Task<DialogTurnResult> LocationStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
             stepContext.Values["phone"] = (string)stepContext.Result;
-            return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = MessageFactory.Text("Please Provide your Location.") }, cancellationToken);
+            await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = MessageFactory.Text("Please Provide your Location.") }, cancellationToken);
+
+            //Ask user for the age>>>> Response to be either YES OR NO!
+            return await stepContext.PromptAsync(nameof(ChoicePrompt),
+                new PromptOptions
+                {
+                    Prompt = MessageFactory.Text("Do you want to provide your age?"),
+                    Choices = ChoiceFactory.ToChoices(new List<string> { "Yes", "No" })
+                },
+                cancellationToken);
+
         }
         private async Task<DialogTurnResult> AgeStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
@@ -111,7 +128,7 @@ namespace Alie.Dialogs.Details
                 var promptOptions = new PromptOptions
                 {
                     Prompt = MessageFactory.Text("Please enter the loan amount."),
-                    RetryPrompt = MessageFactory.Text("The value entered must be greater than 10000 and less than 300,000."),
+                    RetryPrompt = MessageFactory.Text("The value entered must be greater than 50000 and less than 300,000."),
                 };
 
                 return await stepContext.PromptAsync(nameof(NumberPrompt<int>), promptOptions, cancellationToken);
@@ -121,27 +138,27 @@ namespace Alie.Dialogs.Details
                 return await stepContext.NextAsync(-1, cancellationToken);
             }
         }
-        private async Task<DialogTurnResult> PictureStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
-        {
-            stepContext.Values["amount"] = (string)stepContext.Result;
-            // WaterfallStep always finishes with the end of the Waterfall or with another dialog; here it is a Prompt Dialog.
-            var promptOptions = new PromptOptions
-            {
-                Prompt = MessageFactory.Text("Please attach a profile picture (or type any message to skip)."),
-                RetryPrompt = MessageFactory.Text("The attachment must be a jpeg/png image file."),
-            };
+        //private async Task<DialogTurnResult> PictureStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
+        //{
+        //    stepContext.Values["amount"] = (string)stepContext.Result;
+        //    // WaterfallStep always finishes with the end of the Waterfall or with another dialog; here it is a Prompt Dialog.
+        //    var promptOptions = new PromptOptions
+        //    {
+        //        Prompt = MessageFactory.Text("Please attach a profile picture (or type any message to skip)."),
+        //        RetryPrompt = MessageFactory.Text("The attachment must be a jpeg/png image file."),
+        //    };
 
-            return await stepContext.PromptAsync(nameof(AttachmentPrompt), promptOptions, cancellationToken);
+        //    return await stepContext.PromptAsync(nameof(AttachmentPrompt), promptOptions, cancellationToken);
 
-        }
-        private async Task<DialogTurnResult> ConfirmStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
-        {
-            stepContext.Values["picture"] = ((IList<Microsoft.Bot.Schema.Attachment>)stepContext.Result)?.FirstOrDefault();
+        //}
+        //private async Task<DialogTurnResult> ConfirmStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
+        //{
+        //    stepContext.Values["picture"] = ((IList<Microsoft.Bot.Schema.Attachment>)stepContext.Result)?.FirstOrDefault();
 
-            // WaterfallStep always finishes with the end of the Waterfall or with another dialog; here it is a Prompt Dialog.
-            return await stepContext.PromptAsync(nameof(ConfirmPrompt), new PromptOptions { Prompt = MessageFactory.Text("Is this ok?") }, cancellationToken);
+        //    // WaterfallStep always finishes with the end of the Waterfall or with another dialog; here it is a Prompt Dialog.
+        //    return await stepContext.PromptAsync(nameof(ConfirmPrompt), new PromptOptions { Prompt = MessageFactory.Text("Is this ok?") }, cancellationToken);
 
-        }
+        //}
 
         private async Task<DialogTurnResult> SummaryStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
@@ -153,7 +170,7 @@ namespace Alie.Dialogs.Details
                 userProfile.Email = (string)stepContext.Values["email"];
                 userProfile.FullNames = (string)stepContext.Values["name"];
                 userProfile.Age = (int)stepContext.Values["age"];
-                userProfile.Picture = (System.Net.Mail.Attachment)stepContext.Values["picture"];
+                //userProfile.Picture = (System.Net.Mail.Attachment)stepContext.Values["picture"];
 
                 var msg = $"I have your Email Address as {userProfile.Email} and your name as {userProfile.FullNames}";
 
@@ -166,31 +183,31 @@ namespace Alie.Dialogs.Details
 
                 await stepContext.Context.SendActivityAsync(MessageFactory.Text(msg), cancellationToken);
 
-                if (userProfile.Picture != null)
-                {
-                    try
-                    {
-                        await stepContext.Context.SendActivityAsync(MessageFactory.Attachment((IEnumerable<Microsoft.Bot.Schema.Attachment>)userProfile.Picture, "This is your profile picture."), cancellationToken);
-                    }
-                    catch
-                    {
-                        await stepContext.Context.SendActivityAsync(MessageFactory.Text("A profile picture was saved but could not be displayed here."), cancellationToken);
-                    }
-                }
-            }
-            else
-            {
-                // Save Completed Order in the UserProfile on success
-                var userProfile = await _userDataAccessor.GetAsync(stepContext.Context, null, cancellationToken);
+                //    if (userProfile.Picture != null)
+                //    {
+                //        try
+                //        {
+                //            await stepContext.Context.SendActivityAsync(MessageFactory.Attachment((IEnumerable<Microsoft.Bot.Schema.Attachment>)userProfile.Picture, "This is your profile picture."), cancellationToken);
+                //        }
+                //        catch
+                //        {
+                //            await stepContext.Context.SendActivityAsync(MessageFactory.Text("A profile picture was saved but could not be displayed here."), cancellationToken);
+                //        }
+                //    }
+                //}
+                //else
+                //{
+                //    // Save Completed Order in the UserProfile on success
+                //    var userProfile = await _userDataAccessor.GetAsync(stepContext.Context, null, cancellationToken);
 
-                //userProfile.Products.Add(newProducts);
+                //    //userProfile.Products.Add(newProducts);
 
-                await _userDataAccessor.SetAsync(stepContext.Context, userProfile, cancellationToken);
+                //    await _userDataAccessor.SetAsync(stepContext.Context, userProfile, cancellationToken);
 
-                await stepContext.Context.SendActivityAsync("Thank you. Your Loan application details have been captured and sent to one of our agents for loan processing.");
+                //    await stepContext.Context.SendActivityAsync("Thank you. Your Loan application details have been captured and sent to one of our agents for loan processing.");
 
-                return await stepContext.EndDialogAsync(null, cancellationToken);
-                //await stepContext.Context.SendActivityAsync(MessageFactory.Text("Thanks. Your profile will not be saved and sent to one of our agents for loan processing."), cancellationToken);
+                //    return await stepContext.EndDialogAsync(null, cancellationToken);
+                //    //await stepContext.Context.SendActivityAsync(MessageFactory.Text("Thanks. Your profile will not be saved and sent to one of our agents for loan processing."), cancellationToken);
             }
 
             // WaterfallStep always finishes with the end of the Waterfall or with another dialog; here it is the end.
@@ -203,34 +220,34 @@ namespace Alie.Dialogs.Details
             return Task.FromResult(promptContext.Recognized.Succeeded && promptContext.Recognized.Value > 0 && promptContext.Recognized.Value < 150);
         }
 
-        private static async Task<bool> PicturePromptValidatorAsync(PromptValidatorContext<IList<Microsoft.Bot.Schema.Attachment>> promptContext, CancellationToken cancellationToken)
-        {
-            if (promptContext.Recognized.Succeeded)
-            {
-                var attachments = promptContext.Recognized.Value;
-                var validImages = new List<System.Net.Mail.Attachment>();
+        //private static async Task<bool> PicturePromptValidatorAsync(PromptValidatorContext<IList<Microsoft.Bot.Schema.Attachment>> promptContext, CancellationToken cancellationToken)
+        //{
+        //    if (promptContext.Recognized.Succeeded)
+        //    {
+        //        var attachments = promptContext.Recognized.Value;
+        //        var validImages = new List<System.Net.Mail.Attachment>();
 
-                foreach (var attachment in attachments)
-                {
-                    if (attachment.ContentType == "image/jpeg" || attachment.ContentType == "image/png")
-                    {
-                        //validImages.Add(attachment);
-                    }
-                }
+        //        foreach (var attachment in attachments)
+        //        {
+        //            if (attachment.ContentType == "image/jpeg" || attachment.ContentType == "image/png")
+        //            {
+        //                //validImages.Add(attachment);
+        //            }
+        //        }
 
-                promptContext.Recognized.Value = (IList<Microsoft.Bot.Schema.Attachment>)validImages;
+        //        promptContext.Recognized.Value = (IList<Microsoft.Bot.Schema.Attachment>)validImages;
 
-                // If none of the attachments are valid images, the retry prompt should be sent.
-                return validImages.Any();
-            }
-            else
-            {
-                await promptContext.Context.SendActivityAsync("No attachments received. Proceeding without a profile picture...");
+        //        // If none of the attachments are valid images, the retry prompt should be sent.
+        //        return validImages.Any();
+        //    }
+        //    else
+        //    {
+        //        await promptContext.Context.SendActivityAsync("No attachments received. Proceeding without a profile picture...");
 
-                // We can return true from a validator function even if Recognized.Succeeded is false.
-                return true;
-            }
-        }
+        //        // We can return true from a validator function even if Recognized.Succeeded is false.
+        //        return true;
+        //    }
+        //}
 
 
         public string FullNames { get; set; }
@@ -246,5 +263,7 @@ namespace Alie.Dialogs.Details
         public int Amount { get; set; }
 
         public System.Net.Mail.Attachment Picture { get; set; }
+
+        public bool IsRegistered { get; set; }
     }
 }

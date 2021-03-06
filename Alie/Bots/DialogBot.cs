@@ -23,12 +23,22 @@ namespace Alie.Bots
         protected readonly Dialog Dialog;
         protected readonly BotState ConversationState;
         protected readonly BotState UserState;
+        protected readonly BotState PrivateConversationState;
         protected readonly ILogger Logger;
+
+        //public DialogBot(ConversationState conversationState, UserState userState, T dialog, ILogger<DialogBot<T>> logger)
+        //{
+        //    ConversationState = conversationState;
+        //    UserState = userState;
+        //    Dialog = dialog;
+        //    Logger = logger;
+        //}
 
         public DialogBot(ConversationState conversationState, UserState userState, T dialog, ILogger<DialogBot<T>> logger)
         {
             ConversationState = conversationState;
             UserState = userState;
+            //PrivateConversationState = privateConversation;
             Dialog = dialog;
             Logger = logger;
         }
@@ -40,6 +50,7 @@ namespace Alie.Bots
             // Save any state changes that might have occurred during the turn.
             await ConversationState.SaveChangesAsync(turnContext, false, cancellationToken);
             await UserState.SaveChangesAsync(turnContext, false, cancellationToken);
+            //await PrivateConversationState.SaveChangesAsync(turnContext, false, cancellationToken);
         }
 
         protected override async Task OnMessageActivityAsync(ITurnContext<IMessageActivity> turnContext, CancellationToken cancellationToken)
