@@ -21,6 +21,7 @@ namespace Alie
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            var storage = new MemoryStorage();
         }
 
         public IConfiguration Configuration { get; }

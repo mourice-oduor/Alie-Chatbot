@@ -18,12 +18,13 @@ namespace Alie.Models
 
         public int PhoneNumber { get; set; }
 
+        public int Amount { get; set; }
+
+
         public int Age { get; set; }
 
 
         public Attachment Picture { get; set; }
-        public object Products { get; internal set; }
-
 
         //public List<Products> Products { get; set; } = new List<Products>();
     }

@@ -18,7 +18,7 @@ namespace Alie.Dialogs.Details
             AddDialog(new TextPrompt(nameof(TextPrompt)));
             AddDialog(new NumberPrompt<int>(nameof(NumberPrompt<int>)));
             AddDialog(new ChoicePrompt(nameof(ChoicePrompt)));
-            AddDialog(new MainDialog());
+            //AddDialog(new MainDialog());
             AddDialog(new WaterfallDialog(nameof(WaterfallDialog), waterfallSteps));
 
             InitialDialogId = nameof(WaterfallDialog);

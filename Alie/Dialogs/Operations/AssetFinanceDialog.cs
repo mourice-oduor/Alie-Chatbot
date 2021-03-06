@@ -25,7 +25,7 @@ namespace Alie.Dialogs.Operations
             };
 
             //AddDialog(new LoanApplicationDetailsDialog());
-            AddDialog(new MainDialog());
+            //AddDialog(new MainDialog());
             AddDialog(new LoanDetailsDialog());
             AddDialog(new WaterfallDialog(nameof(WaterfallDialog), waterfallSteps));
             AddDialog(new TextPrompt(nameof(TextPrompt)));

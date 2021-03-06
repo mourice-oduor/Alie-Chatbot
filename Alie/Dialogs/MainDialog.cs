@@ -48,10 +48,6 @@ namespace Alie.Dialogs
             InitialDialogId = nameof(WaterfallDialog);
         }
 
-        public MainDialog()
-        {
-        }
-
         private async Task<DialogTurnResult> IntroStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
             await stepContext.Context.SendActivityAsync(

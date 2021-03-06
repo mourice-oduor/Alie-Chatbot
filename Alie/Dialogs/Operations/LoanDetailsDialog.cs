@@ -30,7 +30,7 @@ namespace Alie.Dialogs.Operations
             AddDialog(new NumberPrompt<int>(nameof(NumberPrompt<int>)));
             AddDialog(new ChoicePrompt(nameof(ChoicePrompt)));
             AddDialog(new AttachmentPrompt(nameof(AttachmentPrompt)));
-            AddDialog(new MainDialog());
+            //AddDialog(new MainDialog());
             AddDialog(new WaterfallDialog(nameof(WaterfallDialog), new WaterfallStep[]
             {
                 NameStepAsync,

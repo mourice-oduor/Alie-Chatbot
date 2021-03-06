@@ -18,11 +18,11 @@ namespace Alie.Dialogs.Operations
     {
         public AutoLogBookLoansDialog() : base(nameof(AutoLogBookLoansDialog))
         {
-            AddDialog(new LoanApplicationDetailsDialog());
-            AddDialog(new LoanDetailsDialog());
-            AddDialog(new BackDialog());
-            AddDialog(new MainMenuDialog());
-            AddDialog(new MainDialog());
+          
+            //AddDialog(new LoanApplicationDetailsDialog());
+            //AddDialog(new LoanDetailsDialog());
+            //AddDialog(new BackDialog());
+            //AddDialog(new MainMenuDialog());
             AddDialog(new TextPrompt(nameof(TextPrompt)));
             AddDialog(new WaterfallDialog(nameof(WaterfallDialog), new WaterfallStep[]
             {

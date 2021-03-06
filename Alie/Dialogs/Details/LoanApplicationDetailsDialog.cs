@@ -1,15 +1,13 @@
 ﻿using Microsoft.Bot.Builder.Dialogs;
-using AdaptiveCards;
 using Microsoft.Bot.Builder;
-using Microsoft.Bot.Builder.Dialogs.Choices;
-using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.Bot.Schema;
-using Alie.Dialogs.Details;
 using Alie.Models;
+using Microsoft.Bot.Schema;
+using System.Net.Mail;
+
 
 namespace Alie.Dialogs.Details
 {
@@ -21,8 +19,12 @@ namespace Alie.Dialogs.Details
         private readonly IStatePropertyAccessor<UserProfile> _userProfileAccessor;
 
 
-        public LoanApplicationDetailsDialog() : base(nameof(LoanApplicationDetailsDialog))
+        public LoanApplicationDetailsDialog(UserState userState, ConversationState conversationState) : base(nameof(LoanApplicationDetailsDialog))
         {
+            _userDataAccessor = userState.CreateProperty<UserData>("UserData");
+            _conversationDataAccessor = conversationState.CreateProperty<ConversationData>("ConversationData");
+            _userProfileAccessor = userState.CreateProperty<UserProfile>("UserProfile");
+
             var waterfallSteps = new WaterfallStep[]
             {
                 NameStepAsync,
@@ -37,24 +39,18 @@ namespace Alie.Dialogs.Details
                 SummaryStepAsync
             };
 
-            _userDataAccessor = userState.CreateProperty<UserData>("UserData");
-            _conversationDataAccessor = conversationState.CreateProperty<ConversationData>("ConversationData");
-            _userProfileAccessor = userState.CreateProperty<UserProfile>("UserProfile");
-
             AddDialog(new TextPrompt(nameof(TextPrompt)));
-            AddDialog(new NumberPrompt<int>(nameof(NumberPrompt<int>)));
+            AddDialog(new NumberPrompt<int>(nameof(NumberPrompt<int>), AgePromptValidatorAsync));
             AddDialog(new ChoicePrompt(nameof(ChoicePrompt)));
-            AddDialog(new AttachmentPrompt(nameof(AttachmentPrompt)));
-            AddDialog(new MainDialog());
+            AddDialog(new AttachmentPrompt(nameof(AttachmentPrompt), PicturePromptValidatorAsync));
             AddDialog(new WaterfallDialog(nameof(WaterfallDialog), waterfallSteps));
             AddDialog(new TextPrompt(nameof(TextPrompt)));
 
             InitialDialogId = nameof(WaterfallDialog);
         }
-
         private async Task<DialogTurnResult> NameStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
-            return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = MessageFactory.Text("Please enter your first name.") }, cancellationToken);
+            return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = MessageFactory.Text("Please enter your full names.") }, cancellationToken);
         }
 
         private async Task<DialogTurnResult> NameConfirmStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
@@ -65,12 +61,12 @@ namespace Alie.Dialogs.Details
             await stepContext.Context.SendActivityAsync(MessageFactory.Text($"Thanks {stepContext.Result}."), cancellationToken);
 
             // WaterfallStep always finishes with the end of the Waterfall or with another dialog; here it is a Prompt Dialog.
-            return await stepContext.PromptAsync(nameof(ConfirmPrompt), new PromptOptions { Prompt = MessageFactory.Text("Please provide your email address") }, cancellationToken);
+            return await stepContext.PromptAsync(nameof(ConfirmPrompt), new PromptOptions { Prompt = MessageFactory.Text("Please confirm if you entered your name correctly!") }, cancellationToken);
 
         }
         private async Task<DialogTurnResult> EmailAddressStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
-            //stepContext.Values["name"] = (string)stepContext.Result
+            stepContext.Values["name"] = (string)stepContext.Result;
             return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = MessageFactory.Text("Please enter your email address.") }, cancellationToken);
         }
 
@@ -115,7 +111,7 @@ namespace Alie.Dialogs.Details
                 var promptOptions = new PromptOptions
                 {
                     Prompt = MessageFactory.Text("Please enter the loan amount."),
-                    RetryPrompt = MessageFactory.Text("The value entered must be greater than 0 and less than 300,000."),
+                    RetryPrompt = MessageFactory.Text("The value entered must be greater than 10000 and less than 300,000."),
                 };
 
                 return await stepContext.PromptAsync(nameof(NumberPrompt<int>), promptOptions, cancellationToken);
@@ -157,7 +153,7 @@ namespace Alie.Dialogs.Details
                 userProfile.Email = (string)stepContext.Values["email"];
                 userProfile.FullNames = (string)stepContext.Values["name"];
                 userProfile.Age = (int)stepContext.Values["age"];
-                userProfile.Picture = (Attachment)stepContext.Values["picture"];
+                userProfile.Picture = (System.Net.Mail.Attachment)stepContext.Values["picture"];
 
                 var msg = $"I have your Email Address as {userProfile.Email} and your name as {userProfile.FullNames}";
 
@@ -212,17 +208,17 @@ namespace Alie.Dialogs.Details
             if (promptContext.Recognized.Succeeded)
             {
                 var attachments = promptContext.Recognized.Value;
-                var validImages = new List<Attachment>();
+                var validImages = new List<System.Net.Mail.Attachment>();
 
                 foreach (var attachment in attachments)
                 {
                     if (attachment.ContentType == "image/jpeg" || attachment.ContentType == "image/png")
                     {
-                        validImages.Add(attachment);
+                        //validImages.Add(attachment);
                     }
                 }
 
-                promptContext.Recognized.Value = validImages;
+                promptContext.Recognized.Value = (IList<Microsoft.Bot.Schema.Attachment>)validImages;
 
                 // If none of the attachments are valid images, the retry prompt should be sent.
                 return validImages.Any();
@@ -249,6 +245,6 @@ namespace Alie.Dialogs.Details
 
         public int Amount { get; set; }
 
-        public Attachment Picture { get; set; }
+        public System.Net.Mail.Attachment Picture { get; set; }
     }
 }

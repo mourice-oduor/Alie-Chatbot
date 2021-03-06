@@ -8,7 +8,11 @@ namespace Alie.Models
     public class ConversationData
     {
         //State Management properties
+        public string ChannelId { get; set; }
+
         public bool HasWelcomed { get; set; } = false;
+
+        public bool PromptedUserForName { get; set; } = false;
 
         public bool HasSelectedProduct { get; set; } = false;
 
