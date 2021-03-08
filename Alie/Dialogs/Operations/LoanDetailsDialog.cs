@@ -154,11 +154,11 @@ namespace Alie.Dialogs.Operations
                 var userProfile = await _userProfileAccessor.GetAsync(stepContext.Context, () => new UserProfile(), cancellationToken);
 
                 userProfile.Email = (string)stepContext.Values["email"];
-                userProfile.FullNames = (string)stepContext.Values["name"];
+                userProfile.FullName = (string)stepContext.Values["name"];
                 userProfile.Age = (int)stepContext.Values["age"];
                 userProfile.Picture = (Attachment)stepContext.Values["picture"];
 
-                var msg = $"I have your Email Address as {userProfile.Email} and your name as {userProfile.FullNames}";
+                var msg = $"I have your Email Address as {userProfile.Email} and your name as {userProfile.FullName}";
 
                 if (userProfile.Age != -1)
                 {

@@ -7,7 +7,9 @@ namespace Alie
     {
         public String Id { get; set; }
 
-        public string FullNames { get; set; }
+        public string FullName { get; set; }
+
+        public int Age { get; set; }
 
         public string Email { get; set; }
 
@@ -16,9 +18,6 @@ namespace Alie
         public int PhoneNumber { get; set; }
 
         public int Amount { get; set; }
-
-
-        public int Age { get; set; }
 
         public Attachment Picture { get; set; }
 

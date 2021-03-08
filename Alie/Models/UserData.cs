@@ -12,6 +12,8 @@ namespace Alie.Models
 
         public String FullName { get; set; }
 
+        public int Age { get; set; }
+
         public string Email { get; set; }
 
         public string Location { get; set; }
@@ -19,10 +21,6 @@ namespace Alie.Models
         public int PhoneNumber { get; set; }
 
         public int Amount { get; set; }
-
-
-        public int Age { get; set; }
-
 
         public Attachment Picture { get; set; }
 

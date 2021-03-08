@@ -18,7 +18,7 @@ namespace Alie.Dialogs.Operations
     {
         public AutoLogBookLoansDialog() : base(nameof(AutoLogBookLoansDialog))
         {
-          
+
             //AddDialog(new LoanApplicationDetailsDialog());
             //AddDialog(new LoanDetailsDialog());
             //AddDialog(new BackDialog());
@@ -47,8 +47,10 @@ namespace Alie.Dialogs.Operations
                                                           " >Comprehensive insurance "), cancellationToken);
 
             List<string> operationList = new List<string> { "1. Apply This Loan",
-                                                            "2. Back To Previous Menu",
-                                                            "3. Main Menu" };
+                                                            "2. FAQs",
+                                                            "3. Back To Previous Menu",
+                                                            "4. Main Menu",
+                                                            "5. Contact Us!"};
 
             // Create card
             var card = new AdaptiveCard(new AdaptiveSchemaVersion(1, 0))
@@ -89,21 +91,25 @@ namespace Alie.Dialogs.Operations
 
             if ("1. Apply This Loan".Equals(operation))
             {
-                //return await stepContext.BeginDialogAsync("LoanDetailsDialog", null, cancellationToken);
-
                 return await stepContext.BeginDialogAsync(nameof(LoanApplicationDetailsDialog), userProfile, cancellationToken);
             }
-            else if ("2. Back To Previous Menu".Equals(operation))
+            else if ("2. FAQs".Equals(operation))
             {
-                //return await stepContext.ReplaceDialogAsync(), null, cancellationToken);
-
-                stepContext.ActiveDialog.State["stepIndex"] = (int)stepContext.ActiveDialog.State["stepIndex"] - 1;
-                return await stepContext.ReplaceDialogAsync(InitialDialogId, userProfile, cancellationToken);
+                return await stepContext.ReplaceDialogAsync(nameof(MainDialog), userProfile, cancellationToken);
             }
-            else if ("3. Main Menu".Equals(operation))
+            else if ("3. Back To Previous Menu".Equals(operation))
+            {
+                stepContext.ActiveDialog.State["stepIndex"] = (int)stepContext.ActiveDialog.State["stepIndex"] - 1;
+                return await stepContext.ReplaceDialogAsync(nameof(MainDialog), null, cancellationToken);
+            }
+            else if ("4. Contact Us!".Equals(operation))
+            {
+                return await stepContext.ReplaceDialogAsync(nameof(MainDialog), userProfile, cancellationToken);
+            }
+
+            else if ("5. Main Menu".Equals(operation))
             {
                 stepContext.ActiveDialog.State["stepIndex"] = (int)stepContext.ActiveDialog.State["stepIndex"] - 2;
-                //return await stepContext.ReplaceDialogAsync(nameof(MainMenuDialog), cancellationToken);
                 return await stepContext.ReplaceDialogAsync(nameof(MainDialog), userProfile, cancellationToken);
             }
 
