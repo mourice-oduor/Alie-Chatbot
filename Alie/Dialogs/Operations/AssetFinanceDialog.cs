@@ -26,7 +26,6 @@ namespace Alie.Dialogs.Operations
 
             //AddDialog(new LoanApplicationDetailsDialog());
             //AddDialog(new MainDialog());
-            AddDialog(new LoanDetailsDialog());
             AddDialog(new WaterfallDialog(nameof(WaterfallDialog), waterfallSteps));
             AddDialog(new TextPrompt(nameof(TextPrompt)));
 
@@ -85,7 +84,7 @@ namespace Alie.Dialogs.Operations
             {
                 if ("1. Apply This Loan".Equals(operation))
                 {
-                    return await stepContext.BeginDialogAsync(nameof(LoanDetailsDialog), new UserProfile(), cancellationToken);
+                    return await stepContext.BeginDialogAsync(nameof(LoanApplicationDetailsDialog), new UserProfile(), cancellationToken);
                 }
                 else if ("2. Back To Previous Menu".Equals(operation))
                 {

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.Bot.Builder.Dialogs.Choices;
 using Microsoft.Bot.Connector;
 using Microsoft.Bot.Schema;
+using Alie.Models;
 
 namespace Alie.Dialogs.Details
 {
@@ -17,11 +18,11 @@ namespace Alie.Dialogs.Details
         private readonly IStatePropertyAccessor<UserProfile> _userProfileAccessor;
 
 
-        public LoanApplicationDetailsDialog(UserState userState, ConversationState conversationState) : base(nameof(LoanApplicationDetailsDialog))
+        public LoanApplicationDetailsDialog() : base(nameof(LoanApplicationDetailsDialog))
         {
             //_userDataAccessor = userState.CreateProperty<UserData>("UserData");
             //_conversationDataAccessor = conversationState.CreateProperty<ConversationData>("ConversationData");
-            _userProfileAccessor = userState.CreateProperty<UserProfile>(nameof(UserProfile));
+            //_userProfileAccessor = userState.CreateProperty<UserProfile>(nameof(UserProfile));
 
             var waterfallSteps = new WaterfallStep[]
             {
@@ -48,13 +49,13 @@ namespace Alie.Dialogs.Details
 
         private async Task<DialogTurnResult> NameStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
-            // Recovery from the user profile 'User State through' the userprofileaccessor
-            var userProfile = await _userProfileAccessor.GetAsync(
-                stepContext.Context, () => new UserProfile(),
-                cancellationToken);
+            // Retrieve the user profile from the UserState via the userProfileAccessor
+            //var userProfile = await _userProfileAccessor.GetAsync(
+            //    stepContext.Context, () => new UserProfile(),
+            //    cancellationToken);
 
             // Set the Is Registered property to TRUE
-            userProfile.IsRegistered = true;
+            //userProfile.IsRegistered = true;
 
             return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = MessageFactory.Text("Please enter your full name.") }, cancellationToken);
         }
@@ -64,12 +65,9 @@ namespace Alie.Dialogs.Details
             stepContext.Values["name"] = (string)stepContext.Result;
 
             // We can send messages to the user at any point in the WaterfallStep.
-            await stepContext.Context.SendActivityAsync(MessageFactory.Text($"Thank You! {stepContext.Result}."), cancellationToken);
+            await stepContext.Context.SendActivityAsync(MessageFactory.Text( $"Thank You! {stepContext.Result}."), cancellationToken);
 
             // WaterfallStep always finishes with the end of the Waterfall or with another dialog; here it is a Prompt Dialog.
-            //return await stepContext.PromptAsync(nameof(ConfirmPrompt), new PromptOptions { Prompt = MessageFactory.Text("Please confirm if you entered your name correctly!") }, cancellationToken);
-
-            //Ask user for the age>>>> Response to be either YES OR NO!
             return await stepContext.PromptAsync(nameof(ChoicePrompt),
                 new PromptOptions
                 {
@@ -81,8 +79,9 @@ namespace Alie.Dialogs.Details
 
         private async Task<DialogTurnResult> AgeStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
+            stepContext.Values["age"] = (FoundChoice)stepContext.Result;
             var value = ((FoundChoice)stepContext.Result).Value;
-            if (value == " Yes ")
+            if (value == "Yes")
             {
                 // If the user has declared that he wants to communicate the age, I present a "NumberPrompt" dialog to acquire it.
                 // The NumberPrompt dialog is similar to the TextPrompt, but only accepts numeric values:

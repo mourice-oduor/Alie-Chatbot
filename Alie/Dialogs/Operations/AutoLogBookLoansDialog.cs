@@ -18,11 +18,11 @@ namespace Alie.Dialogs.Operations
     {
         public AutoLogBookLoansDialog() : base(nameof(AutoLogBookLoansDialog))
         {
-
-            //AddDialog(new LoanApplicationDetailsDialog());
-            //AddDialog(new LoanDetailsDialog());
-            //AddDialog(new BackDialog());
-            //AddDialog(new MainMenuDialog());
+            AddDialog(new LoanApplicationDetailsDialog());
+            AddDialog(new FaqsDialog());
+            AddDialog(new ContactDialog());
+            AddDialog(new ChoicePrompt(nameof(ChoicePrompt)));
+            AddDialog(new NumberPrompt<int>(nameof(NumberPrompt<int>)));
             AddDialog(new TextPrompt(nameof(TextPrompt)));
             AddDialog(new WaterfallDialog(nameof(WaterfallDialog), new WaterfallStep[]
             {
@@ -49,8 +49,8 @@ namespace Alie.Dialogs.Operations
             List<string> operationList = new List<string> { "1. Apply This Loan",
                                                             "2. FAQs",
                                                             "3. Back To Previous Menu",
-                                                            "4. Main Menu",
-                                                            "5. Contact Us!"};
+                                                            "4. Contact Us!",
+                                                            "5. Main Menu"};
 
             // Create card
             var card = new AdaptiveCard(new AdaptiveSchemaVersion(1, 0))
@@ -86,7 +86,6 @@ namespace Alie.Dialogs.Operations
 
             var userProfile = new UserProfile()
             {
-                //LoanDetailsDialog;
             };
 
             if ("1. Apply This Loan".Equals(operation))
@@ -95,7 +94,7 @@ namespace Alie.Dialogs.Operations
             }
             else if ("2. FAQs".Equals(operation))
             {
-                return await stepContext.ReplaceDialogAsync(nameof(MainDialog), userProfile, cancellationToken);
+                return await stepContext.BeginDialogAsync(nameof(FaqsDialog), userProfile, cancellationToken);
             }
             else if ("3. Back To Previous Menu".Equals(operation))
             {
@@ -104,7 +103,7 @@ namespace Alie.Dialogs.Operations
             }
             else if ("4. Contact Us!".Equals(operation))
             {
-                return await stepContext.ReplaceDialogAsync(nameof(MainDialog), userProfile, cancellationToken);
+                return await stepContext.BeginDialogAsync(nameof(ContactDialog), userProfile, cancellationToken);
             }
 
             else if ("5. Main Menu".Equals(operation))

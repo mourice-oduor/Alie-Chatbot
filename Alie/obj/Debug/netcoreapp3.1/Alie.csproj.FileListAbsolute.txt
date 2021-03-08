@@ -73,6 +73,7 @@ C:\Users\USER\Desktop\final\Alie\bin\Debug\netcoreapp3.1\System.Diagnostics.Diag
 C:\Users\USER\Desktop\final\Alie\bin\Debug\netcoreapp3.1\System.IdentityModel.Tokens.Jwt.dll
 C:\Users\USER\Desktop\final\Alie\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netstandard1.3\System.Security.Cryptography.ProtectedData.dll
 C:\Users\USER\Desktop\final\Alie\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard1.3\System.Security.Cryptography.ProtectedData.dll
+C:\Users\USER\Desktop\final\Alie\obj\Debug\netcoreapp3.1\Alie.csprojAssemblyReference.cache
 C:\Users\USER\Desktop\final\Alie\obj\Debug\netcoreapp3.1\Alie.AssemblyInfoInputs.cache
 C:\Users\USER\Desktop\final\Alie\obj\Debug\netcoreapp3.1\Alie.AssemblyInfo.cs
 C:\Users\USER\Desktop\final\Alie\obj\Debug\netcoreapp3.1\Alie.csproj.CoreCompileInputs.cache
@@ -86,4 +87,3 @@ C:\Users\USER\Desktop\final\Alie\obj\Debug\netcoreapp3.1\Alie.csproj.CopyComplet
 C:\Users\USER\Desktop\final\Alie\obj\Debug\netcoreapp3.1\Alie.dll
 C:\Users\USER\Desktop\final\Alie\obj\Debug\netcoreapp3.1\Alie.pdb
 C:\Users\USER\Desktop\final\Alie\obj\Debug\netcoreapp3.1\Alie.genruntimeconfig.cache
-C:\Users\USER\Desktop\final\Alie\obj\Debug\netcoreapp3.1\Alie.csprojAssemblyReference.cache
