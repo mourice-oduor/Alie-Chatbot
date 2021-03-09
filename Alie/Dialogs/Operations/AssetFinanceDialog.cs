@@ -17,17 +17,18 @@ namespace Alie.Dialogs.Operations
     {
         public AssetFinanceDialog() : base(nameof(AssetFinanceDialog))
         {
-            var waterfallSteps = new WaterfallStep[]
+            AddDialog(new LoanApplicationDetailsDialog());
+            AddDialog(new FaqsDialog());
+            AddDialog(new ContactDialog());
+            AddDialog(new ChoicePrompt(nameof(ChoicePrompt)));
+            AddDialog(new NumberPrompt<int>(nameof(NumberPrompt<int>)));
+            AddDialog(new TextPrompt(nameof(TextPrompt)));
+            AddDialog(new WaterfallDialog(nameof(WaterfallDialog), new WaterfallStep[]
             {
                 IntroStepAsync,
                 ActStepAsync,
                 FinalStepAsync,
-            };
-
-            //AddDialog(new LoanApplicationDetailsDialog());
-            //AddDialog(new MainDialog());
-            AddDialog(new WaterfallDialog(nameof(WaterfallDialog), waterfallSteps));
-            AddDialog(new TextPrompt(nameof(TextPrompt)));
+            }));
 
             InitialDialogId = nameof(WaterfallDialog);
         }
@@ -45,8 +46,10 @@ namespace Alie.Dialogs.Operations
 
 
             List<string> operationList = new List<string> { "1. Apply This Loan",
-                                                            "2. Back To Previous Menu",
-                                                            "3. Main Menu"};
+                                                            "2. FAQs",
+                                                            "3. Back To Previous Menu",
+                                                            "4. Contact Us!",
+                                                            "5. Main Menu"};
 
             // Create card
             var card = new AdaptiveCard(new AdaptiveSchemaVersion(1, 0))
@@ -79,40 +82,39 @@ namespace Alie.Dialogs.Operations
 
             stepContext.Values["Operation"] = ((FoundChoice)stepContext.Result).Value;
             string operation = (string)stepContext.Values["Operation"];
-            //await stepContext.Context.SendActivityAsync((operation));
-            try
+
+            var userProfile = new UserProfile()
             {
-                if ("1. Apply This Loan".Equals(operation))
-                {
-                    return await stepContext.BeginDialogAsync(nameof(LoanApplicationDetailsDialog), new UserProfile(), cancellationToken);
-                }
-                else if ("2. Back To Previous Menu".Equals(operation))
-                {
-                    stepContext.ActiveDialog.State["stepIndex"] = (int)stepContext.ActiveDialog.State["stepIndex"] - 1;
-                    return await stepContext.ReplaceDialogAsync(InitialDialogId, null, cancellationToken);
-                }
-                else if ("3. Main Menu".Equals(operation))
-                {
-                    stepContext.ActiveDialog.State["stepIndex"] = (int)stepContext.ActiveDialog.State["stepIndex"] - 2;
-                    //return await stepContext.ReplaceDialogAsync(nameof(MainMenuDialog), cancellationToken);
-                    return await stepContext.ReplaceDialogAsync(nameof(MainDialog), new UserData(), cancellationToken);
-                }
-            }
-            catch (System.Exception)
+            };
+
+            if ("1. Apply This Loan".Equals(operation))
             {
-
-                throw;
+                return await stepContext.BeginDialogAsync(nameof(LoanApplicationDetailsDialog), userProfile, cancellationToken);
             }
-            return await stepContext.ReplaceDialogAsync(nameof(MainDialog), new UserData(), cancellationToken);
+            else if ("2. FAQs".Equals(operation))
+            {
+                return await stepContext.BeginDialogAsync(nameof(FaqsDialog), userProfile, cancellationToken);
+            }
+            else if ("3. Back To Previous Menu".Equals(operation))
+            {
+                stepContext.ActiveDialog.State["stepIndex"] = (int)stepContext.ActiveDialog.State["stepIndex"] - 1;
+                return await stepContext.ReplaceDialogAsync(nameof(MainDialog), null, cancellationToken);
+            }
+            else if ("4. Contact Us!".Equals(operation))
+            {
+                return await stepContext.BeginDialogAsync(nameof(ContactDialog), userProfile, cancellationToken);
+            }
+            else if ("5. Main Menu".Equals(operation))
+            {
+                stepContext.ActiveDialog.State["stepIndex"] = (int)stepContext.ActiveDialog.State["stepIndex"] - 2;
+                return await stepContext.ReplaceDialogAsync(nameof(MainDialog), userProfile, cancellationToken);
+            }
 
-
-
-
-            //else
-            //{
-            //    await stepContext.Context.SendActivityAsync(MessageFactory.Text("Wrong User Input. Please try again!"), cancellationToken);
-            //    return await stepContext.ReplaceDialogAsync(InitialDialogId, cancellationToken);
-            //}
+            else
+            {
+                await stepContext.Context.SendActivityAsync(MessageFactory.Text("Wrong User Input. Please try again!"), cancellationToken);
+                return await stepContext.ReplaceDialogAsync(InitialDialogId, cancellationToken);
+            }
         }
 
         private async Task<DialogTurnResult> FinalStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)

@@ -8,9 +8,9 @@ namespace Alie.Models
 {
     public class UserData
     {
-        public String Id { get; set; }
+        public int Id { get; set; }
 
-        public String FullName { get; set; }
+        public string FullName { get; set; }
 
         public int Age { get; set; }
 

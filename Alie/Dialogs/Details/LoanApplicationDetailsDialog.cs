@@ -7,6 +7,7 @@ using Microsoft.Bot.Builder.Dialogs.Choices;
 using Microsoft.Bot.Connector;
 using Microsoft.Bot.Schema;
 using Alie.Models;
+using System;
 
 namespace Alie.Dialogs.Details
 {
@@ -16,7 +17,6 @@ namespace Alie.Dialogs.Details
         //private readonly IStatePropertyAccessor<ConversationData> _conversationDataAccessor;
 
         private readonly IStatePropertyAccessor<UserProfile> _userProfileAccessor;
-
 
         public LoanApplicationDetailsDialog() : base(nameof(LoanApplicationDetailsDialog))
         {
@@ -33,13 +33,15 @@ namespace Alie.Dialogs.Details
                 PhoneNumberStepAsync,
                 LocationStepAsync,
                 AmountStepAsync,
-                //PictureStepAsync,
+                //AttachmentStepAsync,
                 ConfirmStepAsync,
-                SummaryStepAsync
+                SummaryStepAsync,
             };
 
             AddDialog(new TextPrompt(nameof(TextPrompt)));
             AddDialog(new NumberPrompt<int>(nameof(NumberPrompt<int>), AgePromptValidatorAsync));
+            AddDialog(new NumberPrompt<int>(nameof(NumberPrompt<int>), PhoneNumberPromptValidatorAsync));
+            AddDialog(new NumberPrompt<int>(nameof(NumberPrompt<int>), AmountPromptValidatorAsync));
             AddDialog(new ChoicePrompt(nameof(ChoicePrompt)));
             //AddDialog(new AttachmentPrompt(nameof(AttachmentPrompt), PicturePromptValidatorAsync));
             AddDialog(new WaterfallDialog(nameof(WaterfallDialog), waterfallSteps));
@@ -90,8 +92,8 @@ namespace Alie.Dialogs.Details
                 // there is a RetryPrompt to be presented on the screen.
                 var promptOptions = new PromptOptions
                 {
-                    Prompt = MessageFactory.Text(" Perfect! Enter your age. "),
-                    RetryPrompt = MessageFactory.Text(" ATTENTION: you must enter a number value between 0 and 150. "),
+                    Prompt = MessageFactory.Text(" Please Enter your age. "),
+                    RetryPrompt = MessageFactory.Text(" WARNING!: you must enter a number value between 18 and 150. "),
                 };
 
                 return await stepContext.PromptAsync(nameof(NumberPrompt<int>), promptOptions, cancellationToken);
@@ -101,7 +103,7 @@ namespace Alie.Dialogs.Details
                 // If the user has declared that he does not want to communicate his age, jump directly to the next WaterfallStep.
 
                 await stepContext.Context.SendActivityAsync(
-                    MessageFactory.Text( $" No problem,{ stepContext.Values[" name "]} !Let's go ahead. "),
+                    MessageFactory.Text( $" No problem,{ stepContext.Values[" name "]} !Let's continue with your application. "),
                     cancellationToken);
 
                 // User said "no" so we will skip the next step. Give -1 as the age
@@ -110,7 +112,7 @@ namespace Alie.Dialogs.Details
         }
         private async Task<DialogTurnResult> EmailAddressStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
-            stepContext.Values[" age "] = (int)stepContext.Result;
+            stepContext.Values["age"] = (int)stepContext.Result;
 
             return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = MessageFactory.Text("Please enter your email address.") }, cancellationToken);
         }
@@ -118,26 +120,92 @@ namespace Alie.Dialogs.Details
         private async Task<DialogTurnResult> PhoneNumberStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
             stepContext.Values["email"] = (string)stepContext.Result;
-            return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = MessageFactory.Text("Please enter your Phone Number .") }, cancellationToken);
+            return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = MessageFactory.Text("Enter your Phone Number .") }, cancellationToken);
+            //var promptOptions = new PromptOptions
+            //{
+            //    Prompt = MessageFactory.Text(" Enter your Phone Number. "),
+            //    RetryPrompt = MessageFactory.Text(" Incorect Value!: Please enter the valid Phone Number!. "),
+            //};
+
+            //if (!stepContext.Context.Responded)
+            //{
+            //    int count = Convert.ToString(stepContext.Context.Responded).Length;
+            //    if (count != 10)
+            //    {
+            //        await stepContext.Context.SendActivityAsync("Hello , you are missing some number !!!",
+            //            cancellationToken: cancellationToken);
+            //        //return false;
+            //    }
+
+            //    //return true;
+            //}
+            //await stepContext.Context.SendActivityAsync("Hello, Please enter the valid phone number",
+            //    cancellationToken: cancellationToken);
+
+            //return await stepContext.PromptAsync(nameof(NumberPrompt<int>), promptOptions, cancellationToken);
         }
         private async Task<DialogTurnResult> LocationStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
-            stepContext.Values["phone"] = (int)stepContext.Result;
+            stepContext.Values["phone"] = (string)stepContext.Result;
             return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = MessageFactory.Text("Please Provide your Location.") }, cancellationToken);
         }
-        
+
         private async Task<DialogTurnResult> AmountStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
             stepContext.Values["location"] = (string)stepContext.Result;
-            // WaterfallStep always finishes with the end of the Waterfall or with another dialog; here it is a Prompt Dialog.
-            var promptOptions = new PromptOptions
-            {
-                Prompt = MessageFactory.Text("Please enter the loan amount."),
-                RetryPrompt = MessageFactory.Text("The value entered must be greater than 50000 and less than 300,000."),
-            };
+            return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = MessageFactory.Text("Enter the amount between 50,000 to 300,000") }, cancellationToken);
 
-            return await stepContext.PromptAsync(nameof(NumberPrompt<int>), promptOptions, cancellationToken);
+            //var promptOptions = new PromptOptions
+            //{
+            //    Prompt = MessageFactory.Text("Please enter the loan amount."),
+            //    RetryPrompt = MessageFactory.Text("The value entered must be greater than 50,000 and less than 300,000.")
+            //};
+
+            //if (!stepContext.Context.Responded)
+            //{
+            //    int value = Convert.ToString(stepContext.Context.Responded).Length;
+            //    if (value < 50000)
+            //    {
+            //        await stepContext.Context.SendActivityAsync("The value entered must be greater than 50,000 and less than 300,000!",
+            //            cancellationToken: cancellationToken);
+            //        //return false;
+            //    }
+
+            //    //return true;
+            //}
+            //await stepContext.Context.SendActivityAsync("Enter Valid Amount. ",
+            //    cancellationToken: cancellationToken);
+
+
+            //FoundValue result = ((FoundValue)stepContext.Result);
+            //var value = (int)result.Value;
+
+            //result = (result)stepContext.Result;
+            //var value = (int)result.Equals(value);
+            //var value = (int)50000;
+            //if (value < 50000)
+            //{
+            //    await stepContext.Context.SendActivityAsync(
+            //        MessageFactory.Text($"{ stepContext.Values["result"]} The value entered must be greater than 50,000 and less than 300,000. "),
+            //        cancellationToken);
+            //    //Prompt = MessageFactory.Text("The value entered must be greater than 50,000 and less than 300,000.");
+            //}
+            //else
+            //{
+            //    return await stepContext.NextAsync(null, cancellationToken);
+            //}
+
+            // Ask the user to enter their loan amount.
+            //return await stepContext.PromptAsync(nameof(NumberPrompt<int>), promptOptions, cancellationToken);
+
+            
+
+            //return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = MessageFactory.Text("Please confirm your entered details below.") }, cancellationToken);
+
+            //return await stepContext.PromptAsync(nameof(NumberPrompt<int>), promptOptions, cancellationToken);
+            //return await stepContext.PromptAsync(nameof(NumberPrompt<int>), new PromptOptions { Prompt = MessageFactory.Text("Enter the loan amount.") }, cancellationToken);
         }
+
         //private async Task<DialogTurnResult> PictureStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         //{
         //    stepContext.Values["amount"] = (string)stepContext.Result;
@@ -162,7 +230,7 @@ namespace Alie.Dialogs.Details
 
         private async Task<DialogTurnResult> ConfirmStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
-            stepContext.Values[" amount "] = (int)stepContext.Result;
+            stepContext.Values["amount"] = (string)stepContext.Result;
 
             await stepContext.Context.SendActivityAsync(
                 MessageFactory.Text( $"Thanks for the replies, { stepContext.Values [ " name " ]}. Here is a summary of the data you entered: "),
@@ -211,9 +279,7 @@ namespace Alie.Dialogs.Details
             if (value == " Yes ")
             {
                 // If the user has confirmed the registration:
-
                 // TODO: register the user in the database (or something like that)
-
                 await stepContext.Context.SendActivityAsync(
                     MessageFactory.Text(" OPERATION COMPLETED! "),
                     cancellationToken);
@@ -301,7 +367,19 @@ namespace Alie.Dialogs.Details
         private static Task<bool> AgePromptValidatorAsync(PromptValidatorContext<int> promptContext, CancellationToken cancellationToken)
         {
             // This condition is our validation rule. You can also change the value at this point.
-            return Task.FromResult(promptContext.Recognized.Succeeded && promptContext.Recognized.Value > 0 && promptContext.Recognized.Value < 150);
+            return Task.FromResult(promptContext.Recognized.Succeeded && promptContext.Recognized.Value > 17 && promptContext.Recognized.Value < 150);
+        }
+
+        private static Task<bool> PhoneNumberPromptValidatorAsync(PromptValidatorContext<int> promptContext, CancellationToken cancellationToken)
+        {
+            // This condition is our validation rule. You can also change the value at this point.
+            return Task.FromResult(promptContext.Recognized.Succeeded && promptContext.Recognized.Value > 0 && promptContext.Recognized.Value < 10);
+        }
+
+        private static Task<bool> AmountPromptValidatorAsync(PromptValidatorContext<int> promptContext, CancellationToken cancellationToken)
+        {
+            // This condition is our validation rule. You can also change the value at this point.
+            return Task.FromResult(promptContext.Recognized.Succeeded && promptContext.Recognized.Value > 49000 && promptContext.Recognized.Value < 300001);
         }
 
         //private static async Task<bool> PicturePromptValidatorAsync(PromptValidatorContext<IList<Microsoft.Bot.Schema.Attachment>> promptContext, CancellationToken cancellationToken)
