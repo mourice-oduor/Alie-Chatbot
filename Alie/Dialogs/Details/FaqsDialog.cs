@@ -35,7 +35,7 @@ namespace Alie.Dialogs.Details
         private async Task<DialogTurnResult> IntroStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
             await stepContext.Context.SendActivityAsync(
-                MessageFactory.Text( $"Welcome To FAQS About Loans. Or visit this link + https://www.ngaocredit.com/faqs/ for more!"), cancellationToken);
+                MessageFactory.Text( $"Welcome To FAQS About Loans. Or visit this link https://www.ngaocredit.com/faqs/ for more!"), cancellationToken);
 
 
             List<string> operationList = new List<string> { "1. Back To Previous Menu",

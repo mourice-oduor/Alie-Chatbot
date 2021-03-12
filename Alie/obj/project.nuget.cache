@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "y+nwKFxEtG4mxxZW/O0ojNRZPhBX6c8TD8OmpsiJnOvaqWAZAEKMShZnoD7HAQlO1MGcVbDY36PN8HgwMjnM0Q==",
+  "dgSpecHash": "CZWNS4UZvITgAmv2pqIl2vQVAC4QCR5nM6qRzRlUH2L5ACNnDAkGsTW8/6aCIuw89WkO1vhdCilWmuGz1stUbA==",
   "success": true,
   "projectFilePath": "C:\\Users\\USER\\Desktop\\final\\Alie\\Alie.csproj",
   "expectedPackageFiles": [
@@ -82,7 +82,7 @@
     "C:\\Users\\USER\\.nuget\\packages\\runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl\\4.3.2\\runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl.4.3.2.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\runtime.fedora.24-x64.runtime.native.system.security.cryptography.openssl\\4.3.2\\runtime.fedora.24-x64.runtime.native.system.security.cryptography.openssl.4.3.2.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\runtime.native.system\\4.3.0\\runtime.native.system.4.3.0.nupkg.sha512",
-    "C:\\Microsoft\\Xamarin\\NuGet\\runtime.native.system.io.compression\\4.3.0\\runtime.native.system.io.compression.4.3.0.nupkg.sha512",
+    "C:\\Users\\USER\\.nuget\\packages\\runtime.native.system.io.compression\\4.3.0\\runtime.native.system.io.compression.4.3.0.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\runtime.native.system.net.http\\4.3.0\\runtime.native.system.net.http.4.3.0.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\runtime.native.system.security.cryptography.apple\\4.3.0\\runtime.native.system.security.cryptography.apple.4.3.0.nupkg.sha512",
     "C:\\Users\\USER\\.nuget\\packages\\runtime.native.system.security.cryptography.openssl\\4.3.2\\runtime.native.system.security.cryptography.openssl.4.3.2.nupkg.sha512",
