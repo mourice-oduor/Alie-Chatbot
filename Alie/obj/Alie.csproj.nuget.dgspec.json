@@ -1,25 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\USER\\Desktop\\final\\Alie\\Alie.csproj": {}
+    "C:\\Users\\USER\\Desktop\\final\\Alie\\Alie\\Alie.csproj": {}
   },
   "projects": {
-    "C:\\Users\\USER\\Desktop\\final\\Alie\\Alie.csproj": {
+    "C:\\Users\\USER\\Desktop\\final\\Alie\\Alie\\Alie.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\USER\\Desktop\\final\\Alie\\Alie.csproj",
+        "projectUniqueName": "C:\\Users\\USER\\Desktop\\final\\Alie\\Alie\\Alie.csproj",
         "projectName": "Alie",
-        "projectPath": "C:\\Users\\USER\\Desktop\\final\\Alie\\Alie.csproj",
+        "projectPath": "C:\\Users\\USER\\Desktop\\final\\Alie\\Alie\\Alie.csproj",
         "packagesPath": "C:\\Users\\USER\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\USER\\Desktop\\final\\Alie\\obj\\",
+        "outputPath": "C:\\Users\\USER\\Desktop\\final\\Alie\\Alie\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
-          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+          "C:\\Microsoft\\Xamarin\\NuGet\\"
         ],
         "configFilePaths": [
           "C:\\Users\\USER\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
@@ -50,10 +48,6 @@
               "target": "Package",
               "version": "[2.5.1, )"
             },
-            "Bot.Builder.Community.Dialogs.Location": {
-              "target": "Package",
-              "version": "[4.11.0, )"
-            },
             "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
               "target": "Package",
               "version": "[3.1.1, )"
@@ -66,6 +60,10 @@
               "target": "Package",
               "version": "[4.11.1, )"
             },
+            "Microsoft.Bot.Builder.Azure": {
+              "target": "Package",
+              "version": "[4.11.1, )"
+            },
             "Microsoft.Bot.Builder.Dialogs": {
               "target": "Package",
               "version": "[4.11.1, )"
@@ -74,37 +72,21 @@
               "target": "Package",
               "version": "[4.11.1, )"
             },
-            "Microsoft.Bot.Builder.Dialogs.Declarative": {
-              "target": "Package",
-              "version": "[4.11.1, )"
-            },
-            "Microsoft.Bot.Builder.FormFlow.Json": {
-              "target": "Package",
-              "version": "[3.30.0, )"
-            },
             "Microsoft.Bot.Builder.Integration.AspNet.Core": {
               "target": "Package",
               "version": "[4.11.1, )"
             },
-            "Microsoft.EntityFrameworkCore": {
+            "Microsoft.Bot.Builder.TemplateManager": {
               "target": "Package",
-              "version": "[5.0.3, )"
+              "version": "[4.11.1, )"
             },
             "Microsoft.Extensions.DependencyInjection": {
               "target": "Package",
               "version": "[5.0.1, )"
             },
-            "Microsoft.Extensions.Logging": {
-              "target": "Package",
-              "version": "[5.0.0, )"
-            },
             "Microsoft.Recognizers.Text.DataTypes.TimexExpression": {
               "target": "Package",
-              "version": "[1.4.0, )"
-            },
-            "Newtonsoft.Json": {
-              "target": "Package",
-              "version": "[12.0.3, )"
+              "version": "[1.5.0, )"
             }
           },
           "imports": [
@@ -125,7 +107,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.103\\RuntimeIdentifierGraph.json"
         }
       }
     }

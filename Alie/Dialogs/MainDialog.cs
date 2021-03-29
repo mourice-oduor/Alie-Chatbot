@@ -1,7 +1,5 @@
 using AdaptiveCards;
-using Alie.Dialogs.Details;
 using Alie.Dialogs.Operations;
-using Alie.Models;
 using Microsoft.Bot.Builder;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Builder.Dialogs.Choices;
@@ -12,7 +10,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Diagnostics;
 
 namespace Alie.Dialogs
 {
@@ -72,7 +69,7 @@ namespace Alie.Dialogs
             // Prompt
             return await stepContext.PromptAsync(nameof(ChoicePrompt), new PromptOptions
             {
-                Prompt = (Microsoft.Bot.Schema.Activity)MessageFactory.Attachment(new Attachment
+                Prompt = (Activity)MessageFactory.Attachment(new Attachment
                 {
                     ContentType = AdaptiveCard.ContentType,
                     // Convert the AdaptiveCard to a JObject
@@ -84,132 +81,81 @@ namespace Alie.Dialogs
             },
                 cancellationToken);
         }
+
         private async Task<DialogTurnResult> ActStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
-            //if(innerDc.stepContext.Activity.Type == ActivityTypes.Message)
             stepContext.Values["Operation"] = ((FoundChoice)stepContext.Result).Value;
             string operation = (string)stepContext.Values["Operation"];
-            await stepContext.Context.SendActivityAsync(MessageFactory.Text("You have selected - " + operation), cancellationToken);
+            //await stepContext.Context.SendActivityAsync((operation));
 
-            if ("1. AUTO LOGBOOK LOANS".Equals(operation))
+            if ("Auto LogBook Loans".Equals(operation))
             {
                 return await stepContext.BeginDialogAsync(nameof(AutoLogBookLoansDialog), new UserProfile(), cancellationToken);
             }
-            else if ("2. ASSET FINANCE".Equals(operation))
+
+            else if ("Asset Finance".Equals(operation))
             {
                 return await stepContext.BeginDialogAsync(nameof(AssetFinanceDialog), new UserProfile(), cancellationToken);
             }
-            else if ("3. LOAN AGAINST SHARES".Equals(operation))
+            else if ("Loan Against Shares".Equals(operation))
             {
                 return await stepContext.BeginDialogAsync(nameof(LoanAgainstSharesDialog), new UserProfile(), cancellationToken);
             }
-            else if ("4. MASOMO BOOST".Equals(operation))
+            else if ("Masomo Boost".Equals(operation))
             {
                 return await stepContext.BeginDialogAsync(nameof(MasomoBoostDialog), new UserProfile(), cancellationToken);
             }
-            else if ("5. JIJENGE LOAN".Equals(operation))
+            else if ("Jijenge Loan".Equals(operation))
             {
                 return await stepContext.BeginDialogAsync(nameof(JijengeLoanDialog), new UserProfile(), cancellationToken);
             }
-            else if ("6. IMPORT FINANCE".Equals(operation))
+            else if ("Import Finance".Equals(operation))
             {
                 return await stepContext.BeginDialogAsync(nameof(ImportFinanceDialog), new UserProfile(), cancellationToken);
             }
             else
             {
-                await stepContext.Context.SendActivityAsync(MessageFactory.Text("Wrong User Input. Please try again!"), cancellationToken);
+                //await stepContext.Context.SendActivityAsync(MessageFactory.Text("Wrong User Input. Please try again!"), cancellationToken);
                 return await stepContext.NextAsync(cancellationToken: cancellationToken);
-
             }
-            
         }
+
         private async Task<DialogTurnResult> FinalStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
             // Restart the main dialog with a different message the second time around
-            var promptMessage = "What else can I do for you?";
-            return await stepContext.ReplaceDialogAsync(InitialDialogId, promptMessage, cancellationToken);
-            //return await stepContext.EndDialogAsync(InitialDialogId, cancellationToken);
+            //var promptMessage = "What else can I do for you?";
+            //return await stepContext.ReplaceDialogAsync(InitialDialogId, promptMessage, cancellationToken);
+
+
+            // string optionSelected = await userReply;
+            //string operation = (stepContext.Result as FoundChoice).Value;
+            //stepContext.Values["Operation"] = ((FoundChoice)stepContext.Result).Value;
+
+            string operation = (string)stepContext.Values["Operation"];
+            switch (operation)
+            {
+                case "AUTO LOGBOOK LOANS":
+                    return await stepContext.BeginDialogAsync(nameof(AutoLogBookLoansDialog), new UserProfile(), cancellationToken);
+
+                case "Asset Finance":
+                    return await stepContext.BeginDialogAsync(nameof(AssetFinanceDialog), new UserProfile(), cancellationToken);
+
+                case "Loan Against Shares":
+                    return await stepContext.BeginDialogAsync(nameof(LoanAgainstSharesDialog), new UserProfile(), cancellationToken);
+                default:
+                    break;
+            }
+
+            //// We shouldn't get here, but fail gracefully if we do.
+            //await stepContext.Context.SendActivityAsync("I don't recognize that option.", cancellationToken: cancellationToken);
+
+            //// Continue through to the next step without starting a child dialog.
+            //return await stepContext.NextAsync(cancellationToken: cancellationToken);
+
+
+            return await stepContext.BeginDialogAsync(nameof(AutoLogBookLoansDialog), new UserProfile(), cancellationToken);
 
         }
     }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//if ("Auto LogBook Loans".Equals(operation))
-//{
-//    return await stepContext.BeginDialogAsync(nameof(AutoLogBookLoansDialog), new UserProfile(), cancellationToken);
-//}
-//else if ("Asset Finance".Equals(operation))
-//{
-//    return await stepContext.BeginDialogAsync(nameof(AssetFinanceDialog), new UserProfile(), cancellationToken);
-//}
-//else if ("Loan Against Shares".Equals(operation))
-//{
-//    return await stepContext.BeginDialogAsync(nameof(LoanAgainstSharesDialog), new UserProfile(), cancellationToken);
-//}
-//else if ("Masomo Boost".Equals(operation))
-//{
-//    return await stepContext.BeginDialogAsync(nameof(MasomoBoostDialog), new UserProfile(), cancellationToken);
-//}
-//else if ("Jijenge Loan".Equals(operation))
-//{
-//    return await stepContext.BeginDialogAsync(nameof(JijengeLoanDialog), new UserProfile(), cancellationToken);
-//}
-//else if ("Import Finance".Equals(operation))
-//{
-//    return await stepContext.BeginDialogAsync(nameof(ImportFinanceDialog), new UserProfile(), cancellationToken);
-//}
-//else
-//{
-    //switch (operation)
-    //{
-    //    case "Auto LogBook Loans":
-    //        return await stepContext.BeginDialogAsync(nameof(AutoLogBookLoansDialog), new UserProfile(), cancellationToken);
-
-    //    case "Asset Finance":
-    //        return await stepContext.BeginDialogAsync(nameof(AssetFinanceDialog), new UserProfile(), cancellationToken);
-
-    //    case "Loan Against Shares":
-    //        return await stepContext.BeginDialogAsync(nameof(LoanAgainstSharesDialog), new UserProfile(), cancellationToken);
-
-    //    case "Masomo Boost":
-    //        return await stepContext.BeginDialogAsync(nameof(MasomoBoostDialog), new UserProfile(), cancellationToken);
-
-    //    case "Jijenge Loan":
-    //        return await stepContext.BeginDialogAsync(nameof(JijengeLoanDialog), new UserProfile(), cancellationToken);
-
-    //    case "Import Finance":
-    //        return await stepContext.BeginDialogAsync(nameof(ImportFinanceDialog), new UserProfile(), cancellationToken);
-
-    //    default:
-    //        break;
-    //}
-
-    //return await stepContext.BeginDialogAsync(nameof(AutoLogBookLoansDialog), new UserProfile(), cancellationToken);
-
-
-//    //await stepContext.Context.SendActivityAsync(MessageFactory.Text("Wrong User Input. Please try again!"), cancellationToken);
-//return await stepContext.BeginDialogAsync(nameof(AutoLogBookLoansDialog), new UserProfile(), cancellationToken);
-
-//return await stepContext.ReplaceDialogAsync(InitialDialogId, cancellationToken);
-//return await stepContext.NextAsync(cancellationToken: cancellationToken);
-
-//return await stepContext.NextAsync(cancellationToken: cancellationToken);
