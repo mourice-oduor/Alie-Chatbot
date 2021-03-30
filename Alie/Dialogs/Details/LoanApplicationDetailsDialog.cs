@@ -1,237 +1,284 @@
-﻿using Microsoft.Bot.Builder;
-using Microsoft.Bot.Builder.Dialogs;
+﻿using Microsoft.Bot.Builder.Dialogs;
+using Microsoft.Bot.Builder;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Bot.Builder.Dialogs.Choices;
+using Microsoft.Bot.Connector;
+using Microsoft.Bot.Schema;
+using Alie.Models;
+using System;
+using System.Linq;
+using Microsoft.Recognizers.Text.Number;
+using Microsoft.Recognizers.Text;
+using Microsoft.IdentityModel.Clients.ActiveDirectory;
 
 namespace Alie.Dialogs.Details
 {
     public class LoanApplicationDetailsDialog : ComponentDialog
     {
-        private readonly IStatePropertyAccessor<UserProfile> _userProfileAccessor;
-
-        public LoanApplicationDetailsDialog(UserState userState) : base(nameof(LoanApplicationDetailsDialog))
+        public LoanApplicationDetailsDialog() : base(nameof(LoanApplicationDetailsDialog))
         {
-            _userProfileAccessor = userState.CreateProperty<UserProfile>("UserProfile");
+            
 
-            var waterfallSteps = new WaterfallStep[]
+            AddDialog(new TextPrompt(nameof(TextPrompt)));
+            AddDialog(new ChoicePrompt(nameof(ChoicePrompt)));
+            AddDialog(new NumberPrompt<int>(nameof(NumberPrompt<int>), AgePromptValidatorAsync));
+            AddDialog(new NumberPrompt<int>(nameof(NumberPrompt<int>), PhoneNumberPromptValidaton));
+            AddDialog(new NumberPrompt<decimal>(nameof(NumberPrompt<decimal>), AmountPromptValidatorAsync));
+            AddDialog(new WaterfallDialog(nameof(WaterfallDialog), new WaterfallStep[]
             {
                 NameStepAsync,
-                NameConfirmStepAsync,
+                AgeStepAsync,
                 EmailAddressStepAsync,
                 PhoneNumberStepAsync,
                 LocationStepAsync,
-                AgeStepAsync,
                 AmountStepAsync,
-                PictureStepAsync,
-                ConfirmStepAsync,
+                PaymentPeriodStepAsync,
+                ConfirmLoanStepAsync,
                 SummaryStepAsync,
-            };
-
-
-            AddDialog(new TextPrompt(nameof(TextPrompt)));
-            AddDialog(new NumberPrompt<int>(nameof(NumberPrompt<int>)));
-            AddDialog(new ChoicePrompt(nameof(ChoicePrompt)));
-            AddDialog(new AttachmentPrompt(nameof(AttachmentPrompt)));
-            AddDialog(new MainMenuDialog());
-            AddDialog(new WaterfallDialog(nameof(WaterfallDialog), waterfallSteps));
+            }));
 
             InitialDialogId = nameof(WaterfallDialog);
         }
 
-        public LoanApplicationDetailsDialog()
-        {
-        }
 
         private async Task<DialogTurnResult> NameStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
-            return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = MessageFactory.Text("Please enter your full name.") }, cancellationToken);
+            // Ask the user to enter their name.
+            var promptOptions = new PromptOptions { Prompt = MessageFactory.Text("Please enter your name.") };
+            return await stepContext.PromptAsync(nameof(TextPrompt), promptOptions, cancellationToken);
         }
 
-        private async Task<DialogTurnResult> NameConfirmStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
+        private async Task<DialogTurnResult> AgeStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
             stepContext.Values["name"] = (string)stepContext.Result;
+            
+                var promptOptions = new PromptOptions
+                {
+                    Prompt = MessageFactory.Text(" Please Enter your age. "),
+                    RetryPrompt = MessageFactory.Text(" WARNING!: you must enter a number value between 18 and 150. "),
+                };
 
-            // We can send messages to the user at any point in the WaterfallStep.
-            await stepContext.Context.SendActivityAsync(MessageFactory.Text($"Thanks {stepContext.Result}."), cancellationToken);
-
-            // WaterfallStep always finishes with the end of the Waterfall or with another dialog; here it is a Prompt Dialog.
-            return await stepContext.PromptAsync(nameof(ConfirmPrompt), new PromptOptions { Prompt = MessageFactory.Text("Please provide your email address") }, cancellationToken);
-
+                return await stepContext.PromptAsync(nameof(NumberPrompt<int>), promptOptions, cancellationToken);
         }
         private async Task<DialogTurnResult> EmailAddressStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
-            //stepContext.Values["name"] = (string)stepContext.Result
+            stepContext.Values["age"] = (int)stepContext.Result;
+
             return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = MessageFactory.Text("Please enter your email address.") }, cancellationToken);
         }
+
         private async Task<DialogTurnResult> PhoneNumberStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
             stepContext.Values["email"] = (string)stepContext.Result;
-            return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = MessageFactory.Text("Please enter your Phone Number .") }, cancellationToken);
+            return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = MessageFactory.Text("Enter Phone Number!.") }, cancellationToken);
+
+            //var promptOptions = new PromptOptions
+            //{
+            //    Prompt = MessageFactory.Text(" Enter your Phone Number. "),
+            //    RetryPrompt = MessageFactory.Text(" Incorect Value!: Please enter the valid Phone Number!. ")
+            //};
+
+            //return await stepContext.PromptAsync(nameof(NumberPrompt<int>), promptOptions, cancellationToken);
         }
+
         private async Task<DialogTurnResult> LocationStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
             stepContext.Values["phone"] = (string)stepContext.Result;
             return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = MessageFactory.Text("Please Provide your Location.") }, cancellationToken);
         }
-        private async Task<DialogTurnResult> AgeStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
+
+        private async Task<DialogTurnResult> AmountStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
             stepContext.Values["location"] = (string)stepContext.Result;
 
-            if ((bool)stepContext.Result)
-            {
-                // User said "yes" so we will be prompting for the age.
-                // WaterfallStep always finishes with the end of the Waterfall or with another dialog; here it is a Prompt Dialog.
-                var promptOptions = new PromptOptions
-                {
-                    Prompt = MessageFactory.Text("Please enter your age."),
-                    RetryPrompt = MessageFactory.Text("The value entered must be greater than 0 and less than 150."),
-                };
+            return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = MessageFactory.Text("Enter Loan Amount.") }, cancellationToken);
 
-                return await stepContext.PromptAsync(nameof(NumberPrompt<int>), promptOptions, cancellationToken);
-            }
-            else
-            {
-                // User said "no" so we will skip the next step. Give -1 as the age.
-                return await stepContext.NextAsync(-1, cancellationToken);
-            }
-        }
-        private async Task<DialogTurnResult> AmountStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
-        {
-            stepContext.Values["age"] = (string)stepContext.Result;
-            if ((bool)stepContext.Result)
-            {
-                // WaterfallStep always finishes with the end of the Waterfall or with another dialog; here it is a Prompt Dialog.
-                var promptOptions = new PromptOptions
-                {
-                    Prompt = MessageFactory.Text("Please enter the loan amount."),
-                    RetryPrompt = MessageFactory.Text("The value entered must be greater than 0 and less than 300,000."),
-                };
+            //var promptOptions = new PromptOptions
+            //{
+            //    Prompt = MessageFactory.Text("Please enter the loan amount."),
+            //    RetryPrompt = MessageFactory.Text("The value entered must be greater than 50,000 and less than 300,000.")
+            //};
 
-                return await stepContext.PromptAsync(nameof(NumberPrompt<int>), promptOptions, cancellationToken);
-            }
-            else
-            {
-                return await stepContext.NextAsync(-1, cancellationToken);
-            }
+            //return await stepContext.PromptAsync(nameof(NumberPrompt<decimal>), promptOptions, cancellationToken);
         }
-        private async Task<DialogTurnResult> PictureStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
+
+        private async Task<DialogTurnResult> PaymentPeriodStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
             stepContext.Values["amount"] = (string)stepContext.Result;
-            // WaterfallStep always finishes with the end of the Waterfall or with another dialog; here it is a Prompt Dialog.
-            var promptOptions = new PromptOptions
-            {
-                Prompt = MessageFactory.Text("Please attach a profile picture (or type any message to skip)."),
-                RetryPrompt = MessageFactory.Text("The attachment must be a jpeg/png image file."),
-            };
 
-            return await stepContext.PromptAsync(nameof(AttachmentPrompt), promptOptions, cancellationToken);
+            return await stepContext.PromptAsync(nameof(TextPrompt), new PromptOptions { Prompt = MessageFactory.Text("Please enter the payment period. (1 to 12 months)") }, cancellationToken);
+
+            //var promptOptions = new PromptOptions
+            //{
+            //    Prompt = MessageFactory.Text("Please enter your Payment Period."),
+            //    RetryPrompt = MessageFactory.Text("Warning!: The period must range between 1 to 12 months. "),
+            //};
+
+            //return await stepContext.PromptAsync(nameof(NumberPrompt<int>), promptOptions, cancellationToken);
 
         }
-        private async Task<DialogTurnResult> ConfirmStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
+
+
+        private async Task<DialogTurnResult> ConfirmLoanStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
-            stepContext.Values["picture"] = ((IList<Microsoft.Bot.Schema.Attachment>)stepContext.Result)?.FirstOrDefault();
+            stepContext.Values["period"] = (string)stepContext.Result;
 
-            // WaterfallStep always finishes with the end of the Waterfall or with another dialog; here it is a Prompt Dialog.
-            return await stepContext.PromptAsync(nameof(ConfirmPrompt), new PromptOptions { Prompt = MessageFactory.Text("Is this ok?") }, cancellationToken);
+            await stepContext.Context.SendActivityAsync(
+                MessageFactory.Text( $"Thanks for the replies, { stepContext.Values ["name"]}. Here is a summary of the data you entered: "),
+                cancellationToken);
 
+            // Retrieve the user profile from the UserState so as to be able to present the summary of the data entered.
+            //var userProfile = await _userProfileAccessor.GetAsync(
+            //    stepContext.Context, () => new UserProfile(),
+            //    cancellationToken);
+            //var userProfile =  new UserProfile()
+            //{ 
+            //};
+
+            //userProfile.FullName = (string)stepContext.Values["name"];
+            //userProfile.Age = (int)stepContext.Values["age"];
+            //userProfile.Email = (string)stepContext.Values["email"];
+            //userProfile.Location = (string)stepContext.Values["location"];
+            //userProfile.PhoneNumber = (int)stepContext.Values["phone"];
+            //userProfile.Amount = (decimal)stepContext.Values["amount"];
+
+            //var msg = $" Your name is { userProfile.FullName } ";
+
+            //if (userProfile.Age!= -1)
+            //    msg += $", you are { userProfile . Age } years old ";
+
+            //msg += $", you are from { userProfile.Location } and your loan amount is { userProfile.Amount }. ";
+
+            //await stepContext.Context.SendActivityAsync(MessageFactory.Text(msg), cancellationToken);
+
+            return await stepContext.PromptAsync(
+                nameof(ChoicePrompt),
+                new PromptOptions
+                {
+                    Prompt = MessageFactory.Text("Do you want confirm your choices? "),
+                    Choices = ChoiceFactory.ToChoices(new List<string> { " Yes ", " No " })
+                },
+                cancellationToken);
         }
+
 
         private async Task<DialogTurnResult> SummaryStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
-            if ((bool)stepContext.Result)
+            // Retrieve the user profile from the UserState
+            //var userProfile = await _userProfileAccessor.GetAsync(
+            //    stepContext.Context, () => new UserProfile(),
+            //    cancellationToken);
+
+            var value = ((FoundChoice)stepContext.Result).Value;
+            if (value == " Yes ")
             {
-                // Get the current profile object from user state.
-                var userProfile = await _userProfileAccessor.GetAsync(stepContext.Context, () => new UserProfile(), cancellationToken);
+                // If the user has confirmed the registration:
+                // TODO: register the user in the database (or something like that)
+                await stepContext.Context.SendActivityAsync(
+                    MessageFactory.Text(" OPERATION COMPLETED! "),
+                    cancellationToken);
 
-                userProfile.Email = (string)stepContext.Values["email"];
-                userProfile.FullNames = (string)stepContext.Values["name"];
-                userProfile.Age = (int)stepContext.Values["age"];
-                userProfile.Picture = (Microsoft.Azure.Documents.Attachment)stepContext.Values["picture"];
+                // TODO: send the user an e-mail/text confirming registration.
 
-                var msg = $"I have your Email Address as {userProfile.Email} and your name as {userProfile.FullNames}";
+                await stepContext.Context.SendActivityAsync(
+                    MessageFactory.Text($" Thanks for your application, { FullName }: " +
+                        "you will shortly receive a confirmation text containing a summary of the loan application. "),
+                    cancellationToken);
 
-                if (userProfile.Age != -1)
-                {
-                    msg += $" and your age as {userProfile.Age}";
-                }
-
-                msg += ".";
-
-                await stepContext.Context.SendActivityAsync(MessageFactory.Text(msg), cancellationToken);
-
-                if (userProfile.Picture != null)
-                {
-                    try
-                    {
-                        await stepContext.Context.SendActivityAsync(MessageFactory.Attachment((IEnumerable<Microsoft.Bot.Schema.Attachment>)userProfile.Picture, "This is your profile picture."), cancellationToken);
-                    }
-                    catch
-                    {
-                        await stepContext.Context.SendActivityAsync(MessageFactory.Text("A profile picture was saved but could not be displayed here."), cancellationToken);
-                    }
-                }
+                await stepContext.Context.SendActivityAsync(
+                    MessageFactory.Text(" We can't wait to have you grow with us: see you soon! "),
+                    cancellationToken);
             }
             else
             {
-                await stepContext.Context.SendActivityAsync(MessageFactory.Text("Thanks. Your profile will not be saved and sent to one of our agents for loan processing."), cancellationToken);
+                // If the user has not confirmed the registration:
+
+                // Delete the data entered
+                stepContext.Values.Clear();
+
+                await stepContext.Context.SendActivityAsync(
+                    MessageFactory.Text(" Received: the information you entered will not be stored. Type SIGN UP if you want to try again. "),
+                    cancellationToken);
             }
 
-            // WaterfallStep always finishes with the end of the Waterfall or with another dialog; here it is the end.
+            // Regardless of the user's choice, I set the IsRegistering property to FALSE since the registration procedure has finished.
+            //userProfile.IsRegistered = false;
+
+            // I return the end of the Waterfall
             return await stepContext.EndDialogAsync(cancellationToken: cancellationToken);
         }
 
-
         private static Task<bool> AgePromptValidatorAsync(PromptValidatorContext<int> promptContext, CancellationToken cancellationToken)
         {
+            int i;
+            bool isInteger = Int32.TryParse(promptContext.Recognized.Value.ToString(), out i);
             // This condition is our validation rule. You can also change the value at this point.
-            return Task.FromResult(promptContext.Recognized.Succeeded && promptContext.Recognized.Value > 0 && promptContext.Recognized.Value < 150);
+            return Task.FromResult(promptContext.Recognized.Succeeded && promptContext.Recognized.Value > 17 && promptContext.Recognized.Value < 150);
         }
 
-        //private static async Task<bool> PicturePromptValidatorAsync(PromptValidatorContext<IList<Microsoft.Bot.Schema.Attachment>> promptContext, CancellationToken cancellationToken)
-        //{
-        //    if (promptContext.Recognized.Succeeded)
-        //    {
-        //        var attachments = promptContext.Recognized.Value;
-        //        var validImages = new List<Microsoft.Bot.Schema.Attachment>();
+        private async Task<bool> PhoneNumberPromptValidaton(PromptValidatorContext<int> promptContext, CancellationToken cancellationToken)
+        {
 
-        //        foreach (var attachment in attachments)
-        //        {
-        //            if (attachment.ContentType == "image/jpeg" || attachment.ContentType == "image/png")
-        //            {
-        //                validImages.Add(attachment);
-        //            }
-        //        }
+            if (!promptContext.Recognized.Succeeded)
+            {
+                await promptContext.Context.SendActivityAsync("Hello, Please enter the valid mobile number",
+                    cancellationToken: cancellationToken);
 
-        //        promptContext.Recognized.Value = validImages;
+                return false;
+            }
 
-        //        // If none of the attachments are valid images, the retry prompt should be sent.
-        //        return validImages.Any();
-        //    }
-        //    else
-        //    {
-        //        await promptContext.Context.SendActivityAsync("No attachments received. Proceeding without a profile picture...");
+            int count = Convert.ToString(promptContext.Recognized.Value).Length;
+            if (count > 0 && count < 11)
+            {
+                await promptContext.Context.SendActivityAsync("Hello , you are missing some number !!!",
+                    cancellationToken: cancellationToken);
+                return false;
+            }
 
-        //        // We can return true from a validator function even if Recognized.Succeeded is false.
-        //        return true;
-        //    }
-        //}
+            return true;
+            //return await Task.FromResult(promptContext.Recognized.Succeeded && promptContext.Recognized.Value > 0 && promptContext.Recognized.Value < 11);
+        }
 
+        private static async Task<bool> AmountPromptValidatorAsync(PromptValidatorContext<decimal> promptContext, CancellationToken cancellationToken)
+        {
+            // This condition is our validation rule. You can also change the value at this point.
 
-        public string FullNames { get; set; }
+            //var value = Convert.ToDecimal(promptContext.Recognized.Value);
+            ////var value = (decimal)50000;
+            //if (value < 50000)
+            //{
+            //    TextPrompt = MessageFactory.Text("The value entered must be greater than 50,000 and less than 300,000.");
+            //}
+            //else
+            //{
+            //    return false;
+            //}
 
-        public string EmailAddress { get; set; }
+            decimal i;
+            bool isDecimal = Decimal.TryParse(promptContext.Recognized.Value.ToString(), out i);
+            return await Task.FromResult(promptContext.Recognized.Succeeded && promptContext.Recognized.Value > 49000 && promptContext.Recognized.Value < 300001);
+        }
+
+        public string FullName { get; set; }
+
+        public int Age { get; set; }
+
+        public string Email { get; set; }
 
         public int PhoneNumber { get; set; }
 
         public string Location { get; set; }
 
-        public int Age { get; set; }
+        public decimal Amount { get; set; }
 
-        public int Amount { get; set; }
+        public int PaymentPeriod { get; set; }
 
-        public Microsoft.Bot.Schema.Attachment Picture { get; set; }
+        public System.Net.Mail.Attachment Picture { get; set; }
 
+        public bool IsRegistered { get; set; }
+        public Microsoft.Bot.Schema.Activity Activity { get; }
+        public static Activity TextPrompt { get; private set; }
     }
 }
