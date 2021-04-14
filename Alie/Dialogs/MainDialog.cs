@@ -37,6 +37,7 @@ namespace Alie.Dialogs
             AddDialog(new MasomoBoostDialog());
             AddDialog(new JijengeLoanDialog());
             AddDialog(new ImportFinanceDialog());
+            AddDialog(new MoreDetailsDialog());
             AddDialog(new WaterfallDialog(nameof(WaterfallDialog), new WaterfallStep[]
             {
                 IntroStepAsync,
@@ -58,7 +59,8 @@ namespace Alie.Dialogs
                                                             "3. LOAN AGAINST SHARES",
                                                             "4. MASOMO BOOST",
                                                             "5. JIJENGE LOAN",
-                                                            "6. IMPORT FINANCE"};
+                                                            "6. IMPORT FINANCE",
+                                                            "7. MORE"};
             // Create card
             var card = new AdaptiveCard(new AdaptiveSchemaVersion(1, 0))
             {
@@ -114,6 +116,10 @@ namespace Alie.Dialogs
             else if ("6. IMPORT FINANCE".Equals(operation))
             {
                 return await stepContext.BeginDialogAsync(nameof(ImportFinanceDialog), new UserProfile(), cancellationToken);
+            }
+            else if ("7. MORE".Equals(operation))
+            {
+                return await stepContext.BeginDialogAsync(nameof(MoreDetailsDialog), new UserProfile(), cancellationToken);
             }
             else
             {

@@ -170,6 +170,9 @@ namespace Alie.Dialogs.Details
             //var userProfile = await _userProfileAccessor.GetAsync(
             //    stepContext.Context, () => new UserProfile(),
             //    cancellationToken);
+            var userProfile = new UserProfile()
+            {
+            };
 
             var value = ((FoundChoice)stepContext.Result).Value;
             if (value == " Yes ")
@@ -199,15 +202,18 @@ namespace Alie.Dialogs.Details
                 stepContext.Values.Clear();
 
                 await stepContext.Context.SendActivityAsync(
-                    MessageFactory.Text(" Received: the information you entered will not be stored. Type SIGN UP if you want to try again. "),
+                    MessageFactory.Text(" Received: the information you entered will not be stored. Reach to us via the contact section if you need a loan. "),
                     cancellationToken);
             }
 
             // Regardless of the user's choice, I set the IsRegistering property to FALSE since the registration procedure has finished.
             //userProfile.IsRegistered = false;
 
+
+            stepContext.ActiveDialog.State["stepIndex"] = (int)stepContext.ActiveDialog.State["stepIndex"] - 2;
+            return await stepContext.ReplaceDialogAsync(nameof(MainDialog), userProfile, cancellationToken);
             // I return the end of the Waterfall
-            return await stepContext.EndDialogAsync(cancellationToken: cancellationToken);
+            //return await stepContext.EndDialogAsync(cancellationToken: cancellationToken);
         }
 
         private static Task<bool> AgePromptValidatorAsync(PromptValidatorContext<int> promptContext, CancellationToken cancellationToken)
@@ -237,8 +243,8 @@ namespace Alie.Dialogs.Details
                 return false;
             }
 
-            return true;
-            //return await Task.FromResult(promptContext.Recognized.Succeeded && promptContext.Recognized.Value > 0 && promptContext.Recognized.Value < 11);
+            //return true;
+            return await Task.FromResult(promptContext.Recognized.Succeeded && promptContext.Recognized.Value >= 0 && promptContext.Recognized.Value < 11);
         }
 
         private static async Task<bool> AmountPromptValidatorAsync(PromptValidatorContext<decimal> promptContext, CancellationToken cancellationToken)
