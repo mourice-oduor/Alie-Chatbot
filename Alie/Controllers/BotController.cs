@@ -20,6 +20,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Diagnostics;
+using System;
 
 namespace Alie.Controllers
 {
@@ -46,5 +47,26 @@ namespace Alie.Controllers
             // The adapter will invoke the bot.
             await Adapter.ProcessAsync(Request, Response, Bot);
         }
+
+        //[HttpPost]
+        //public IActionResult Create(Validations validations)
+        //{
+        //    string message = "";
+
+        //    if (ModelState.IsValid)
+        //    {
+        //        //message = "product " + validations.Name + " created successfully";
+        //    }
+        //    else
+        //    {
+        //        return View(validations);
+        //    }
+        //    return Content(message);
+        //}
+
+        //private IActionResult View(Validations validations)
+        //{
+        //    throw new NotImplementedException();
+        //}
     }
 }

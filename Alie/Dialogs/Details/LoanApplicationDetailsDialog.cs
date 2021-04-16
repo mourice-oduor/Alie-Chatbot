@@ -12,6 +12,7 @@ using System.Linq;
 using Microsoft.Recognizers.Text.Number;
 using Microsoft.Recognizers.Text;
 using Microsoft.IdentityModel.Clients.ActiveDirectory;
+using System.ComponentModel.DataAnnotations;
 
 namespace Alie.Dialogs.Details
 {
@@ -133,25 +134,23 @@ namespace Alie.Dialogs.Details
             //var userProfile = await _userProfileAccessor.GetAsync(
             //    stepContext.Context, () => new UserProfile(),
             //    cancellationToken);
-            //var userProfile =  new UserProfile()
-            //{ 
-            //};
+            var userProfile = (UserProfile)stepContext.Result;
 
-            //userProfile.FullName = (string)stepContext.Values["name"];
-            //userProfile.Age = (int)stepContext.Values["age"];
-            //userProfile.Email = (string)stepContext.Values["email"];
-            //userProfile.Location = (string)stepContext.Values["location"];
-            //userProfile.PhoneNumber = (int)stepContext.Values["phone"];
-            //userProfile.Amount = (decimal)stepContext.Values["amount"];
+            userProfile.Name = (string)stepContext.Values["name"];
+            userProfile.Age = (int)stepContext.Values["age"];
+            userProfile.Email = (string)stepContext.Values["email"];
+            userProfile.Location = (string)stepContext.Values["location"];
+            userProfile.PhoneNumber = (int)stepContext.Values["phone"];
+            userProfile.Amount = (decimal)stepContext.Values["amount"];
 
-            //var msg = $" Your name is { userProfile.FullName } ";
+            var msg = $" Your name is { userProfile.Name } ";
 
-            //if (userProfile.Age!= -1)
-            //    msg += $", you are { userProfile . Age } years old ";
+            if (userProfile.Age != -1)
+                msg += $", you are { userProfile.Age } years old ";
 
-            //msg += $", you are from { userProfile.Location } and your loan amount is { userProfile.Amount }. ";
+            msg += $", you are from { userProfile.Location } and your loan amount is { userProfile.Amount }. ";
 
-            //await stepContext.Context.SendActivityAsync(MessageFactory.Text(msg), cancellationToken);
+            await stepContext.Context.SendActivityAsync(MessageFactory.Text(msg), cancellationToken);
 
             return await stepContext.PromptAsync(
                 nameof(ChoicePrompt),
@@ -186,7 +185,7 @@ namespace Alie.Dialogs.Details
                 // TODO: send the user an e-mail/text confirming registration.
 
                 await stepContext.Context.SendActivityAsync(
-                    MessageFactory.Text($" Thanks for your application, { FullName }: " +
+                    MessageFactory.Text($" Thanks for your application, { Name }: " +
                         "you will shortly receive a confirmation text containing a summary of the loan application. "),
                     cancellationToken);
 
@@ -197,7 +196,6 @@ namespace Alie.Dialogs.Details
             else
             {
                 // If the user has not confirmed the registration:
-
                 // Delete the data entered
                 stepContext.Values.Clear();
 
@@ -267,23 +265,32 @@ namespace Alie.Dialogs.Details
             return await Task.FromResult(promptContext.Recognized.Succeeded && promptContext.Recognized.Value > 49000 && promptContext.Recognized.Value < 300001);
         }
 
-        public string FullName { get; set; }
+        //public int Id { get; set; }
 
+
+        [StringLength(20, ErrorMessage = "Name should be less than or equal to twenty characters.")]
+        public string Name { get; set; }
         public int Age { get; set; }
 
+        [EmailAddress]
+        [DataType(DataType.EmailAddress, ErrorMessage = "Email is not valid.")]
+        [RegularExpression(@"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$", ErrorMessage = "Email is not valid.")]
         public string Email { get; set; }
-
-        public int PhoneNumber { get; set; }
-
         public string Location { get; set; }
 
+        [Phone]
+        [Range(0, 11, ErrorMessage = "Phone Number should range from 0 to 10.")]
+        public int PhoneNumber { get; set; }
+
+        [Range(50000, 300000, ErrorMessage = "The value entered must be greater than 50,000 and less than 300,000.")]
         public decimal Amount { get; set; }
 
+        [Range(1, 12, ErrorMessage = "Payment pperiod should range from 1 to 12 months ")]
         public int PaymentPeriod { get; set; }
-
-        public System.Net.Mail.Attachment Picture { get; set; }
-
+        public Attachment Picture { get; set; }
         public bool IsRegistered { get; set; }
+
+        public DateTime TimeAccessed { get; set; }
         public Microsoft.Bot.Schema.Activity Activity { get; }
         public static Activity TextPrompt { get; private set; }
     }
