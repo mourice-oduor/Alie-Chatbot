@@ -16,6 +16,7 @@ namespace Alie.Dialogs.Operations
 {
     public class AutoLogBookLoansDialog : ComponentDialog
     {
+
         public AutoLogBookLoansDialog() : base(nameof(AutoLogBookLoansDialog))
         {
             AddDialog(new LoanApplicationDetailsDialog());
