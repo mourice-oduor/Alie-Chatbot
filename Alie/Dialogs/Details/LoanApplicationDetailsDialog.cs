@@ -23,6 +23,8 @@ namespace Alie.Dialogs.Details
         private readonly string EmailDialogID = "EmailDlg";
         private readonly string PhoneDialogID = "PhoneDlg";
         private readonly string PeriodDialogID = "PeriodDlg";
+        private readonly string AgeDialogID = "AgeDlg";
+        private readonly string AmountDialogID = "AmountDlg";
 
         public object Name { get; private set; }
 
@@ -32,9 +34,9 @@ namespace Alie.Dialogs.Details
             AddDialog(new ChoicePrompt(nameof(ChoicePrompt)));
             AddDialog(new TextPrompt(EmailDialogID, EmailValidation));
             AddDialog(new TextPrompt(PhoneDialogID, PhoneValidation));
-            AddDialog(new TextPrompt(PeriodDialogID, PeriodValidationAsync));
-            AddDialog(new NumberPrompt<int>(nameof(NumberPrompt<int>), AgePromptValidatorAsync));
-            AddDialog(new NumberPrompt<int>(nameof(NumberPrompt<int>), AmountPromptValidationAsync));
+            AddDialog(new NumberPrompt<int>(PeriodDialogID, PeriodValidationAsync));
+            AddDialog(new NumberPrompt<int>(AgeDialogID, AgePromptValidatorAsync));
+            AddDialog(new NumberPrompt<int>(AmountDialogID, AmountPromptValidationAsync));
             AddDialog(new WaterfallDialog(nameof(WaterfallDialog), new WaterfallStep[]
             {
                 NameStepAsync,
@@ -67,8 +69,7 @@ namespace Alie.Dialogs.Details
                     Prompt = MessageFactory.Text(" Please Enter your age. "),
                     RetryPrompt = MessageFactory.Text(" WARNING!: you must enter a number value between 18 and 150. "),
                 };
-
-                return await stepContext.PromptAsync(nameof(NumberPrompt<int>), promptOptions, cancellationToken);
+            return await stepContext.PromptAsync(AgeDialogID, promptOptions, cancellationToken);
         }
         private async Task<DialogTurnResult> EmailAddressStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
@@ -91,10 +92,15 @@ namespace Alie.Dialogs.Details
         private async Task<DialogTurnResult> AmountStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
             stepContext.Values["location"] = (string)stepContext.Result;
-            return await stepContext.PromptAsync(nameof(NumberPrompt<int>), new PromptOptions { Prompt = MessageFactory.Text("Please enter your loan amount.") }, cancellationToken);
+            var promptOptions = new PromptOptions
+            {
+                Prompt = MessageFactory.Text(" Please enter the loan amount. "),
+                RetryPrompt = MessageFactory.Text("The value entered must be greater than 50,000 and less than 300,000.. "),
+            };
+            return await stepContext.PromptAsync(AmountDialogID, promptOptions, cancellationToken);
         }
 
-        private async Task<DialogTurnResult> PaymentPeriodStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
+        private async Task<DialogTurnResult>PaymentPeriodStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
             stepContext.Values["amount"] = (int)stepContext.Result;
             return await stepContext.PromptAsync(PeriodDialogID, new PromptOptions { Prompt = MessageFactory.Text("Please enter the payment period. (1 to 12 months)") }, cancellationToken);
@@ -102,16 +108,10 @@ namespace Alie.Dialogs.Details
 
         private async Task<DialogTurnResult> ConfirmLoanStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
-            stepContext.Values["period"] = (string)stepContext.Result;
+            stepContext.Values["period"] = (int)stepContext.Result;
             await stepContext.Context.SendActivityAsync(
                 MessageFactory.Text($"Thanks for the replies, { stepContext.Values["name"]}, here is a summary of your loan application: "),
                 cancellationToken);
-
-            // Retrieve the user profile from the UserState so as to be able to present the summary of the data entered.
-            //var userProfile = await _userProfileAccessor.GetAsync(
-            //    stepContext.Context, () => new UserProfile(),
-            //    cancellationToken);
-            //var userProfile = (UserProfile)stepContext.Result;
 
             UserProfile userProfile = new UserProfile()
             {
@@ -121,7 +121,7 @@ namespace Alie.Dialogs.Details
                 Location = (string)stepContext.Values["location"],
                 PhoneNumber = (string)stepContext.Values["phone"],
                 Amount = (int)stepContext.Values["amount"],
-                PaymentPeriod = (string)stepContext.Values["period"]
+                PaymentPeriod = (int)stepContext.Values["period"]
             };
 
             var msg = $" Your name is { userProfile.Name } ";
@@ -253,49 +253,30 @@ namespace Alie.Dialogs.Details
             return false;
         }
 
-        private static async Task<bool> AmountPromptValidationAsync(PromptValidatorContext<int> promptcontext, CancellationToken cancellationtoken)
+        private static async Task<bool> AmountPromptValidationAsync(PromptValidatorContext<int> promptContext, CancellationToken cancellationToken)
         {
-
-            int number = promptcontext.Recognized.Value;
-            if (Regex.Equals(number, @"^\d+$"))
-            {
-                //int amount = Int32.Parse(promptcontext.Recognized.Value);
-                int amount;
-                bool isint = int.TryParse(promptcontext.Recognized.Value.ToString(), out amount);
-                if (amount < 50000 && amount > 300000)
-                {
-                    await promptcontext.Context.SendActivityAsync("The value entered must be greater than 50,000 and less than 300,000.",
-                        cancellationToken: cancellationtoken);
-                    return false;
-                }
-
-                return true;
-            }
-            await promptcontext.Context.SendActivityAsync("The value entered must be greater than 50,000 and less than 300,000..",
-                        cancellationToken: cancellationtoken);
-            return false;
-            //int i;
-            //bool isint = int.TryParse(promptContext.Recognized.Value.ToString(), out i);
-            //return await Task.FromResult(promptContext.Recognized.Succeeded && promptContext.Recognized.Value > 49000 && promptContext.Recognized.Value< 300001);
+            int i;
+            bool isint = int.TryParse(promptContext.Recognized.Value.ToString(), out i);
+            return await Task.FromResult(promptContext.Recognized.Succeeded && promptContext.Recognized.Value > 49000 && promptContext.Recognized.Value < 300001);
         }
 
-        private static async Task<bool> PeriodValidationAsync(PromptValidatorContext<string> promptcontext, CancellationToken cancellationtoken)
+        private static async Task<bool> PeriodValidationAsync(PromptValidatorContext<int> promptcontext, CancellationToken cancellationtoken)
         {
-            string number = promptcontext.Recognized.Value;
-            if (Regex.Equals(number, @"^\d+$"))
+            int number = promptcontext.Recognized.Value;
+            if (number < 1)
             {
-                int count = promptcontext.Recognized.Value.Length;
-                if (count < 1 && count > 12)
-                {
-                    await promptcontext.Context.SendActivityAsync("Warning! Payment Period must be between 1 to 12 months.",
-                        cancellationToken: cancellationtoken);
-                    return false;
-                }
-                return true;
+                await promptcontext.Context.SendActivityAsync("Warning! Payment Period must be between 1 to 12 months.",
+                    cancellationToken: cancellationtoken);
+                return false;
             }
-            await promptcontext.Context.SendActivityAsync("Warning! Payment Period must be between 1 to 12 months.",
-                        cancellationToken: cancellationtoken);
-            return false;
+            if (number > 12)
+            {
+                await promptcontext.Context.SendActivityAsync("Warning! Payment Period must be between 1 to 12 months.",
+                    cancellationToken: cancellationtoken);
+                return false;
+            }
+
+            return true;
         }
     }
 }

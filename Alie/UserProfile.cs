@@ -25,7 +25,7 @@ namespace Alie
         [Range(50000, 300000, ErrorMessage = "The value entered must be greater than 50,000 and less than 300,000.")]
         public int Amount { get; set; }
         [Range(1, 12, ErrorMessage ="Payment pperiod should range from 1 to 12 months ")]
-        public string PaymentPeriod { get; set; }
+        public int PaymentPeriod { get; set; }
         public Attachment Picture { get; set; }
         public bool IsRegistered { get; set; }
 
