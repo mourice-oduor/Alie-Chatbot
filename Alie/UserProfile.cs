@@ -8,14 +8,18 @@ namespace Alie
     {
         public int Id { get; set; }
 
-
         [StringLength(20, ErrorMessage = "Name should be less than or equal to twenty characters.")]  
         public string Name { get; set; }
-        public int Age { get; set; }
 
         [DataType(DataType.EmailAddress, ErrorMessage = "Email is not valid.")]
         [RegularExpression(@"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$", ErrorMessage = "Email is not valid.")]
         public string Email { get; set; }
+
+        public int OTP { get; set; }
+
+        internal bool EmailVerified { get; set; } = false;
+
+        public int Age { get; set; }
         public string Location { get; set; }
 
         [Phone]

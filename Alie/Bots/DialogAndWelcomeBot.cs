@@ -1,13 +1,9 @@
-﻿// Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT License.
-//
-// Generated with Bot Builder V4 SDK Template for Visual Studio CoreBot v4.11.1
-
-using Microsoft.Bot.Builder;
+﻿using Microsoft.Bot.Builder;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Schema;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
+using Alie.Services;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -19,9 +15,11 @@ namespace Alie.Bots
     public class DialogAndWelcomeBot<T> : DialogBot<T>
         where T : Dialog
     {
-        public DialogAndWelcomeBot(ConversationState conversationState, UserState userState, T dialog, ILogger<DialogBot<T>> logger)
-            : base(conversationState, userState, dialog, logger)
+        private readonly StateService _stateService;
+        public DialogAndWelcomeBot(StateService stateService, T dialog, ILogger<DialogBot<T>> logger)
+            : base(stateService, dialog, logger)
         {
+            _stateService = stateService ?? throw new System.ArgumentNullException(nameof(stateService));
         }
 
         protected override async Task OnMembersAddedAsync(IList<ChannelAccount> membersAdded, ITurnContext<IConversationUpdateActivity> turnContext, CancellationToken cancellationToken)
@@ -33,9 +31,9 @@ namespace Alie.Bots
                 if (member.Id != turnContext.Activity.Recipient.Id)
                 {
                     var welcomeCard = CreateAdaptiveCardAttachment();
-                    var response = MessageFactory.Attachment(welcomeCard, ssml: "Hello, welcome to our company's chatbot!");
+                    var response = MessageFactory.Attachment(welcomeCard, ssml: "Welcome to our company's chatbot!");
                     await turnContext.SendActivityAsync(response, cancellationToken);
-                    await Dialog.RunAsync(turnContext, ConversationState.CreateProperty<DialogState>("DialogState"), cancellationToken);
+                    await Dialog.RunAsync(turnContext, _stateService.ConversationState.CreateProperty<DialogState>("DialogState"), cancellationToken);
                 }
             }
         }
@@ -60,4 +58,3 @@ namespace Alie.Bots
         }
     }
 }
-

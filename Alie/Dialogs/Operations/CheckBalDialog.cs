@@ -10,15 +10,14 @@ using System.Threading.Tasks;
 using Microsoft.Bot.Schema;
 using Alie.Dialogs.Details;
 using Alie.Models;
-using Alie.Dialogs.Operations;
 using Alie.Services;
 
 namespace Alie.Dialogs.Details
 {
-    public class ContactDialog : ComponentDialog
+    public class CheckBalDialog : ComponentDialog
     {
 
-        public ContactDialog() : base(nameof(ContactDialog))
+        public CheckBalDialog() : base(nameof(CheckBalDialog))
         {
             AddDialog(new TextPrompt(nameof(TextPrompt)));
             AddDialog(new NumberPrompt<int>(nameof(NumberPrompt<int>)));
@@ -30,17 +29,17 @@ namespace Alie.Dialogs.Details
                 FinalStepAsync,
             }));
 
+
             InitialDialogId = nameof(WaterfallDialog);
         }
 
         private async Task<DialogTurnResult> IntroStepAsync(WaterfallStepContext stepContext, CancellationToken cancellationToken)
         {
-            await stepContext.Context.SendActivityAsync(
-                MessageFactory.Text($"Please visit this link  https://www.ngaocredit.com/contact-us/ to contacts us!"), cancellationToken);
+            await stepContext.Context.SendActivityAsync(MessageFactory.Text($"Dear customer, your balance is ..."), cancellationToken);
 
 
-            List<string> operationList = new List<string> { "1. Back To Previous Menu",
-                                                            "2. Main Menu"};
+            List<string> operationList = new List<string> { "1. Back To Previous Menu"
+                                                           };
 
             // Create card
             var card = new AdaptiveCard(new AdaptiveSchemaVersion(1, 0))
@@ -82,11 +81,11 @@ namespace Alie.Dialogs.Details
                 stepContext.ActiveDialog.State["stepIndex"] = (int)stepContext.ActiveDialog.State["stepIndex"] - 1;
                 return await stepContext.ReplaceDialogAsync(nameof(MainDialog), null, cancellationToken);
             }
-            else if ("2. Main Menu".Equals(operation))
-            {
-                stepContext.ActiveDialog.State["stepIndex"] = (int)stepContext.ActiveDialog.State["stepIndex"] - 2;
-                return await stepContext.ReplaceDialogAsync(nameof(MainDialog), userProfile, cancellationToken);
-            }
+            //else if ("2. FAQs".Equals(operation))
+            //{
+            //    return await stepContext.BeginDialogAsync(nameof(FaqsDialog), userProfile, cancellationToken);
+            //}
+
             else
             {
                 await stepContext.Context.SendActivityAsync(MessageFactory.Text("Wrong User Input. Please try again!"), cancellationToken);

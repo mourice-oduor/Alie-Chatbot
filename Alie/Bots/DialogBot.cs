@@ -1,12 +1,8 @@
-﻿// Copyright (c) Microsoft Corporation. All rights reserved.
-// Licensed under the MIT License.
-//
-// Generated with Bot Builder V4 SDK Template for Visual Studio CoreBot v4.11.1
-
-using Microsoft.Bot.Builder;
+﻿using Microsoft.Bot.Builder;
 using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Schema;
 using Microsoft.Extensions.Logging;
+using Alie.Services;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -21,26 +17,14 @@ namespace Alie.Bots
         where T : Dialog
     {
         protected readonly Dialog Dialog;
-        protected readonly BotState ConversationState;
-        protected readonly BotState UserState;
-        protected readonly BotState PrivateConversationState;
         protected readonly ILogger Logger;
+        private readonly StateService _stateService;
 
-        //public DialogBot(ConversationState conversationState, UserState userState, T dialog, ILogger<DialogBot<T>> logger)
-        //{
-        //    ConversationState = conversationState;
-        //    UserState = userState;
-        //    Dialog = dialog;
-        //    Logger = logger;
-        //}
-
-        public DialogBot(ConversationState conversationState, UserState userState, T dialog, ILogger<DialogBot<T>> logger)
+        public DialogBot(StateService stateService, T dialog, ILogger<DialogBot<T>> logger)
         {
-            ConversationState = conversationState;
-            UserState = userState;
-            //PrivateConversationState = privateConversation;
-            Dialog = dialog;
-            Logger = logger;
+            Dialog = dialog ?? throw new System.ArgumentNullException(nameof(dialog));
+            Logger = logger ?? throw new System.ArgumentNullException(nameof(logger));
+            _stateService = stateService ?? throw new System.ArgumentNullException(nameof(stateService));
         }
 
         public override async Task OnTurnAsync(ITurnContext turnContext, CancellationToken cancellationToken = default(CancellationToken))
@@ -48,9 +32,8 @@ namespace Alie.Bots
             await base.OnTurnAsync(turnContext, cancellationToken);
 
             // Save any state changes that might have occurred during the turn.
-            await ConversationState.SaveChangesAsync(turnContext, false, cancellationToken);
-            await UserState.SaveChangesAsync(turnContext, false, cancellationToken);
-            //await PrivateConversationState.SaveChangesAsync(turnContext, false, cancellationToken);
+            await _stateService.UserState.SaveChangesAsync(turnContext, false, cancellationToken);
+            await _stateService.ConversationState.SaveChangesAsync(turnContext, false, cancellationToken);
         }
 
         protected override async Task OnMessageActivityAsync(ITurnContext<IMessageActivity> turnContext, CancellationToken cancellationToken)
@@ -58,7 +41,7 @@ namespace Alie.Bots
             Logger.LogInformation("Running dialog with Message Activity.");
 
             // Run the Dialog with the new message Activity.
-            await Dialog.RunAsync(turnContext, ConversationState.CreateProperty<DialogState>("DialogState"), cancellationToken);
+            await Dialog.RunAsync(turnContext, _stateService.ConversationState.CreateProperty<DialogState>("DialogState"), cancellationToken);
         }
     }
 }

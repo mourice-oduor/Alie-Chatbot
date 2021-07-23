@@ -15,6 +15,7 @@ using Microsoft.IdentityModel.Clients.ActiveDirectory;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.Extensions.Logging;
 using System.Text.RegularExpressions;
+using Alie.Services;
 
 namespace Alie.Dialogs.Details
 {
